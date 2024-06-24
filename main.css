@@ -1,3 +1,5 @@
+/***** Overall styling *****/
+
 body {
     font-family: Verdana, sans-serif;
     letter-spacing: 0.12ch;
@@ -19,7 +21,7 @@ header {
     padding: 10px;
 }
 
-main, footer {
+main {
     text-align: left;
     width: 100%;
     max-width: 1000px;
@@ -27,6 +29,16 @@ main, footer {
     margin: 0 auto;
     padding: 10px;
 }
+
+footer {    
+    text-align: left;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 1000px;
+    background-color: whitesmoke;
+    margin: 0 auto;
+    padding: 10px;}
 
 nav {
     width: 100%;
@@ -49,11 +61,7 @@ p, div {
     font-size: 16pt;
 }
 
-/* .container {
-    margin: 0 auto;
-} */
-
-/* Navigation button styling */
+/***** Navigation button styling *****/
 
 nav .container {
     display: grid;
@@ -73,7 +81,7 @@ nav .container {
     box-sizing: border-box;
 }
 
-.nav-button:hover, .bigHomeButton:hover {
+.nav-button:hover, .bigHomeButton:hover{
     border: 2px solid darkgrey !important;
     cursor: pointer;
 }
@@ -108,7 +116,7 @@ nav .container {
     border: 1px solid rgb(241, 82, 82);
 }
 
-/* Main element styling */
+/***** Main element styling *****/
 
 main .container{
     display: grid;
@@ -142,8 +150,8 @@ main .container{
 }
 
 .bigHomeButton img {
-    width: 100px; /* Adjust size as needed */
-    margin-bottom: 10px; /* Adds space between image and text */
+    width: 100px;
+    margin-bottom: 10px;
 }
 
 .existingUserContainer {
@@ -156,12 +164,38 @@ main .container{
     font-weight: bold;
 }
 
-.tutorial-container {
+/* Tutorial pages */
+
+.tutorialContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
+#tutorialImageBox {
+    height: 200px;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+    margin: 5px;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+}
+
+.tutorialContainer img {
+    width: 100px;
+}
+
+#nextButtonImageBox:hover {
+    cursor: pointer;
+}
+
+/***** Media queries *****/
 
 @media screen and (max-width: 750px) {
     nav .container {

@@ -1,0 +1,17 @@
+[
+    {
+        "subheading": "Settings",
+        "image": "/images/navigation/settings.png",
+        "altText": "Settings icon",
+        "text": "Click on the settings icon at any time to update your background colour, font and other settings.",
+        "id": "tutorialSettings"
+    },
+
+    {
+        "subheading": "Learn",
+        "image": "/images/navigation/learn.png",
+        "altText": "Learn icon",
+        "text": "The music notes take you to the learning section",
+        "id": "tutorialLearn"
+    }
+]
