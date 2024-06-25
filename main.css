@@ -1,7 +1,7 @@
 /***** Overall styling *****/
 
 body {
-    font-family: Verdana, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     letter-spacing: 0.12ch;
     word-spacing: 0.42ch; /* 3.5x letter-spacing */
     height: 100%;
@@ -18,7 +18,7 @@ header {
     max-width: 1000px;
     background-color: whitesmoke;
     margin: 0 auto;
-    padding: 10px;
+    padding: 40px;
 }
 
 main {
@@ -27,7 +27,7 @@ main {
     max-width: 1000px;
     background-color: whitesmoke;
     margin: 0 auto;
-    padding: 10px;
+    padding: 40px;
 }
 
 footer {    
@@ -38,7 +38,7 @@ footer {
     max-width: 1000px;
     background-color: whitesmoke;
     margin: 0 auto;
-    padding: 10px;}
+    padding: 40px;}
 
 nav {
     width: 100%;
@@ -125,6 +125,9 @@ main .container{
     padding-bottom: 5px;
 }
 
+
+/***** Home page styling *****/
+
 .newUserContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -164,16 +167,54 @@ main .container{
     font-weight: bold;
 }
 
+/***** Settings pages styling *****/
+#settingsContainer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#colourContainer, #typefaceContainer, #navigationOptionsContainer {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.colourBlock, .typefaceBlock {
+    height: 100px;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 30px;
+}
+
+.navOptionContainer {
+    height: 100px;;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 30px;
+}
+
+.colourBlock:hover, .typefaceBlock:hover {
+    border: 2px solid darkgrey !important;
+    cursor: pointer;
+}
+
 /***** Tutorial pages styling *****/
 
-.tutorialContainer {
+#tutorialContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-#tutorialImageBox {
+#tutorialImageContainer {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -184,15 +225,15 @@ main .container{
     padding: 10px;
 }
 
-#tutorialTextBox {
+#tutorialTextContainer {
     padding: 5px;
 }
 
-.tutorialContainer img {
+#tutorialContainer img {
     width: 150px;
 }
 
-#nextButtonImageBox:hover {
+#nextButtonImageContainer:hover, #backButtonImageContainer:hover {
     cursor: pointer;
 }
 
@@ -214,7 +255,10 @@ main .container{
     .nav-button div span {
         font-size: 14pt !important;
     }
-    .tutorialContainer{
+    .tutorialContainer {
         grid-template-columns: repeat(1, 1fr);
+    }
+    #colourContainer, #typefaceContainer {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
