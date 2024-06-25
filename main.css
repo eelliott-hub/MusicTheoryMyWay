@@ -47,7 +47,7 @@ nav {
 }
 
 h1 {
-    font-size: 24pt;
+    font-size: 28pt;
     width: 100%;
     text-align: center;
 }
@@ -58,7 +58,7 @@ h2 {
 
 p, div {
     line-height: 1.5;
-    font-size: 16pt;
+    font-size: 18pt;
 }
 
 /***** Navigation button styling *****/
@@ -87,33 +87,33 @@ nav .container {
 }
 
 #home-button{
-    background-color: lightskyblue;
-    border: 1px solid lightskyblue;
+    background-color: #87cefa;
+    border: 1px solid #87cefa;
 }
 
 #learn-button, #newUserLearnButton, #existingUserLearnButton{
-    background-color: rgb(111, 243, 111);
-    border: 1px solid rgb(111, 243, 111);
+    background-color: #6ff36f;
+    border: 1px solid #6ff36f;
 }
 
-#test-button{
-    background-color: rgb(174, 82, 250);
-    border: 1px solid rgb(174, 82, 250);
+#quiz-button{
+    background-color: #ae52fa;
+    border: 1px solid #ae52fa;
 }
 
 #settings-button{
-    background-color: orange;
-    border: 1px solid orange;
+    background-color: #ffa500;
+    border: 1px solid #ffa500;
 }
 
 #tutorial-button, #newUserTutorialButton {
-    background-color: yellow;
-    border: 1px solid yellow;
+    background-color: #ffff00;
+    border: 1px solid #ffff00;
 }
 
 #glossary-button{
-    background-color: rgb(241, 82, 82);
-    border: 1px solid rgb(241, 82, 82);
+    background-color: #f15252;
+    border: 1px solid #f15252;
 }
 
 /***** Main element styling *****/
@@ -164,7 +164,7 @@ main .container{
     font-weight: bold;
 }
 
-/* Tutorial pages */
+/***** Tutorial pages styling *****/
 
 .tutorialContainer {
     display: grid;
@@ -174,21 +174,22 @@ main .container{
 }
 
 #tutorialImageBox {
-    height: 200px;
-    padding: 5px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center; /* Center vertically */
     align-items: center;     /* Center horizontally */
-    margin: 5px;
+    margin-right: 30px;
     box-sizing: border-box;
-    padding: 10px;
-    text-align: center;
+    padding: 5px;
+}
+
+#tutorialTextBox {
+    padding: 5px;
 }
 
 .tutorialContainer img {
-    width: 100px;
+    width: 150px;
 }
 
 #nextButtonImageBox:hover {
@@ -212,5 +213,8 @@ main .container{
     }
     .nav-button div span {
         font-size: 14pt !important;
+    }
+    .tutorialContainer{
+        grid-template-columns: repeat(1, 1fr);
     }
 }

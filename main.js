@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // Variables for site navigation
-    let siteSection = "HOME"; // HOME, LEARN, TEST, SETTINGS, TUTORIAL, GLOSSARY
+    let siteSection = "HOME"; // HOME, LEARN, QUIZ, SETTINGS, TUTORIAL, GLOSSARY
     let grade = 1;
     let topic = "test topic";
     let gradeTopic = "Grade " + grade + ": " + topic;
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyMainText();
             emptyFooter();
         }
-        else if(siteSection === "TEST"){
+        else if(siteSection === "QUIZ"){
             document.getElementById("page-title").innerHTML = "Quiz";
             progressBar = true;
             emptyMainText();
@@ -66,21 +66,21 @@ document.addEventListener('DOMContentLoaded', function() {
          if (variant === "text") {
             navButtonText("home", "Home");
             navButtonText("learn", "Learn");
-            navButtonText("test", "Test");
+            navButtonText("quiz", "Quiz");
             navButtonText("settings", "Settings");
             navButtonText("tutorial", "Tutorial");
             navButtonText("glossary", "Glossary");
         } else if (variant === "images") {
             navButtonImage("home");
             navButtonImage("learn");
-            navButtonImage("test");
+            navButtonImage("quiz");
             navButtonImage("settings");
             navButtonImage("tutorial");
             navButtonImage("glossary");
         } else {
             navButtonImageText("home", "Home");
             navButtonImageText("learn", "Learn");
-            navButtonImageText("test", "Test");
+            navButtonImageText("quiz", "Quiz");
             navButtonImageText("settings", "Settings");
             navButtonImageText("tutorial", "Tutorial");
             navButtonImageText("glossary", "Glossary");
@@ -144,8 +144,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("learn-button").addEventListener('click', function(){
         changeSiteSection("LEARN");
     });
-    document.getElementById("test-button").addEventListener('click', function(){
-        changeSiteSection("TEST");
+    document.getElementById("quiz-button").addEventListener('click', function(){
+        changeSiteSection("QUIZ");
     });
     document.getElementById("settings-button").addEventListener('click', function(){
         changeSiteSection("SETTINGS");
@@ -274,6 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let tutorialImageBox = document.createElement('div');
             tutorialImageBox.setAttribute('id', 'tutorialImageBox');
+            tutorialImageBox.style.backgroundColor = page.colour;
 
             let tutorialImage = document.createElement('img');
             tutorialImage.setAttribute('id', 'tutorialImage');

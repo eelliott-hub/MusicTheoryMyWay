@@ -2,16 +2,40 @@
     {
         "subheading": "Settings",
         "image": "/images/navigation/settings.png",
-        "altText": "Settings icon",
-        "text": "Click on the settings icon at any time to update your background colour, font and other settings.",
-        "id": "tutorialSettings"
+        "altText": "Large settings icon",
+        "colour": "#ffa500",
+        "text": "Click on the orange settings icon at any time to update your background colour, font and other settings."
     },
 
     {
         "subheading": "Learn",
         "image": "/images/navigation/learn.png",
-        "altText": "Learn icon",
-        "text": "The music notes take you to the learning section",
-        "id": "tutorialLearn"
+        "altText": "Large learn icon",
+        "colour": "#6ff36f",
+        "text": "The green music notes icon takes you to the learning section."
+    },
+
+    {
+        "subheading": "Glossary",
+        "image": "/images/navigation/glossary.png",
+        "altText": "Large glossary icon",
+        "colour": "#f15252",
+        "text": "Look up any words you're not sure about in the glossary by clicking the red button."  
+    },
+
+    {
+        "subheading": "Quiz",
+        "image": "/images/navigation/quiz.png",
+        "altText": "Large quiz icon",
+        "colour": "#ae52fa",
+        "text": "Click the purple button to take a quiz on everything you've learnt so far."  
+    },
+
+    {
+        "subheading": "That's it!",
+        "image": "/images/navigation/tutorial.png",
+        "altText": "Large tutorial icon",
+        "colour": "#ffff00",
+        "text": "To come back to the tutorial at any time, click the question mark. For now, click the arrow to go back home."  
     }
 ]
