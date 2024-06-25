@@ -181,7 +181,7 @@ main .container{
     align-items: center;     /* Center horizontally */
     margin-right: 30px;
     box-sizing: border-box;
-    padding: 5px;
+    padding: 10px;
 }
 
 #tutorialTextBox {

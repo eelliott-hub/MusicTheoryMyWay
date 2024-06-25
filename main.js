@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Navigation button functions //////
 
+    // Function to render the nav buttons based on settings
     function updateNavButtons(variant) {
          if (variant === "text") {
             navButtonText("home", "Home");
@@ -266,8 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
             progressBar = false;
             emptyMainText();
             emptyFooter();
-            renderNextButton();
-
+    
             let mainContainer = document.getElementById("main-container");
             let tutorialContainer = document.createElement('div');
             tutorialContainer.setAttribute('class', "tutorialContainer");
@@ -301,6 +301,17 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('tutorialText').innerHTML = page.text;
             document.getElementById('tutorialImage').src = page.image;
             document.getElementById('tutorialImage').alt = page.altText;
+
+            renderNextButton();
+            document.getElementById("nextButtonImageBox").addEventListener('click', function() {
+                currentTutorialIndex++;
+                if (currentTutorialIndex >= pages.length) {
+                    changeSiteSection("HOME");
+                } else {
+                    renderTutorialPage(currentTutorialIndex);
+                }
+            });
+
         } else {
             console.error('Page index out of range:', index);
         }
@@ -319,18 +330,8 @@ document.addEventListener('DOMContentLoaded', function() {
         nextButtonImage.setAttribute('id', "nextButtonImage");
         nextButtonImage.src = "/images/rightArrow.png";
         nextButtonImage.width = 80;
-
         nextButtonImageBox.appendChild(nextButtonImage);
-        footer.appendChild(nextButtonImageBox);
-
-        document.getElementById("nextButtonImageBox").addEventListener('click', function() {
-            currentTutorialIndex++;
-            if (currentTutorialIndex >= pages.length) {
-                changeSiteSection("HOME");
-            } else {
-                renderTutorialPage(currentTutorialIndex);
-            }
-        });
+        footer.appendChild(nextButtonImageBox);        
     }
 
     // Empty the main element
@@ -342,8 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("footer").innerHTML = "";
     }
 
-
-
+    ////// Render the page content //////
     updatePageContent();
     updateNavButtons(navButtonView);
 
