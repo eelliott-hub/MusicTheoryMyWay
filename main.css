@@ -1,5 +1,9 @@
 /***** Overall styling *****/
 
+html {
+    min-height: 100%;
+}
+
 body {
     font-family: 'Times New Roman', Times, serif;
     letter-spacing: 0.12ch;
@@ -18,7 +22,7 @@ header {
     max-width: 1000px;
     background-color: whitesmoke;
     margin: 0 auto;
-    padding: 40px;
+    padding: 20px 40px;
 }
 
 main {
@@ -27,7 +31,7 @@ main {
     max-width: 1000px;
     background-color: whitesmoke;
     margin: 0 auto;
-    padding: 40px;
+    padding: 20px 40px;
 }
 
 footer {    
@@ -38,12 +42,15 @@ footer {
     max-width: 1000px;
     background-color: whitesmoke;
     margin: 0 auto;
-    padding: 40px;}
+    padding: 20px 40px;
+}
 
 nav {
     width: 100%;
+    max-width: 1000px;
     background-color: whitesmoke;
-    margin-bottom: 10px;
+    margin: 0 auto;
+    padding: 20px 40px;
 }
 
 h1 {
@@ -65,7 +72,7 @@ p, div {
 
 nav .container {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     padding-top: 5px;
     padding-bottom: 5px;
 }
@@ -91,7 +98,7 @@ nav .container {
     border: 1px solid #87cefa;
 }
 
-#learn-button, #newUserLearnButton, #existingUserLearnButton{
+#learn-button{
     background-color: #6ff36f;
     border: 1px solid #6ff36f;
 }
@@ -106,7 +113,7 @@ nav .container {
     border: 1px solid #ffa500;
 }
 
-#tutorial-button, #newUserTutorialButton {
+#tutorial-button {
     background-color: #ffff00;
     border: 1px solid #ffff00;
 }
@@ -128,9 +135,9 @@ main .container{
 
 /***** Home page styling *****/
 
-.newUserContainer {
+.homePageContainer {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     padding-top: 5px;
     padding-bottom: 5px;
     margin-top: 20px;
@@ -155,16 +162,6 @@ main .container{
 .bigHomeButton img {
     width: 100px;
     margin-bottom: 10px;
-}
-
-.existingUserContainer {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-weight: bold;
 }
 
 /***** Settings pages styling *****/
@@ -239,7 +236,7 @@ main .container{
 
 /***** Media queries *****/
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 1000px) {
     nav .container {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -251,9 +248,6 @@ main .container{
     }
     .newUserContainer {
         grid-template-columns: repeat(1, 1fr);
-    }
-    .nav-button div span {
-        font-size: 14pt !important;
     }
     .tutorialContainer {
         grid-template-columns: repeat(1, 1fr);

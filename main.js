@@ -5,12 +5,20 @@ document.addEventListener('DOMContentLoaded', function() {
     let grade = 1;
     let topic = "test topic";
     let gradeTopic = "Grade " + grade + ": " + topic;
-    //localStorage.setItem('existingUser', "false"); // Toggle to test existingUser and eventually remove when existingUser is set up properly (when a setting has been changed or question answered)
     
     // TODO NEXT
-        // Replace existingUser with a series of variables for completion of tutorial, changing settings and starting learning
-        // Change home page to always just have one button (tutorial, settings, learning)
         // Progress page (under "Learn") and start working up content and question formats
+
+
+    // Uncomment temporarily to clear elements of local storage
+    // localStorage.clear();
+    // localStorage.removeItem("tutorialCompleted");
+    // localStorage.removeItem("settingsChanged");
+
+    // Default settings
+    let defaultBackgroundColour = "#f5f5f5";
+    let defaultTypeface = "Verdana, sans-serif";
+    let defaultNavButtons = "both";
 
     // Tutorial variables
     let tutorialPages = [];
@@ -23,24 +31,16 @@ document.addEventListener('DOMContentLoaded', function() {
         "Navigation buttons" 
     ];
 
-    ////// Functions for overall nagivation //////
-
-    // Function to update page content
+    ////// Main function to update page content //////
     function updatePageContent(){
 
         if(siteSection === "HOME") {
             emptyMainText();
             emptyFooter();
-            if(localStorage.getItem('existingUser') === "true"){
-                renderHomePageExistingUser();
-                addHomePageEventListenerExistingUser();
-            }
-            else{
-                localStorage.setItem('navButtonView', "text");
-                updateNavButtons("text");
-                renderHomePageNewUser();
-                addHomePageEventListenersNewUser();
-            }
+            if (!localStorage.getItem('tutorialCompleted', "true")) { renderHomePageTutorial(); }
+            else if (!localStorage.getItem('settingsChanged', "true")) { renderHomePageSettings(); }
+            else if (!localStorage.getItem('learningStarted', "true")) { renderHomePageStartLearn(); }
+            else { renderHomePageContinueLearn(); }
         }
         else if(siteSection === "LEARN"){
             document.getElementById("page-title").innerHTML = gradeTopic;
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ////// Navigation button functions //////
 
     // Function to render the nav buttons based on settings
-    function updateNavButtons(variant) {
+    function setNavButtons(variant) {
          if (variant === "text") {
             navButtonText("home", "Home");
             navButtonText("learn", "Learn");
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
         img.src = "./images/navigation/" + buttonName + ".png";
         img.alt = buttonName + " button";
         img.width = 40;
-        img.style.marginRight = "20px";
+        img.style.marginRight = "5px";
         let text = document.createElement('span');
         text.innerHTML = buttonText;
         text.style.fontSize = "18pt";
@@ -169,76 +169,79 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Home page functions //////
 
-    function renderHomePageNewUser() {
-        document.getElementById("page-title").innerHTML = "Welcome to Music Theory My Way!";
+    function renderHomePageTutorial(){
+        let pageTitle = "Welcome to Music Theory My Way!";
         let introText = "It looks like you are new to this site. Take the tutorial to learn your way around.";
+        let buttonNav = "tutorial";
+        let buttonText = "Take the tutorial";
+        let siteSectionTo = "TUTORIAL";
+        let buttonColour = "#ffff00";
+        renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour);
+    }
+
+    function renderHomePageSettings(){
+        let pageTitle = "Welcome back to Music Theory My Way!";
+        let introText = "Adjust the settings to suit your learning preferences.";
+        let buttonNav = "settings";
+        let buttonText = "Go to settings";
+        let siteSectionTo = "SETTINGS";
+        let buttonColour = "#ffa500";
+        renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour);
+    }
+
+    function renderHomePageStartLearn(){
+        let pageTitle = "Welcome back to Music Theory My Way!";
+        let introText = "Click the music notes to start learning.";
+        let buttonNav = "learn";
+        let buttonText = "Start learning now";
+        let siteSectionTo = "LEARN";
+        let buttonColour = "#6ff36f";
+        renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour);
+    }
+
+    function renderHomePageContinueLearn(){
+        let pageTitle = "Welcome back to Music Theory My Way!";
+        let introText = "Click the music notes to continue learning.";
+        let buttonNav = "learn";
+        let buttonText = "Contibue learning now";
+        let siteSectionTo = "LEARN";
+        let buttonColour = "#6ff36f";
+        renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour);
+    }
+
+    function renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour) {
+        document.getElementById("page-title").innerHTML = pageTitle;
         let div = document.createElement('div');
         div.innerHTML = introText;
         let mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(div);
 
-        let newUserContainer = document.createElement('div');
-        newUserContainer.setAttribute('class', "newUserContainer");
+        let homePageContainer = document.createElement('div');
+        homePageContainer.setAttribute('class', "homePageContainer");
 
-        let tutorialText = "Take the tutorial";
-        let newUserTutorialButton = createHomePageButton("newUserTutorialButton", "tutorial", tutorialText);
-        newUserContainer.appendChild(newUserTutorialButton);
+        let homePageButton = createHomePageButton("homePageButton", buttonNav, buttonText, buttonColour);
+        homePageContainer.appendChild(homePageButton);
 
-        let learnText = "Start learning now";
-        let newUserLearnButton = createHomePageButton("newUserLearnButton", "learn", learnText);
-        newUserContainer.appendChild(newUserLearnButton);
+        mainContainer.appendChild(homePageContainer);
 
-        mainContainer.appendChild(newUserContainer);
+        addHomePageEventListener(siteSectionTo);
     }
 
-    function addHomePageEventListenersNewUser() {
-        let tutorialButtonNew = document.getElementById("newUserTutorialButton");
-        if (tutorialButtonNew) {
-            tutorialButtonNew.addEventListener('click', function() {
-                changeSiteSection("TUTORIAL");
-            });
-        }
-
-        let learnButtonNew = document.getElementById("newUserLearnButton");
-        if (learnButtonNew) {
-            learnButtonNew.addEventListener('click', function() {
-                changeSiteSection("LEARN");
+    function addHomePageEventListener(siteSectionTo) {
+        let homePageButton = document.getElementById("homePageButton");
+        if (homePageButton) {
+            homePageButton.addEventListener('click', function() {
+                changeSiteSection(siteSectionTo);
             });
         }
     }
 
-    function renderHomePageExistingUser() {
-        document.getElementById("page-title").innerHTML = "Welcome back to Music Theory My Way!";
-        let introText = "Click on the music notes to continue learning.";
-        let div = document.createElement('div');
-        div.innerHTML = introText;
-        let mainContainer = document.getElementById("main-container");
-        mainContainer.appendChild(div);
-
-        let existingUserContainer = document.createElement('div');
-        existingUserContainer.setAttribute('class', "existingUserContainer");
-
-        let learnText = "Continue learning";
-        let existingUserLearnButton = createHomePageButton("existingUserLearnButton", "learn", learnText);
-        existingUserContainer.appendChild(existingUserLearnButton);
-
-        mainContainer.appendChild(existingUserContainer);
-    }
-
-    function addHomePageEventListenerExistingUser() {
-        let learnButtonExisting = document.getElementById("existingUserLearnButton");
-        if (learnButtonExisting) {
-            learnButtonExisting.addEventListener('click', function() {
-                changeSiteSection("LEARN");
-            });
-        }
-    }
-
-    // Big buttons on home page
-    function createHomePageButton(buttonId, buttonName, buttonText) {
+    // Big button on home page
+    function createHomePageButton(buttonId, buttonName, buttonText, buttonColour) {
         let homePageButton = document.createElement('div');
         homePageButton.setAttribute('class', 'bigHomeButton');
         homePageButton.setAttribute('id', buttonId);
+        homePageButton.style.backgroundColor = buttonColour;
 
         let img = document.createElement('img');
         img.src = "./images/navigation/" + buttonName + ".png";
@@ -315,8 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         else {
             console.error('Page index out of range:', index);
-        }
-       
+        } 
     }
 
     function renderBackgroundColourSettings(){
@@ -341,6 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             colourBlock.addEventListener('click', function(){
                 changeBackgroundColour(colour.colourCode);
+                localStorage.setItem('settingsChanged', "true");
             });
             colourContainer.appendChild(colourBlock);
         })
@@ -350,11 +353,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function changeBackgroundColour(newBackgroundColour) {
         console.log('Changing background colour to:', newBackgroundColour);
-        document.getElementById('header').style.backgroundColor = newBackgroundColour;
-        document.getElementById('main').style.backgroundColor = newBackgroundColour;
-        document.getElementById('footer').style.backgroundColor = newBackgroundColour;
+        setBackgroundColour(newBackgroundColour);
         localStorage.setItem('backgroundColour', newBackgroundColour);
-        saveExistingUser();
+    }
+
+    function setBackgroundColour(backgroundColour){
+        document.getElementById('nav').style.backgroundColor = backgroundColour;
+        document.getElementById('header').style.backgroundColor = backgroundColour;
+        document.getElementById('main').style.backgroundColor = backgroundColour;
+        document.getElementById('footer').style.backgroundColor = backgroundColour;
     }
 
     function renderFontTypefaceSettings(){
@@ -379,6 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             typefaceBlock.addEventListener('click', function(){
                 changeTypeface(typeface.fontFamily);
+                localStorage.setItem('settingsChanged', "true");
             });
             typefaceContainer.appendChild(typefaceBlock);
         })
@@ -388,12 +396,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function changeTypeface(newTypeface){
         console.log('Changing font typeface to:', newTypeface);
-        document.getElementById('nav').style.fontFamily = newTypeface;
-        document.getElementById('header').style.fontFamily = newTypeface;
-        document.getElementById('main').style.fontFamily = newTypeface;
-        document.getElementById('footer').style.fontFamily = newTypeface;
+        setTypeface(newTypeface);
         localStorage.setItem('fontTypeface', newTypeface);
-        saveExistingUser();
+    }
+
+    function setTypeface(typeface){
+        document.getElementById('nav').style.fontFamily = typeface;
+        document.getElementById('header').style.fontFamily = typeface;
+        document.getElementById('main').style.fontFamily = typeface;
+        document.getElementById('footer').style.fontFamily = typeface;
     }
 
     function renderNavigationButtonSettings(){
@@ -415,8 +426,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         navOption1.addEventListener('click', function(){
             localStorage.setItem('navButtonsView', "text");
-            saveExistingUser();
-            updateNavButtons("text");
+            localStorage.setItem('settingsChanged', "true");
+            setNavButtons("text");
         });
 
         navigationOptionsContainer.appendChild(navOption1);
@@ -436,8 +447,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         navOption2.addEventListener('click', function(){
             localStorage.setItem('navButtonsView', "images");
-            saveExistingUser();
-            updateNavButtons("images");
+            localStorage.setItem('settingsChanged', "true");
+            setNavButtons("images");
         });
 
         navigationOptionsContainer.appendChild(navOption2);
@@ -453,7 +464,7 @@ document.addEventListener('DOMContentLoaded', function() {
         img3.src = "./images/navigation/learn.png";
         img3.alt = "Learn button";
         img3.width = 40;
-        img3.style.marginRight = "20px";
+        img3.style.marginRight = "5px";
         let text = document.createElement('span');
         text.innerHTML = "Learn";
         text.style.fontSize = "18pt";
@@ -464,8 +475,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         navOption3.addEventListener('click', function(){
             localStorage.setItem('navButtonsView', "both");
-            saveExistingUser();
-            updateNavButtons("both");
+            localStorage.setItem('settingsChanged', "true");
+            setNavButtons("both");
         });
 
         navigationOptionsContainer.appendChild(navOption3);
@@ -479,22 +490,29 @@ document.addEventListener('DOMContentLoaded', function() {
         let savedBackgroundColour = localStorage.getItem('backgroundColour');
         if (savedBackgroundColour) {
             console.log('Applying saved background colour:', savedBackgroundColour);
-            document.getElementById('header').style.backgroundColor = savedBackgroundColour;
-            document.getElementById('main').style.backgroundColor = savedBackgroundColour;
-            document.getElementById('footer').style.backgroundColor = savedBackgroundColour;
+            setBackgroundColour(savedBackgroundColour);
+        }
+        else{
+            console.log('Applying default background colour:', defaultBackgroundColour);
+            setBackgroundColour(defaultBackgroundColour);
         }
         let savedTypeface = localStorage.getItem('fontTypeface');
         if(savedTypeface) {
             console.log('Applying saved font typeface:', savedTypeface);
-            document.getElementById('nav').style.fontFamily = savedTypeface;
-            document.getElementById('header').style.fontFamily = savedTypeface;
-            document.getElementById('main').style.fontFamily = savedTypeface;
-            document.getElementById('footer').style.fontFamily = savedTypeface;
+            setTypeface(savedTypeface);
+        }
+        else{
+            console.log('Applying default font typeface:', defaultTypeface);
+            setTypeface(defaultTypeface);
         }
         let savedNavButtonsView = localStorage.getItem('navButtonsView');
         if(savedNavButtonsView){
             console.log('Applying saved navigation buttons:', savedNavButtonsView);
-            updateNavButtons(savedNavButtonsView);
+            setNavButtons(savedNavButtonsView);
+        }
+        else{
+            console.log('Applying default navigation buttons:', defaultNavButtons);
+            setNavButtons(defaultNavButtons);
         }
     }
 
@@ -555,6 +573,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('tutorialImage').alt = page.altText;
 
             renderNextBackArrows();
+
+            if(index === tutorialPages.length - 1){
+                localStorage.setItem('tutorialCompleted', "true");
+            }
 
             // TODO: duplication of code here - sort out if time
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
@@ -617,11 +639,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Empty the footer
     function emptyFooter(){
         document.getElementById("footer").innerHTML = "";
-    }
-
-    // Make existing user
-    function saveExistingUser(){
-        localStorage.setItem('existingUser', "true");
     }
 
     ////// Render the page content //////
