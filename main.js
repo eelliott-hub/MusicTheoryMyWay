@@ -2,13 +2,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Variables for site navigation
     let siteSection = "HOME"; // HOME, LEARN, CONTENT, QUIZ, SETTINGS, TUTORIAL, GLOSSARY
-
     let availableGrades = [1, 2, 3, 4, 5];
+
+    // Default settings
+    let defaultBackgroundColour = "#f5f5f5";
+    let defaultTypeface = "Verdana, sans-serif";
+    let defaultNavButtons = "both";
     
     // TODO NEXT
         // Progress page for the grades, with topics on
         // Create a question type and some questions, with the logic around correct answers and storing progress
         // Progress bar?
+        // Move some hard-coded variables up to the top
 
 
     // Uncomment temporarily to clear elements of local storage
@@ -16,15 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // localStorage.removeItem("tutorialCompleted");
     // localStorage.removeItem("settingsChanged");
 
-    // Default settings
-    let defaultBackgroundColour = "#f5f5f5";
-    let defaultTypeface = "Verdana, sans-serif";
-    let defaultNavButtons = "both";
-
-    // Tutorial variables
-    let tutorialPages = [];
-
-    // Settings variables
+    // Settings variables - consider storing externally?
     const settingsPageTitles = [
         "Background colour",
         "Font",
@@ -34,39 +31,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Main function to update page content //////
     function updatePageContent(){
+        emptyMainText();
+        emptyFooter();
 
         if(siteSection === "HOME") {
-            emptyMainText();
-            emptyFooter();
             if (!localStorage.getItem('tutorialCompleted', "true")) { renderHomePageTutorial(); }
             else if (!localStorage.getItem('settingsChanged', "true")) { renderHomePageSettings(); }
             else if (!localStorage.getItem('learningStarted', "true")) { renderHomePageStartLearn(); }
             else { renderHomePageContinueLearn(); }
         }
         else if(siteSection === "LEARN"){
-            emptyMainText();
-            emptyFooter();
             renderProgressPage();
         }
         else if(siteSection === "GRADEHOMEPAGE"){
             document.getElementById("page-title").innerHTML = "Choose your topic";
-            emptyMainText();
-            emptyFooter();
             renderGradeHomePage();
         }
         else if(siteSection === "CONTENT"){
             document.getElementById("page-title").innerHTML = "";
-            emptyMainText();
-            emptyFooter();
         }
         else if(siteSection === "QUIZ"){
             document.getElementById("page-title").innerHTML = "Quiz";
-            emptyMainText();
-            emptyFooter();
         }
         else if(siteSection === "SETTINGS"){
-            emptyMainText();
-            emptyFooter();
             currentSettingsIndex = 0;
             renderSettingsPage(currentSettingsIndex);
         }
@@ -75,8 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else if(siteSection === "GLOSSARY"){
             document.getElementById("page-title").innerHTML = "Glossary";
-            emptyMainText();
-            emptyFooter();
         }
     }
 
@@ -272,6 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Settings functions //////
 
+    // TODO if time, split this function into smaller ones
     function renderSettingsPage(index){
 
         if(index >= 0 && index < settingsPageTitles.length){
@@ -360,7 +346,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             colourContainer.appendChild(colourBlock);
         })
-
         settingsContainer.appendChild(colourContainer);
     }
 
@@ -645,6 +630,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mainContainer.appendChild(progressContainer);
     }
 
+    // Store the current grade in the session storage
     function setCurrentGrade(grade){
         sessionStorage.setItem('currentGrade', grade);
     }

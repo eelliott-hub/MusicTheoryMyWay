@@ -1,5 +1,12 @@
 [
     {
+        "subheading": "Music Theory My Way",
+        "image": "/images/navigation/settings.png",
+        "altText": "Large settings icon",
+        "colour": "#ffa500",
+        "text": "Music Theory My Way is a web app designed for people with dyslexia and can be customised in different ways to suit your learning style."
+    },
+    {
         "subheading": "Settings",
         "image": "/images/navigation/settings.png",
         "altText": "Large settings icon",
@@ -12,7 +19,7 @@
         "image": "/images/navigation/learn.png",
         "altText": "Large learn icon",
         "colour": "#6ff36f",
-        "text": "The green music notes icon takes you to the learning section."
+        "text": "You will be learning about music theory up to grade 2. The green music notes icon takes you to the learning section."
     },
 
     {
