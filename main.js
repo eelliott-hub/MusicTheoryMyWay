@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // Variables for site navigation
-    let siteSection = "HOME"; // HOME, LEARN, QUIZ, SETTINGS, TUTORIAL, GLOSSARY
-    let grade = 1;
-    let topic = "test topic";
-    let gradeTopic = "Grade " + grade + ": " + topic;
+    let siteSection = "HOME"; // HOME, LEARN, CONTENT, QUIZ, SETTINGS, TUTORIAL, GLOSSARY
+
+    let availableGrades = [1, 2, 3, 4, 5];
     
     // TODO NEXT
-        // Progress page (under "Learn") and start working up content and question formats
+        // Progress page for the grades, with topics on
+        // Create a question type and some questions, with the logic around correct answers and storing progress
+        // Progress bar?
 
 
     // Uncomment temporarily to clear elements of local storage
@@ -43,7 +44,18 @@ document.addEventListener('DOMContentLoaded', function() {
             else { renderHomePageContinueLearn(); }
         }
         else if(siteSection === "LEARN"){
-            document.getElementById("page-title").innerHTML = gradeTopic;
+            emptyMainText();
+            emptyFooter();
+            renderProgressPage();
+        }
+        else if(siteSection === "GRADEHOMEPAGE"){
+            document.getElementById("page-title").innerHTML = "Choose your topic";
+            emptyMainText();
+            emptyFooter();
+            renderGradeHomePage();
+        }
+        else if(siteSection === "CONTENT"){
+            document.getElementById("page-title").innerHTML = "";
             emptyMainText();
             emptyFooter();
         }
@@ -191,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderHomePageStartLearn(){
         let pageTitle = "Welcome back to Music Theory My Way!";
-        let introText = "Click the music notes to start learning.";
+        let introText = "";
         let buttonNav = "learn";
         let buttonText = "Start learning now";
         let siteSectionTo = "LEARN";
@@ -212,6 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour) {
         document.getElementById("page-title").innerHTML = pageTitle;
         let div = document.createElement('div');
+        div.setAttribute('class', "homePageContainer");
         div.innerHTML = introText;
         let mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(div);
@@ -309,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 renderFontTypefaceSettings();
             }
             else if(index === 2){
-
+                
             }
             else if(index === 3){
                 renderNavigationButtonSettings();
@@ -604,14 +617,74 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    ////// Progress functions //////
+
+    // Page showing the available grades
+    function renderProgressPage(){
+        document.getElementById("page-title").innerHTML = "Choose the grade you want to work on";
+        let mainContainer = document.getElementById("main-container");
+        let progressContainer = document.createElement('div');
+        progressContainer.setAttribute('id', "progressContainer");
+
+        for(i = 0; i < availableGrades.length; i++){
+            let gradeBlock = document.createElement('div');
+            let thisGrade = availableGrades[i];
+            gradeBlock.innerHTML = "Grade " + thisGrade;
+           
+            let highestGradeCompleted = localStorage.getItem('highestGradeCompleted');
+            if(highestGradeCompleted){
+                if(thisGrade <= highestCompletedGrade){ renderAvailableGradeBlock(gradeBlock, thisGrade); }
+                else{ renderUnavailableGradeBlock(gradeBlock); }
+            }
+            else{
+                if(thisGrade === 1){ renderAvailableGradeBlock(gradeBlock, thisGrade); }
+                else{ renderUnavailableGradeBlock(gradeBlock); }
+            }
+            progressContainer.appendChild(gradeBlock);
+        }
+        mainContainer.appendChild(progressContainer);
+    }
+
+    function setCurrentGrade(grade){
+        sessionStorage.setItem('currentGrade', grade);
+    }
+
+    function renderAvailableGradeBlock(gradeBlock, gradeNumber){
+        gradeBlock.setAttribute('class', "availableGradeBlock");
+        gradeBlock.addEventListener('click', function(){
+            setCurrentGrade(gradeNumber);
+            changeSiteSection("GRADEHOMEPAGE");
+        });
+    }
+
+    function renderUnavailableGradeBlock(gradeBlock){
+        gradeBlock.setAttribute('class', "unavailableGradeBlock");
+    }
+
+    // Page showing topics within the grade
+    function renderGradeHomePage(){
+        // TO DO NEXT
+    }
+
     ////// Misc helper functions //////
 
-    // Function to render the next button
+    // Function to render the forward and back arrows
     function renderNextBackArrows() {
         let footer = document.getElementById("footer");
         footer.style.display = "flex";
         footer.style.justifyContent = "space-between";
-        
+        createBackArrow();
+        createNextArrow();
+    }
+
+    function renderNextArrow(){
+        let footer = document.getElementById("footer");
+        footer.style.display = "flex";
+        footer.style.justifyContent = "flex-end";
+        createNextArrow();
+    }
+
+    function createBackArrow() {
         let backButtonImageContainer = document.createElement('div');
         backButtonImageContainer.setAttribute('id', "backButtonImageContainer");
         let backButtonImage = document.createElement('img');
@@ -620,7 +693,9 @@ document.addEventListener('DOMContentLoaded', function() {
         backButtonImage.width = 80;
         backButtonImageContainer.appendChild(backButtonImage);
         footer.appendChild(backButtonImageContainer);
+    }
 
+    function createNextArrow(){
         let nextButtonImageContainer = document.createElement('div');
         nextButtonImageContainer.setAttribute('id', "nextButtonImageContainer");
         let nextButtonImage = document.createElement('img');
