@@ -8,12 +8,17 @@ document.addEventListener('DOMContentLoaded', function() {
     let defaultBackgroundColour = "#f5f5f5";
     let defaultTypeface = "Verdana, sans-serif";
     let defaultNavButtons = "both";
-    
+   
+    // Variables for sizes
+    let arrowImageWidth = 80;
+    let imagesOnlyNavButtonImageWidth = 50;
+    let bothNavButtonImageWidth = 40;
+    let homePageButtonImageWidth = 100;
+
     // TODO NEXT
         // Progress page for the grades, with topics on
         // Create a question type and some questions, with the logic around correct answers and storing progress
         // Progress bar?
-        // Move some hard-coded variables up to the top
 
 
     // Uncomment temporarily to clear elements of local storage
@@ -111,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let img = document.createElement('img');
         img.src = "./images/navigation/" + buttonName + ".png";
         img.alt = buttonName + " button";
-        img.width = 50;
+        img.width = imagesOnlyNavButtonImageWidth;
         img.style.display = "block";
         img.style.margin = "0 auto";
         button.appendChild(img);
@@ -127,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let img = document.createElement('img');
         img.src = "./images/navigation/" + buttonName + ".png";
         img.alt = buttonName + " button";
-        img.width = 40;
+        img.width = bothNavButtonImageWidth;
         img.style.marginRight = "5px";
         let text = document.createElement('span');
         text.innerHTML = buttonText;
@@ -166,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Home page functions //////
 
+    // TODO change to JSON file instead?
     function renderHomePageTutorial(){
         let pageTitle = "Welcome to Music Theory My Way!";
         let introText = "It looks like you are new to this site. Take the tutorial to learn your way around.";
@@ -244,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let img = document.createElement('img');
         img.src = "./images/navigation/" + buttonName + ".png";
         img.alt = "Big " + buttonName + " button";
-        img.width = 100;
+        img.width = homePageButtonImageWidth;
         
         let text = document.createElement('span');
         text.innerHTML = buttonText;
@@ -437,7 +443,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let img2 = document.createElement('img');
         img2.src = "./images/navigation/learn.png";
         img2.alt = "Learn button";
-        img2.width = 50;
+        img2.width = imagesOnlyNavButtonImageWidth;
         img2.style.display = "block";
         img2.style.margin = "0 auto";
         navOption2.style.backgroundColor = "#6ff36f";
@@ -461,7 +467,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let img3 = document.createElement('img');
         img3.src = "./images/navigation/learn.png";
         img3.alt = "Learn button";
-        img3.width = 40;
+        img3.width = bothNavButtonImageWidth;
         img3.style.marginRight = "5px";
         let text = document.createElement('span');
         text.innerHTML = "Learn";
@@ -676,7 +682,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let backButtonImage = document.createElement('img');
         backButtonImage.setAttribute('id', "backButtonImage");
         backButtonImage.src = "/images/leftArrow.png";
-        backButtonImage.width = 80;
+        backButtonImage.width = arrowImageWidth;
         backButtonImageContainer.appendChild(backButtonImage);
         footer.appendChild(backButtonImageContainer);
     }
@@ -687,7 +693,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let nextButtonImage = document.createElement('img');
         nextButtonImage.setAttribute('id', "nextButtonImage");
         nextButtonImage.src = "/images/rightArrow.png";
-        nextButtonImage.width = 80;
+        nextButtonImage.width = arrowImageWidth;
         nextButtonImageContainer.appendChild(nextButtonImage);
         footer.appendChild(nextButtonImageContainer);
     }
