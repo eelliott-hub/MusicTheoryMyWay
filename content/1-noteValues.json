@@ -2,26 +2,29 @@
     {
         "contentType": "information",
         "id": "crotchets1",
+        "pageTitle": "Crotchet notes",
         "images": ["../images/grade1/Notes/crotchet-stem-down.png"],
-        "explanation": "A beat in music is most often represented by a crotchet. The note above is a crotchet."
+        "text": "A single beat in music is most often represented by a crotchet. The symbol above represents a crotchet note."
     },
     {
         "contentType": "information",
         "id": "crotchets2",
+        "pageTitle": "Crotchet notes",
         "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-up.png"],
-        "explanation": "The stem of the note can stick up as well as down. The direction of the stem doesn't make any difference to the length of the note."
+        "text": "The stem of the note can stick up as well as down. The direction of the stem doesn't make any difference to the length of the note."
     },
     {
         "contentType": "information",
         "id": "crotchets3",
+        "pageTitle": "Crotchet notes",
         "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-down.png"],
-        "explanation": "If you clap your hands four times in a row to a steady beat, you have beaten four crotchets."
+        "text": "Clap your hands together four times in a row to a steady beat. <br>You have beaten four crotchets."
     },
     {
         "contentType": "question",
         "questionType": "multipleChoice",
-        "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/ff.png"],
-        "text": "Click on the picture of the crotceht.",
+        "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/quaver-stem-down.png"],
+        "text": "Click on the picture of the crotchet.",
         "correctAnswer": 0
     }
 ]

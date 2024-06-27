@@ -274,6 +274,67 @@ main .container{
     background-color: lightgrey;
 }
 
+/***** Content styling *****/
+
+/*** Information ***/
+#informationImagesContainer {
+    display: grid;
+    border: 1px solid darkgrey;
+    border-radius: 15px;
+    height: 150px;
+    width: 75%;
+    margin: 20px auto;
+}
+
+.informationImageContainer {
+    height: 100%;
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+}
+
+.informationImage {
+    height: 80px;
+}
+
+#informationTextContainer {
+    width: 75%;
+    margin: 20px auto;
+}
+
+
+/*** Questions ***/
+#questionImagesContainer {
+    display: grid;
+    gap: 20px;
+    height: 150px;
+    width: 75%;
+    margin: 20px auto;
+}
+
+.questionImageContainer {
+    height: 100%;
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+    border: 1px solid darkgrey;
+    border-radius: 15px;
+}
+
+.questionImage {
+    height: 80px;
+}
+
+.questionImageContainer:hover {
+    border: 2px solid darkgrey !important;
+    cursor: pointer;
+}
+
+#questionTextContainer {
+    width: 75%;
+    margin: 20px auto;
+}
+
 /***** Media queries *****/
 
 @media screen and (max-width: 1000px) {

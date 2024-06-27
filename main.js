@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Variables for site navigation
     let siteSection = "HOME"; // HOME, LEARN, CONTENT, QUIZ, SETTINGS, TUTORIAL, GLOSSARY
     let availableGrades = [1, 2, 3, 4, 5];
+    let tutorialPages = [];
+    let currentTutorialIndex = 0;
+    let topicContent = [];
+    let currentTopicIndex = 0;
 
     // Default settings
     let defaultBackgroundColour = "#f5f5f5";
@@ -18,18 +22,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // TODO NEXT
-        // Progress page for the grades, with topics on
-        // Create a question type and some questions, with the logic around correct answers and storing progress
+        // Capturing correct answer
+        // Storing progress
         // Progress bar?
+        // Logic of other kinds of questions
+        // Set up glossary and add crotchet to it
 
 
     // Uncomment temporarily to clear elements of local storage
-    // localStorage.clear();
-    // localStorage.removeItem("tutorialCompleted");
-    // localStorage.removeItem("settingsChanged");
+        // localStorage.clear();
+        // localStorage.removeItem("tutorialCompleted");
+        // localStorage.removeItem("settingsChanged");
 
     // Set to make grade 2 available
-    // localStorage.setItem('highestGradeCompleted', "1");
+        // localStorage.setItem('highestGradeCompleted', "1");
     
 
     // Settings variables - consider storing externally?
@@ -59,7 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
             renderGradeHomePage(currentGrade);
         }
         else if(siteSection === "CONTENT"){
-            document.getElementById("page-title").innerHTML = "";
+            let topicId = sessionStorage.getItem('currentTopicName');
+            loadContent(topicId);
         }
         else if(siteSection === "QUIZ"){
             document.getElementById("page-title").innerHTML = "Quiz";
@@ -335,8 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderBackgroundColourSettings(){
         fetch('backgroundColours.json')
             .then(response => response.json())
-            .then(colourData => {
-                colours = colourData;
+            .then(colours => {
                 renderColourOptions(colours);
             })
             .catch(error => console.error("Error loading colours:", error)); 
@@ -377,8 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderFontTypefaceSettings(){
         fetch('fontTypefaces.json')
         .then(response => response.json())
-        .then(typefaceData => {
-            typefaces = typefaceData;
+        .then(typefaces => {
             renderFontTypefaceOptions(typefaces);
         })
         .catch(error => console.error("Error loading typefaces:", error)); 
@@ -647,6 +652,10 @@ document.addEventListener('DOMContentLoaded', function() {
         sessionStorage.setItem('currentGrade', grade);
     }
 
+    function getCurrentGrade(){
+        return sessionStorage.getItem('currentGrade');
+    }
+
     function renderAvailableGradeBlock(gradeBlock, gradeNumber){
         gradeBlock.setAttribute('class', "availableGradeBlock");
         gradeBlock.addEventListener('click', function(){
@@ -664,8 +673,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("page-title").innerHTML = "Choose your topic";
         fetch("./content/"+grade+"-topics.json")
             .then(response => response.json())
-            .then(gradeData => {
-                gradeTopics = gradeData;
+            .then(gradeTopics => {
                 renderGradeTopics(grade, gradeTopics);                
             })
             .catch(error => console.error("Error loading grade "+grade+" topics: ", error));
@@ -680,6 +688,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let topicBlock = document.createElement('div');
             let thisTopic = gradeTopics[i];
             topicBlock.innerHTML = thisTopic.name;
+            
            
             let highestTopicCompleted = localStorage.getItem('highestTopicCompletedGrade'+grade);
             if(highestTopicCompleted){
@@ -687,27 +696,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 else{ renderUnavailableTopicBlock(topicBlock); }
             }
             else{
-                if(i === 0){ renderAvailableTopicBlock(topicBlock, i); }
+                if(i === 0){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
                 else{ renderUnavailableTopicBlock(topicBlock); }
             }
             gradeTopicsContainer.appendChild(topicBlock);
         }
         mainContainer.appendChild(gradeTopicsContainer);
-        renderBackArrow();
 
+        renderBackArrow();
         document.getElementById("backButtonImageContainer").addEventListener('click', function() {
             changeSiteSection("LEARN");
         });
     }
 
-    function setCurrentTopic(topicIndex) {
-        sessionStorage.setItem('currentTopic', topicIndex);
+    function setCurrentTopic(topicIndex, topicId) {
+        sessionStorage.setItem('currentTopicIndex', topicIndex);
+        sessionStorage.setItem('currentTopicId', topicId);
     }
 
-    function renderAvailableTopicBlock(topicBlock, topicIndex) {
+    function getCurrentTopicId(){
+        return sessionStorage.getItem('currentTopicId');
+    }
+
+    function renderAvailableTopicBlock(topicBlock, topicIndex, topicId) {
         topicBlock.setAttribute('class', "availableTopicBlock");
         topicBlock.addEventListener('click', function(){
-            setCurrentTopic(topicIndex);
+            setCurrentTopic(topicIndex, topicId);
             changeSiteSection("CONTENT");
         });
     }
@@ -717,7 +731,121 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     ////// Content and questions //////
+    function loadContent(topicId) {
+        let grade = getCurrentGrade();
+        fetch("./content/"+grade+"-"+topicId+".json")
+        .then(response => response.json())
+        .then(topicData => {
+            topicContent = topicData;
+            currentTopicIndex = 0; // Reset index when entering topic content
+            renderContentPage(topicContent, currentTopicIndex);                   
+        })
+        .catch(error => console.error("Error loading topic data: ", error));
+    }
+
+    function renderContentPage(topicContent, index) {
+        console.log("topicContent.length:" + topicContent.length);
+        console.log("index: "+index);
+        if (index >= 0 && index < topicContent.length) {
+            const item = topicContent[index];
+
+            if(item.contentType === "information"){
+
+            }
+            else if(item.contentType === "question"){
+
+            }
+            emptyMainText();
+            emptyFooter();
     
+        
+            if(item.contentType === "information"){
+                renderInformation(item);
+            }
+
+            else if(item.contentType === "question") {
+                renderQuestion(item);
+            }
+        } 
+        
+        else {
+            console.error('Page index out of range:', index);
+        }
+    }
+
+    function renderInformation(item){
+        document.getElementById("page-title").innerHTML = item.pageTitle;
+        let mainContainer = document.getElementById("main-container");
+        let informationContainer = document.createElement('div');
+        informationContainer.setAttribute('id', "informationContainer");
+        mainContainer.appendChild(informationContainer);
+
+        let informationImagesContainer = document.createElement('div');
+        informationImagesContainer.setAttribute('id', "informationImagesContainer");
+        let numImages = item.images.length;
+        informationImagesContainer.style.gridTemplateColumns = "repeat("+numImages+", 1fr)";
+        informationContainer.appendChild(informationImagesContainer);
+
+        for (i = 0; i < numImages; i++){
+            let informationImageContainer = document.createElement('div');
+            informationImageContainer.setAttribute('class', "informationImageContainer");
+            let image = document.createElement('img');
+            let source = item.images[i];
+            image.src = source;
+            image.setAttribute('class', "informationImage");
+            informationImageContainer.appendChild(image);
+            informationImagesContainer.appendChild(informationImageContainer);
+        }
+
+        let informationTextContainer = document.createElement('div');
+        informationTextContainer.setAttribute('id', "informationTextContainer");
+        informationContainer.appendChild(informationTextContainer);
+        let informationText = item.text;
+        informationTextContainer.innerHTML = informationText;
+
+        renderNextArrow();
+        document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
+            currentTopicIndex++;
+            console.log("New currentTopicIndex:" +currentTopicIndex);
+            console.log("topicContent.length:" + topicContent.length);
+            if (currentTopicIndex >= topicContent.length) {
+                changeSiteSection("GRADEHOMEPAGE");
+            } else {
+                renderContentPage(topicContent, currentTopicIndex);
+            }
+        });
+    }
+
+    function renderQuestion(item){
+        document.getElementById("page-title").innerHTML =  "Quick check";
+        let mainContainer = document.getElementById("main-container");
+        let questionContainer = document.createElement('div');
+        questionContainer.setAttribute('id', "questionContainer");
+        mainContainer.appendChild(questionContainer);
+
+        let questionImagesContainer = document.createElement('div');
+        questionImagesContainer.setAttribute('id', "questionImagesContainer");
+        let numImages = item.images.length;
+        questionImagesContainer.style.gridTemplateColumns = "repeat("+numImages+", 1fr)";
+        questionContainer.appendChild(questionImagesContainer);
+
+        for (i = 0; i < numImages; i++){
+            let questionImageContainer = document.createElement('div');
+            questionImageContainer.setAttribute('class', "questionImageContainer");
+            let image = document.createElement('img');
+            let source = item.images[i];
+            image.src = source;
+            image.setAttribute('class', "questionImage");
+            questionImageContainer.appendChild(image);
+            questionImagesContainer.appendChild(questionImageContainer);
+        }
+
+        let questionTextContainer = document.createElement('div');
+        questionTextContainer.setAttribute('id', "questionTextContainer");
+        questionContainer.appendChild(questionTextContainer);
+        let questionText = item.text;
+        questionTextContainer.innerHTML = questionText;
+    }
 
     ////// Misc helper functions //////
 
