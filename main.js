@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let bothNavButtonImageWidth = 40;
     let homePageButtonImageWidth = 100;
 
+
+
     // TODO NEXT
         // Progress page for the grades, with topics on
         // Create a question type and some questions, with the logic around correct answers and storing progress
@@ -25,6 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // localStorage.clear();
     // localStorage.removeItem("tutorialCompleted");
     // localStorage.removeItem("settingsChanged");
+
+    // Set to make grade 2 available
+    // localStorage.setItem('highestGradeCompleted', "1");
+    
 
     // Settings variables - consider storing externally?
     const settingsPageTitles = [
@@ -49,8 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
             renderProgressPage();
         }
         else if(siteSection === "GRADEHOMEPAGE"){
-            document.getElementById("page-title").innerHTML = "Choose your topic";
-            renderGradeHomePage();
+            let currentGrade = sessionStorage.getItem('currentGrade');
+            renderGradeHomePage(currentGrade);
         }
         else if(siteSection === "CONTENT"){
             document.getElementById("page-title").innerHTML = "";
@@ -531,7 +537,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentTutorialIndex = 0; // Reset index when entering tutorial
                 renderTutorialPage(currentTutorialIndex);                   
             })
-            .catch(error => console.error("Error loading JSON: ", error));
+            .catch(error => console.error("Error loading tutorial data: ", error));
     }
 
     // Function to render tutorial page
@@ -624,7 +630,7 @@ document.addEventListener('DOMContentLoaded', function() {
            
             let highestGradeCompleted = localStorage.getItem('highestGradeCompleted');
             if(highestGradeCompleted){
-                if(thisGrade <= highestCompletedGrade){ renderAvailableGradeBlock(gradeBlock, thisGrade); }
+                if(thisGrade <= parseInt(highestGradeCompleted)+1){ renderAvailableGradeBlock(gradeBlock, thisGrade); }
                 else{ renderUnavailableGradeBlock(gradeBlock); }
             }
             else{
@@ -654,9 +660,64 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Page showing topics within the grade
-    function renderGradeHomePage(){
-        // TO DO NEXT
+    function renderGradeHomePage(grade){
+        document.getElementById("page-title").innerHTML = "Choose your topic";
+        fetch("./content/"+grade+"-topics.json")
+            .then(response => response.json())
+            .then(gradeData => {
+                gradeTopics = gradeData;
+                renderGradeTopics(grade, gradeTopics);                
+            })
+            .catch(error => console.error("Error loading grade "+grade+" topics: ", error));
     }
+
+    function renderGradeTopics(grade, gradeTopics){
+        let mainContainer = document.getElementById("main-container");
+        let gradeTopicsContainer = document.createElement('div');
+        gradeTopicsContainer.setAttribute('id', "gradeTopicsContainer");
+
+        for(i = 0; i < gradeTopics.length; i++){
+            let topicBlock = document.createElement('div');
+            let thisTopic = gradeTopics[i];
+            topicBlock.innerHTML = thisTopic.name;
+           
+            let highestTopicCompleted = localStorage.getItem('highestTopicCompletedGrade'+grade);
+            if(highestTopicCompleted){
+                if(thisTopic <= parseInt(highestTopicCompleted)+1){ renderAvailableTopicBlock(topicBlock, thisGrade); }
+                else{ renderUnavailableTopicBlock(topicBlock); }
+            }
+            else{
+                if(i === 0){ renderAvailableTopicBlock(topicBlock, i); }
+                else{ renderUnavailableTopicBlock(topicBlock); }
+            }
+            gradeTopicsContainer.appendChild(topicBlock);
+        }
+        mainContainer.appendChild(gradeTopicsContainer);
+        renderBackArrow();
+
+        document.getElementById("backButtonImageContainer").addEventListener('click', function() {
+            changeSiteSection("LEARN");
+        });
+    }
+
+    function setCurrentTopic(topicIndex) {
+        sessionStorage.setItem('currentTopic', topicIndex);
+    }
+
+    function renderAvailableTopicBlock(topicBlock, topicIndex) {
+        topicBlock.setAttribute('class', "availableTopicBlock");
+        topicBlock.addEventListener('click', function(){
+            setCurrentTopic(topicIndex);
+            changeSiteSection("CONTENT");
+        });
+    }
+
+    function renderUnavailableTopicBlock(topicBlock) {
+        topicBlock.setAttribute('class', "unavailableTopicBlock");
+    }
+
+    ////// Content and questions //////
+    
 
     ////// Misc helper functions //////
 
@@ -674,6 +735,13 @@ document.addEventListener('DOMContentLoaded', function() {
         footer.style.display = "flex";
         footer.style.justifyContent = "flex-end";
         createNextArrow();
+    }
+
+    function renderBackArrow(){
+        let footer = document.getElementById("footer");
+        footer.style.display = "flex";
+        footer.style.justifyContent = "flex-start";
+        createBackArrow();
     }
 
     function createBackArrow() {

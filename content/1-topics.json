@@ -1,0 +1,46 @@
+[
+    {
+        "id": "noteValues",
+        "name": "Note values"
+    },
+    {
+        "id": "restValues",
+        "name": "Rest values"
+    },
+    {
+        "id": "timeSignatures",
+        "name": "Time signatures"
+    },
+    {
+        "id": "stave",
+        "name": "The stave"
+    },
+    {
+        "id": "notePitches",
+        "name": "Note pitches"
+    },
+    {
+        "id": "accidentals",
+        "name": "Sharps, flats and naturals"
+    },
+    {
+        "id": "majorScale",
+        "name": "The major scale" 
+    },
+    {
+        "id": "scales",
+        "name": "Scales" 
+    },
+    {
+        "id": "dynamics",
+        "name": "Dynamics" 
+    },
+    {
+        "id": "terms",
+        "name": "More terms" 
+    },
+    {
+        "id": "symbols",
+        "name": "More symbols" 
+    }
+]

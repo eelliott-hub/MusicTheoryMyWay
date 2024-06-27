@@ -1,0 +1,42 @@
+[
+    {
+        "id": "restValues",
+        "name": "Rest values"
+    },
+    {
+        "id": "timeSignatures",
+        "name": "Time signatures"
+    },
+    {
+        "id": "triplets",
+        "name": "Triplets"
+    },
+    {
+        "id": "stave",
+        "name": "Extending the stave"
+    },
+    {
+        "id": "notePitches",
+        "name": "More note pitches"
+    },
+    {
+        "id": "majorScales",
+        "name": "More major scales" 
+    },
+    {
+        "id": "minorScale",
+        "name": "The minor scale" 
+    },
+    {
+        "id": "minorScales",
+        "name": "Minor scales" 
+    },
+    {
+        "id": "terms",
+        "name": "More terms" 
+    },
+    {
+        "id": "symbols",
+        "name": "More symbols" 
+    }
+]
