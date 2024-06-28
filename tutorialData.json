@@ -15,11 +15,27 @@
     },
 
     {
-        "subheading": "Learn",
+        "subheading": "Using Music Theory My Way",
+        "image": "/images/navigation/learn.png",
+        "altText": "Large learn icon",
+        "colour": "#6ff36f",
+        "text": "It is possible to use Music Theory My Way on a mobile phone screen, but a tablet or laptop screen is better."
+    },
+
+    {
+        "subheading": "Learning",
         "image": "/images/navigation/learn.png",
         "altText": "Large learn icon",
         "colour": "#6ff36f",
         "text": "You will be learning about music theory up to grade 2. The green music notes icon takes you to the learning section."
+    },
+
+    {
+        "subheading": "Terminology",
+        "image": "/images/navigation/glossary.png",
+        "altText": "Large glossary icon",
+        "colour": "#f15252",
+        "text": "There will be some new words to learn, and they will be explained along the way."  
     },
 
     {

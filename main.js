@@ -2,35 +2,41 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Variables for site navigation
     let siteSection = "HOME"; // HOME, LEARN, CONTENT, QUIZ, SETTINGS, TUTORIAL, GLOSSARY
-    let availableGrades = [1, 2, 3, 4, 5];
+    const availableGrades = [1, 2, 3, 4, 5];
     let tutorialPages = [];
     let currentTutorialIndex = 0;
     let topicContent = [];
     let currentTopicIndex = 0;
 
     // Default settings
-    let defaultBackgroundColour = "#f5f5f5";
-    let defaultTypeface = "Verdana, sans-serif";
-    let defaultNavButtons = "both";
+    const defaultBackgroundColour = "#f5f5f5";
+    const defaultTypeface = "Verdana, sans-serif";
+    const defaultNavButtons = "both";
    
     // Variables for sizes
-    let arrowImageWidth = 80;
-    let imagesOnlyNavButtonImageWidth = 50;
-    let bothNavButtonImageWidth = 40;
-    let homePageButtonImageWidth = 100;
+    const arrowImageWidth = 80;
+    const imagesOnlyNavButtonImageWidth = 50;
+    const bothNavButtonImageWidth = 40;
+    const homePageButtonImageWidth = 100;
 
 
 
-    // TODO NEXT
-        // Capturing correct answer
-        // Storing progress
+    // TODO NEXT to make this a MVP
+        // Storing progress within topics and grades - need to store number of right answers to questions
         // Progress bar?
         // Logic of other kinds of questions
-        // Set up glossary and add crotchet to it
+        // Set up glossary and add crotchet and quaver to it
+        // Make a random selection of correct and incorrect messages, or totally slimline it and make have just tick/green or cross/red?
+        // Quiz section: selection of questions from topics covered so far (in random order if possible)
+        // Finish note values section and make a final page for it (You can come back and revise, and remind about glossary)
 
+        // Improve question sections:
+            // Modular Functions: Functions like createQuestionContainer, createQuestionImagesContainer, createQuestionImageContainer, and createQuestionTextContainer modularize the code, making it easier to read and maintain.
+            // Event Delegation: The event listener could be added to the parent container (questionImagesContainer). This is more efficient and makes it easier to handle events for dynamically added or removed elements.
+        // Forward arrow event handlers are all very similar - break out into a function with arguments
 
     // Uncomment temporarily to clear elements of local storage
-        // localStorage.clear();
+        localStorage.clear();
         // localStorage.removeItem("tutorialCompleted");
         // localStorage.removeItem("settingsChanged");
 
@@ -61,11 +67,11 @@ document.addEventListener('DOMContentLoaded', function() {
             renderProgressPage();
         }
         else if(siteSection === "GRADEHOMEPAGE"){
-            let currentGrade = sessionStorage.getItem('currentGrade');
+            const currentGrade = sessionStorage.getItem('currentGrade');
             renderGradeHomePage(currentGrade);
         }
         else if(siteSection === "CONTENT"){
-            let topicId = sessionStorage.getItem('currentTopicName');
+            const topicId = sessionStorage.getItem('currentTopicId');
             loadContent(topicId);
         }
         else if(siteSection === "QUIZ"){
@@ -113,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Text only
     function navButtonText(buttonName, buttonText) {
-        let button = document.getElementById(buttonName+"-button");
+        const button = document.getElementById(buttonName+"-button");
         button.innerHTML = "";
         button.innerHTML = buttonText;
         button.style.fontSize = "20pt";
@@ -124,9 +130,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Images only
     function navButtonImage(buttonName) {
-        let button = document.getElementById(buttonName+"-button");
+        const button = document.getElementById(buttonName+"-button");
         button.innerHTML = "";
-        let img = document.createElement('img');
+        const img = document.createElement('img');
         img.src = "./images/navigation/" + buttonName + ".png";
         img.alt = buttonName + " button";
         img.width = imagesOnlyNavButtonImageWidth;
@@ -137,17 +143,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Text and images
     function navButtonImageText(buttonName, buttonText) {
-        let button = document.getElementById(buttonName+"-button");
+        const button = document.getElementById(buttonName+"-button");
         button.innerHTML = "";
-        let container = document.createElement('div');
+        const container = document.createElement('div');
         container.style.display = "flex";
         container.style.alignItems = "center";
-        let img = document.createElement('img');
+        const img = document.createElement('img');
         img.src = "./images/navigation/" + buttonName + ".png";
         img.alt = buttonName + " button";
         img.width = bothNavButtonImageWidth;
         img.style.marginRight = "5px";
-        let text = document.createElement('span');
+        const text = document.createElement('span');
         text.innerHTML = buttonText;
         text.style.fontSize = "18pt";
         text.style.fontWeight = "normal";
@@ -186,57 +192,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // TODO change to JSON file instead?
     function renderHomePageTutorial(){
-        let pageTitle = "Welcome to Music Theory My Way!";
-        let introText = "It looks like you are new to this site. Take the tutorial to learn your way around.";
-        let buttonNav = "tutorial";
-        let buttonText = "Take the tutorial";
-        let siteSectionTo = "TUTORIAL";
-        let buttonColour = "#ffff00";
+        const pageTitle = "Welcome to Music Theory My Way!";
+        const introText = "It looks like you are new to this site. Take the tutorial to learn your way around.";
+        const buttonNav = "tutorial";
+        const buttonText = "Take the tutorial";
+        const siteSectionTo = "TUTORIAL";
+        const buttonColour = "#ffff00";
         renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour);
     }
 
     function renderHomePageSettings(){
-        let pageTitle = "Welcome back to Music Theory My Way!";
-        let introText = "Adjust the settings to suit your learning preferences.";
-        let buttonNav = "settings";
-        let buttonText = "Go to settings";
-        let siteSectionTo = "SETTINGS";
-        let buttonColour = "#ffa500";
+        const pageTitle = "Welcome back to Music Theory My Way!";
+        const introText = "Adjust the settings to suit your learning preferences.";
+        const buttonNav = "settings";
+        const buttonText = "Go to settings";
+        const siteSectionTo = "SETTINGS";
+        const buttonColour = "#ffa500";
         renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour);
     }
 
     function renderHomePageStartLearn(){
-        let pageTitle = "Welcome back to Music Theory My Way!";
-        let introText = "";
-        let buttonNav = "learn";
-        let buttonText = "Start learning now";
-        let siteSectionTo = "LEARN";
-        let buttonColour = "#6ff36f";
+        const pageTitle = "Welcome back to Music Theory My Way!";
+        const introText = "";
+        const buttonNav = "learn";
+        const buttonText = "Start learning now";
+        const siteSectionTo = "LEARN";
+        const buttonColour = "#6ff36f";
         renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour);
     }
 
     function renderHomePageContinueLearn(){
-        let pageTitle = "Welcome back to Music Theory My Way!";
-        let introText = "Click the music notes to continue learning.";
-        let buttonNav = "learn";
-        let buttonText = "Contibue learning now";
-        let siteSectionTo = "LEARN";
-        let buttonColour = "#6ff36f";
+        const pageTitle = "Welcome back to Music Theory My Way!";
+        const introText = "Click the music notes to continue learning.";
+        const buttonNav = "learn";
+        const buttonText = "Contibue learning now";
+        const siteSectionTo = "LEARN";
+        const buttonColour = "#6ff36f";
         renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour);
     }
 
     function renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour) {
         document.getElementById("page-title").innerHTML = pageTitle;
-        let div = document.createElement('div');
+        const div = document.createElement('div');
         div.setAttribute('class', "homePageContainer");
         div.innerHTML = introText;
-        let mainContainer = document.getElementById("main-container");
+        const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(div);
 
-        let homePageContainer = document.createElement('div');
+        const homePageContainer = document.createElement('div');
         homePageContainer.setAttribute('class', "homePageContainer");
 
-        let homePageButton = createHomePageButton("homePageButton", buttonNav, buttonText, buttonColour);
+        const homePageButton = createHomePageButton("homePageButton", buttonNav, buttonText, buttonColour);
         homePageContainer.appendChild(homePageButton);
 
         mainContainer.appendChild(homePageContainer);
@@ -245,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function addHomePageEventListener(siteSectionTo) {
-        let homePageButton = document.getElementById("homePageButton");
+        const homePageButton = document.getElementById("homePageButton");
         if (homePageButton) {
             homePageButton.addEventListener('click', function() {
                 changeSiteSection(siteSectionTo);
@@ -255,17 +261,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Big button on home page
     function createHomePageButton(buttonId, buttonName, buttonText, buttonColour) {
-        let homePageButton = document.createElement('div');
+        const homePageButton = document.createElement('div');
         homePageButton.setAttribute('class', 'bigHomeButton');
         homePageButton.setAttribute('id', buttonId);
         homePageButton.style.backgroundColor = buttonColour;
 
-        let img = document.createElement('img');
+        const img = document.createElement('img');
         img.src = "./images/navigation/" + buttonName + ".png";
         img.alt = "Big " + buttonName + " button";
         img.width = homePageButtonImageWidth;
         
-        let text = document.createElement('span');
+        const text = document.createElement('span');
         text.innerHTML = buttonText;
 
         homePageButton.appendChild(img);
@@ -284,14 +290,14 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyMainText();
             emptyFooter();
             
-            let mainContainer = document.getElementById("main-container");
-            let settingsContainer = document.createElement('div');
+            const mainContainer = document.getElementById("main-container");
+            const settingsContainer = document.createElement('div');
             settingsContainer.setAttribute('id', "settingsContainer");
 
-            let settingsSubheadingContainer = document.createElement('div');
+            const settingsSubheadingContainer = document.createElement('div');
             settingsSubheadingContainer.setAttribute('id', "settingsSubheadingContainer");
 
-            let settingsSubheading = document.createElement('h2');
+            const settingsSubheading = document.createElement('h2');
             settingsSubheading.setAttribute('id', 'settingsSubheading');
             settingsSubheading.innerHTML = settingsPageTitles[index];
 
@@ -349,11 +355,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderColourOptions(colourData){
-        let colourContainer = document.createElement('div');
+        const colourContainer = document.createElement('div');
         colourContainer.setAttribute('id', "colourContainer");
 
         colourData.forEach(colour => {
-            let colourBlock = document.createElement('div');
+            const colourBlock = document.createElement('div');
             colourBlock.setAttribute('class', "colourBlock");
             colourBlock.style.backgroundColor = colour.colourCode;
             colourBlock.innerHTML = colour.colourText;
@@ -390,11 +396,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderFontTypefaceOptions(typefaceData){
-        let typefaceContainer = document.createElement('div');
+        const typefaceContainer = document.createElement('div');
         typefaceContainer.setAttribute('id', "typefaceContainer");
 
         typefaceData.forEach(typeface => {
-            let typefaceBlock = document.createElement('div');
+            const typefaceBlock = document.createElement('div');
             typefaceBlock.setAttribute('class', "typefaceBlock");
             typefaceBlock.style.fontFamily = typeface.fontFamily;
             typefaceBlock.innerHTML = typeface.fontText;
@@ -424,12 +430,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderNavigationButtonSettings(){
 
-        let navigationOptionsContainer = document.createElement('div');
+        const navigationOptionsContainer = document.createElement('div');
         navigationOptionsContainer.setAttribute('id', "navigationOptionsContainer");
 
         // Split these out into separate functions?? 
 
-        let navOption1 = document.createElement('div');
+        const navOption1 = document.createElement('div');
         navOption1.setAttribute('class', "navOptionContainer");
         navOption1.setAttribute('class', "nav-button");
         navOption1.innerHTML = "Learn";
@@ -447,11 +453,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         navigationOptionsContainer.appendChild(navOption1);
 
-        let navOption2 = document.createElement('div');
+        const navOption2 = document.createElement('div');
         navOption2.setAttribute('class', "navOptionContainer");
         navOption2.setAttribute('class', "nav-button");
 
-        let img2 = document.createElement('img');
+        const img2 = document.createElement('img');
         img2.src = "./images/navigation/learn.png";
         img2.alt = "Learn button";
         img2.width = imagesOnlyNavButtonImageWidth;
@@ -468,19 +474,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         navigationOptionsContainer.appendChild(navOption2);
 
-        let navOption3 = document.createElement('div');
+        const navOption3 = document.createElement('div');
         navOption3.setAttribute('class', "navOptionContainer");
         navOption3.setAttribute('class', "nav-button");
 
-        let container = document.createElement('div');
+        const container = document.createElement('div');
         container.style.display = "flex";
         container.style.alignItems = "center";
-        let img3 = document.createElement('img');
+        const img3 = document.createElement('img');
         img3.src = "./images/navigation/learn.png";
         img3.alt = "Learn button";
         img3.width = bothNavButtonImageWidth;
         img3.style.marginRight = "5px";
-        let text = document.createElement('span');
+        const text = document.createElement('span');
         text.innerHTML = "Learn";
         text.style.fontSize = "18pt";
         navOption3.style.backgroundColor = "#6ff36f";
@@ -502,7 +508,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Apply saved settings
     function applySavedSettings() {
-        let savedBackgroundColour = localStorage.getItem('backgroundColour');
+        const savedBackgroundColour = localStorage.getItem('backgroundColour');
         if (savedBackgroundColour) {
             console.log('Applying saved background colour:', savedBackgroundColour);
             setBackgroundColour(savedBackgroundColour);
@@ -511,7 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Applying default background colour:', defaultBackgroundColour);
             setBackgroundColour(defaultBackgroundColour);
         }
-        let savedTypeface = localStorage.getItem('fontTypeface');
+        const savedTypeface = localStorage.getItem('fontTypeface');
         if(savedTypeface) {
             console.log('Applying saved font typeface:', savedTypeface);
             setTypeface(savedTypeface);
@@ -520,7 +526,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Applying default font typeface:', defaultTypeface);
             setTypeface(defaultTypeface);
         }
-        let savedNavButtonsView = localStorage.getItem('navButtonsView');
+        const savedNavButtonsView = localStorage.getItem('navButtonsView');
         if(savedNavButtonsView){
             console.log('Applying saved navigation buttons:', savedNavButtonsView);
             setNavButtons(savedNavButtonsView);
@@ -553,26 +559,26 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyMainText();
             emptyFooter();
     
-            let mainContainer = document.getElementById("main-container");
-            let tutorialContainer = document.createElement('div');
+            const mainContainer = document.getElementById("main-container");
+            const tutorialContainer = document.createElement('div');
             tutorialContainer.setAttribute('id', "tutorialContainer");
 
-            let tutorialImageContainer = document.createElement('div');
+            const tutorialImageContainer = document.createElement('div');
             tutorialImageContainer.setAttribute('id', 'tutorialImageContainer');
             tutorialImageContainer.style.backgroundColor = page.colour;
 
-            let tutorialImage = document.createElement('img');
+            const tutorialImage = document.createElement('img');
             tutorialImage.setAttribute('id', 'tutorialImage');
 
             tutorialImageContainer.appendChild(tutorialImage);
 
-            let tutorialTextContainer = document.createElement('div');
+            const tutorialTextContainer = document.createElement('div');
             tutorialTextContainer.setAttribute('id', 'tutorialTextContainer');
 
-            let tutorialSubheading = document.createElement('h2');
+            const tutorialSubheading = document.createElement('h2');
             tutorialSubheading.setAttribute('id', 'tutorialSubheading');
 
-            let tutorialText = document.createElement('p');
+            const tutorialText = document.createElement('p');
             tutorialText.setAttribute('id', 'tutorialText');
 
             tutorialTextContainer.appendChild(tutorialSubheading);
@@ -624,16 +630,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Page showing the available grades
     function renderProgressPage(){
         document.getElementById("page-title").innerHTML = "Choose the grade you want to work on";
-        let mainContainer = document.getElementById("main-container");
-        let progressContainer = document.createElement('div');
+        const mainContainer = document.getElementById("main-container");
+        const progressContainer = document.createElement('div');
         progressContainer.setAttribute('id', "progressContainer");
 
-        for(i = 0; i < availableGrades.length; i++){
-            let gradeBlock = document.createElement('div');
-            let thisGrade = availableGrades[i];
+        for(let i = 0; i < availableGrades.length; i++){
+            const gradeBlock = document.createElement('div');
+            const thisGrade = availableGrades[i];
             gradeBlock.innerHTML = "Grade " + thisGrade;
            
-            let highestGradeCompleted = localStorage.getItem('highestGradeCompleted');
+            const highestGradeCompleted = localStorage.getItem('highestGradeCompleted');
             if(highestGradeCompleted){
                 if(thisGrade <= parseInt(highestGradeCompleted)+1){ renderAvailableGradeBlock(gradeBlock, thisGrade); }
                 else{ renderUnavailableGradeBlock(gradeBlock); }
@@ -680,25 +686,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderGradeTopics(grade, gradeTopics){
-        let mainContainer = document.getElementById("main-container");
-        let gradeTopicsContainer = document.createElement('div');
+        const mainContainer = document.getElementById("main-container");
+        const gradeTopicsContainer = document.createElement('div');
         gradeTopicsContainer.setAttribute('id', "gradeTopicsContainer");
 
         for(i = 0; i < gradeTopics.length; i++){
-            let topicBlock = document.createElement('div');
-            let thisTopic = gradeTopics[i];
+            const topicBlock = document.createElement('div');
+            const thisTopic = gradeTopics[i];
             topicBlock.innerHTML = thisTopic.name;
             
-           
-            let highestTopicCompleted = localStorage.getItem('highestTopicCompletedGrade'+grade);
-            if(highestTopicCompleted){
-                if(thisTopic <= parseInt(highestTopicCompleted)+1){ renderAvailableTopicBlock(topicBlock, thisGrade); }
-                else{ renderUnavailableTopicBlock(topicBlock); }
+            const highestTopicCompleted = getHighestTopicCompleted(grade);
+            if(i === 0){
+                { renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
             }
-            else{
-                if(i === 0){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
-                else{ renderUnavailableTopicBlock(topicBlock); }
-            }
+            else if(i <= (highestTopicCompleted+1)){ renderAvailableTopicBlock(topicBlock, grade); }
+            else{ renderUnavailableTopicBlock(topicBlock); }
+
             gradeTopicsContainer.appendChild(topicBlock);
         }
         mainContainer.appendChild(gradeTopicsContainer);
@@ -709,6 +712,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function getHighestTopicCompleted(grade){
+        return parseInt(localStorage.getItem('highestTopicCompletedGrade'+grade));
+    }
+
+    function setHighestTopicCompleted(grade, index){
+        localStorage.setItem('highestTopicCompletedGrade'+grade, index);
+    }
+
+    function incrementHighestTopicCompleted(grade) {
+        let highestTopicCompleted = getHighestTopicCompleted(grade);
+        
+    
+        if (isNaN(highestTopicCompleted)) {
+            highestTopicCompleted = 0; 
+        }
+        else if(getCurrentTopicIndex() > getHighestTopicCompleted()) {
+            highestTopicCompleted++;
+        }
+        setHighestTopicCompleted(grade, highestTopicCompleted);
+    }
+
     function setCurrentTopic(topicIndex, topicId) {
         sessionStorage.setItem('currentTopicIndex', topicIndex);
         sessionStorage.setItem('currentTopicId', topicId);
@@ -716,6 +740,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function getCurrentTopicId(){
         return sessionStorage.getItem('currentTopicId');
+    }
+
+    function getCurrentTopicIndex(){
+        return parseInt(sessionStorage.getItem('currentTopicIndex'));
     }
 
     function renderAvailableTopicBlock(topicBlock, topicIndex, topicId) {
@@ -732,7 +760,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Content and questions //////
     function loadContent(topicId) {
-        let grade = getCurrentGrade();
+        const grade = getCurrentGrade();
         fetch("./content/"+grade+"-"+topicId+".json")
         .then(response => response.json())
         .then(topicData => {
@@ -744,20 +772,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderContentPage(topicContent, index) {
-        console.log("topicContent.length:" + topicContent.length);
-        console.log("index: "+index);
         if (index >= 0 && index < topicContent.length) {
             const item = topicContent[index];
 
-            if(item.contentType === "information"){
-
-            }
-            else if(item.contentType === "question"){
-
-            }
             emptyMainText();
             emptyFooter();
-    
         
             if(item.contentType === "information"){
                 renderInformation(item);
@@ -775,83 +794,216 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderInformation(item){
         document.getElementById("page-title").innerHTML = item.pageTitle;
-        let mainContainer = document.getElementById("main-container");
-        let informationContainer = document.createElement('div');
+        const mainContainer = document.getElementById("main-container");
+        const informationContainer = document.createElement('div');
         informationContainer.setAttribute('id', "informationContainer");
         mainContainer.appendChild(informationContainer);
 
-        let informationImagesContainer = document.createElement('div');
+        const informationImagesContainer = document.createElement('div');
         informationImagesContainer.setAttribute('id', "informationImagesContainer");
-        let numImages = item.images.length;
+        const numImages = item.images.length;
         informationImagesContainer.style.gridTemplateColumns = "repeat("+numImages+", 1fr)";
         informationContainer.appendChild(informationImagesContainer);
 
         for (i = 0; i < numImages; i++){
-            let informationImageContainer = document.createElement('div');
+            const informationImageContainer = document.createElement('div');
             informationImageContainer.setAttribute('class', "informationImageContainer");
-            let image = document.createElement('img');
-            let source = item.images[i];
+            const image = document.createElement('img');
+            const source = item.images[i];
             image.src = source;
             image.setAttribute('class', "informationImage");
             informationImageContainer.appendChild(image);
             informationImagesContainer.appendChild(informationImageContainer);
         }
 
-        let informationTextContainer = document.createElement('div');
+        const informationTextContainer = document.createElement('div');
         informationTextContainer.setAttribute('id', "informationTextContainer");
         informationContainer.appendChild(informationTextContainer);
-        let informationText = item.text;
+        const informationText = item.text;
         informationTextContainer.innerHTML = informationText;
 
         renderNextArrow();
         document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
             currentTopicIndex++;
-            console.log("New currentTopicIndex:" +currentTopicIndex);
-            console.log("topicContent.length:" + topicContent.length);
             if (currentTopicIndex >= topicContent.length) {
+                incrementHighestTopicCompleted(getCurrentGrade());
                 changeSiteSection("GRADEHOMEPAGE");
-            } else {
+                
+            } 
+            else {
                 renderContentPage(topicContent, currentTopicIndex);
             }
         });
     }
 
-    function renderQuestion(item){
-        document.getElementById("page-title").innerHTML =  "Quick check";
-        let mainContainer = document.getElementById("main-container");
-        let questionContainer = document.createElement('div');
+    function renderQuestion(item) {
+        document.getElementById("page-title").innerHTML = "";
+        const mainContainer = document.getElementById("main-container");
+        const questionContainer = document.createElement('div');
         questionContainer.setAttribute('id', "questionContainer");
         mainContainer.appendChild(questionContainer);
-
-        let questionImagesContainer = document.createElement('div');
+    
+        const questionImagesContainer = document.createElement('div');
         questionImagesContainer.setAttribute('id', "questionImagesContainer");
-        let numImages = item.images.length;
-        questionImagesContainer.style.gridTemplateColumns = "repeat("+numImages+", 1fr)";
+        const numImages = item.images.length;
+        questionImagesContainer.style.gridTemplateColumns = "repeat(" + numImages + ", 1fr)";
         questionContainer.appendChild(questionImagesContainer);
-
-        for (i = 0; i < numImages; i++){
-            let questionImageContainer = document.createElement('div');
+    
+        let answerSelected = false; // Flag to track if answer has been selected
+    
+        // Function to handle click on an answer option
+        function handleAnswerClick(index) {
+            if (!answerSelected) {
+                answerSelected = true; 
+    
+                for (let i = 0; i < numImages; i++) {
+                    const answerContainer = document.getElementById(i);
+                    answerContainer.removeEventListener('click', answerClickHandlers[i]);
+                    answerContainer.style.pointerEvents = 'none'; // Disable pointer events
+                }
+    
+                // Determine if selected answer is correct
+                checkAnswer(item, index);
+            }
+        }
+    
+        // Array to store event handler references
+        const answerClickHandlers = [];
+    
+        // Create answer options
+        for (let i = 0; i < numImages; i++) {
+            const questionImageContainer = document.createElement('div');
             questionImageContainer.setAttribute('class', "questionImageContainer");
-            let image = document.createElement('img');
-            let source = item.images[i];
+            questionImageContainer.setAttribute('id', i);
+            const image = document.createElement('img');
+            const source = item.images[i];
             image.src = source;
             image.setAttribute('class', "questionImage");
             questionImageContainer.appendChild(image);
             questionImagesContainer.appendChild(questionImageContainer);
+    
+            // Create event handler for each answer option
+            const answerClickHandler = function() {
+                handleAnswerClick(i);
+            };
+    
+            answerClickHandlers.push(answerClickHandler);
+    
+            // Add click event listener to answer option
+            questionImageContainer.addEventListener('click', answerClickHandler);
         }
-
-        let questionTextContainer = document.createElement('div');
+    
+        const questionTextContainer = document.createElement('div');
         questionTextContainer.setAttribute('id', "questionTextContainer");
         questionContainer.appendChild(questionTextContainer);
-        let questionText = item.text;
+        const questionText = item.text;
         questionTextContainer.innerHTML = questionText;
+    
+        function checkAnswer(question, chosenAnswerIndex) {
+            const correctAnswerIndex = question.correctAnswer;
+    
+            if (correctAnswerIndex === chosenAnswerIndex) {
+                handleCorrectAnswer(chosenAnswerIndex);
+            } 
+            else {
+                handleIncorrectAnswer(chosenAnswerIndex);
+            }
+        }
+
+        function handleCorrectAnswer(chosenAnswerIndex){
+            const correctSelected = document.getElementById(+ chosenAnswerIndex);
+            correctSelected.style.borderColor = "#328032";
+            correctSelected.style.borderWidth = "4px";
+            const answerText = "Correct!";
+            questionTextContainer.innerHTML = answerText;
+
+            renderNextArrow();
+            document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
+                currentTopicIndex++;
+                if (currentTopicIndex >= topicContent.length) {
+                    incrementHighestTopicCompleted(getCurrentGrade());
+                    changeSiteSection("GRADEHOMEPAGE");
+                } else {
+                    renderContentPage(topicContent, currentTopicIndex);
+                }
+            });
+        }
+
+        function handleIncorrectAnswer(chosenAnswerIndex){
+            const incorrectSelected = document.getElementById(chosenAnswerIndex);
+            incorrectSelected.style.borderColor = "#ed3b4d";
+            incorrectSelected.style.borderWidth = "4px";
+            const answerText = "Not quite! Would you like to try again?";
+            questionTextContainer.innerHTML = answerText;
+
+            const incorrectAnswerContainer = document.createElement('div');
+            incorrectAnswerContainer.setAttribute('id', 'incorrectAnswerContainer');
+
+            const tryAgainContainer = document.createElement('div');
+            tryAgainContainer.setAttribute('id', "tryAgainContainer");
+            tryAgainContainer.innerHTML = "Try again";
+
+            tryAgainContainer.addEventListener('click', function(){
+                renderContentPage(topicContent, currentTopicIndex);
+            });
+
+            const helpContainer = document.createElement('div');
+            helpContainer.setAttribute('id', "helpContainer");
+            helpContainer.innerHTML = "See the correct answer";
+
+            helpContainer.addEventListener('click', function(){
+                showCorrectAnswer(item);
+            });
+
+            incorrectAnswerContainer.appendChild(tryAgainContainer);
+            incorrectAnswerContainer.appendChild(helpContainer);
+
+            questionContainer.appendChild(incorrectAnswerContainer);
+        }
+
+        function showCorrectAnswer(){
+            // Highlight the correct answer in green
+            const correctAnswerIndex = item.correctAnswer;
+            const correctSelected = document.getElementById(correctAnswerIndex);
+            correctSelected.style.borderColor = "#328032";
+            correctSelected.style.borderWidth = "4px";
+
+            // Clear the border from the incorrect answer if there was one
+            for (let i = 0; i < item.images.length; i++) {
+                if (i !== correctAnswerIndex) {
+                    const incorrectSelected = document.getElementById(i);
+                    incorrectSelected.style.borderColor = "";
+                    incorrectSelected.style.borderWidth = "";
+                }
+            }
+
+            // Add explanatory text
+            questionTextContainer.innerHTML = item.explanation;
+
+            // Remove other options
+            incorrectAnswerContainer.remove();
+            
+            // Add next button
+            renderNextArrow();
+            document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
+                currentTopicIndex++;
+                if (currentTopicIndex >= topicContent.length) {
+                    incrementHighestTopicCompleted(getCurrentGrade());
+                    changeSiteSection("GRADEHOMEPAGE");
+                } else {
+                    renderContentPage(topicContent, currentTopicIndex);
+                }
+            });
+        }
     }
+    
+    
 
     ////// Misc helper functions //////
 
     // Function to render the forward and back arrows
     function renderNextBackArrows() {
-        let footer = document.getElementById("footer");
+        const footer = document.getElementById("footer");
         footer.style.display = "flex";
         footer.style.justifyContent = "space-between";
         createBackArrow();
@@ -859,23 +1011,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderNextArrow(){
-        let footer = document.getElementById("footer");
+        const footer = document.getElementById("footer");
         footer.style.display = "flex";
         footer.style.justifyContent = "flex-end";
         createNextArrow();
     }
 
     function renderBackArrow(){
-        let footer = document.getElementById("footer");
+        const footer = document.getElementById("footer");
         footer.style.display = "flex";
         footer.style.justifyContent = "flex-start";
         createBackArrow();
     }
 
     function createBackArrow() {
-        let backButtonImageContainer = document.createElement('div');
+        const backButtonImageContainer = document.createElement('div');
         backButtonImageContainer.setAttribute('id', "backButtonImageContainer");
-        let backButtonImage = document.createElement('img');
+        const backButtonImage = document.createElement('img');
         backButtonImage.setAttribute('id', "backButtonImage");
         backButtonImage.src = "/images/leftArrow.png";
         backButtonImage.width = arrowImageWidth;
@@ -884,9 +1036,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function createNextArrow(){
-        let nextButtonImageContainer = document.createElement('div');
+        const nextButtonImageContainer = document.createElement('div');
         nextButtonImageContainer.setAttribute('id', "nextButtonImageContainer");
-        let nextButtonImage = document.createElement('img');
+        const nextButtonImage = document.createElement('img');
         nextButtonImage.setAttribute('id', "nextButtonImage");
         nextButtonImage.src = "/images/rightArrow.png";
         nextButtonImage.width = arrowImageWidth;

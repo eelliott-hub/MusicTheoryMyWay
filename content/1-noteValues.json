@@ -14,6 +14,14 @@
         "text": "The stem of the note can stick up as well as down. The direction of the stem doesn't make any difference to the length of the note."
     },
     {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/quaver-stem-down.png"],
+        "text": "Click on the picture of the crotchet.",
+        "correctAnswer": 0,
+        "explanation": "The crotchet is the black note that has a stem but no tail."
+    },
+    {
         "contentType": "information",
         "id": "crotchets3",
         "pageTitle": "Crotchet notes",
@@ -23,8 +31,91 @@
     {
         "contentType": "question",
         "questionType": "multipleChoice",
-        "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/quaver-stem-down.png"],
-        "text": "Click on the picture of the crotchet.",
-        "correctAnswer": 0
+        "images": ["../images/grade1/Notes/quaver-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/accent.png"],
+        "text": "Which is the crotchet?",
+        "correctAnswer": 1,
+        "explanation": "The crotchet is the black note that has a stem but no tail."
+    },
+    {
+        "contentType": "information",
+        "id": "quavers1",
+        "pageTitle": "Quaver notes",
+        "images": ["../images/grade1/Notes/quaver-stem-down.png"],
+        "text": "A quaver is quicker than a crotchet and has a tail."
+    },
+    {
+        "contentType": "information",
+        "id": "quavers2",
+        "pageTitle": "Quavers notes",
+        "images": ["../images/grade1/Notes/quaver-stem-down.png", "../images/grade1/Notes/quaver-stem-up.png"],
+        "text": "Like crotchets, the stem can go up or down."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["../images/grade1/ff.png", "../images/grade1/Notes/quaver-stem-up.png"],
+        "text": "Click on the quaver.",
+        "correctAnswer": 1,
+        "explanation": "The quaver is the black note that has a stem and a tail. Quavers are faster than crotchets, so try thinking of a fast animal with a tail running across the screen."
+    },
+    {
+        "contentType": "information",
+        "id": "quavers3",
+        "pageTitle": "Quaver notes",
+        "images": ["../images/grade1/Notes/two-quavers-stems-down.png", "../images/grade1/Notes/two-quavers-stems-up.png"],
+        "text": "Two quavers fit into the same amount of time as one crotchet and can be joined together by their tails."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["../images/grade1/Notes/two-quavers-stems-up.png", "../images/grade1/Notes/quaver-stem-up.png"],
+        "text": "Click on the two quavers joined together.",
+        "correctAnswer": 0,
+        "explanation": "Two quavers are joined together by their tails in a straight line."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/quaver-stem-up.png"],
+        "text": "Click on the quaver.",
+        "correctAnswer": 1,
+        "explanation": "The quaver is the black note that has a stem and a tail."
+    },
+    {
+        "contentType": "information",
+        "id": "midPointActivity",
+        "pageTitle": "Drawing",
+        "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/quaver-stem-down.png", "../images/grade1/Notes/quaver-stem-up.png"],
+        "text": "Take a break from the screen and practise drawing crotchets and quavers with a pencil."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["../images/grade1/Notes/quaver-stem-up.png", "../images/grade1/accent.png", "../images/grade1/Notes/crotchet-stem-up.png"],
+        "text": "Click on the crotchet.",
+        "correctAnswer": 2,
+        "explanation": "The crotchet is the black note that has a stem but no tail."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["../images/grade1/Notes/quaver-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/mf.png", "../images/grade1/sharp.png"],
+        "text": "Which is the quaver?",
+        "correctAnswer": 0,
+        "explanation": "The quaver is the black note that has a stem and a tail."
+    },
+    {
+        "contentType": "information",
+        "id": "clapping1",
+        "pageTitle": "Clapping",
+        "images": ["../images/grade1/Notes/two-quavers-stems-up.png", "../images/grade1/Notes/crotchet-stem-up.png","../images/grade1/Notes/two-quavers-stems-up.png", "../images/grade1/Notes/crotchet-stem-up.png"],
+        "text": "We know that crotchet notes are twice as long as quavers. Can you clap this rhythm?"
+    },
+    {
+        "contentType": "information",
+        "id": "clapping2",
+        "pageTitle": "Clapping",
+        "images": ["../images/grade1/Notes/two-quavers-stems-up.png", "../images/grade1/Notes/two-quavers-stems-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png"],
+        "text": "How about this one?"
     }
 ]
