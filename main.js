@@ -21,14 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    // TODO NEXT to make this a MVP
+    // TODO NEXT to make this an MVP
         // Storing progress within topics and grades - need to store number of right answers to questions
         // Progress bar?
         // Logic of other kinds of questions
-        // Set up glossary and add crotchet and quaver to it
         // Make a random selection of correct and incorrect messages, or totally slimline it and make have just tick/green or cross/red?
         // Quiz section: selection of questions from topics covered so far (in random order if possible)
-        // Finish note values section and make a final page for it (You can come back and revise, and remind about glossary)
 
         // Improve question sections:
             // Modular Functions: Functions like createQuestionContainer, createQuestionImagesContainer, createQuestionImageContainer, and createQuestionTextContainer modularize the code, making it easier to read and maintain.
@@ -36,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Forward arrow event handlers are all very similar - break out into a function with arguments
 
     // Uncomment temporarily to clear elements of local storage
-        localStorage.clear();
+        // localStorage.clear();
         // localStorage.removeItem("tutorialCompleted");
         // localStorage.removeItem("settingsChanged");
 
@@ -48,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const settingsPageTitles = [
         "Background colour",
         "Font",
-        "Font size and spacing",
+        "Font size and spacing (in progress)",
         "Navigation buttons" 
     ];
 
@@ -85,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
             loadTutorialData();
         }
         else if(siteSection === "GLOSSARY"){
-            document.getElementById("page-title").innerHTML = "Glossary";
+            loadGlossary();
         }
     }
 
@@ -333,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 renderFontTypefaceSettings();
             }
             else if(index === 2){
-                
+                // TO DO
             }
             else if(index === 3){
                 renderNavigationButtonSettings();
@@ -699,7 +697,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if(i === 0){
                 { renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
             }
-            else if(i <= (highestTopicCompleted+1)){ renderAvailableTopicBlock(topicBlock, grade); }
+            else if(i <= (highestTopicCompleted+1)){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
             else{ renderUnavailableTopicBlock(topicBlock); }
 
             gradeTopicsContainer.appendChild(topicBlock);
@@ -713,7 +711,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getHighestTopicCompleted(grade){
-        return parseInt(localStorage.getItem('highestTopicCompletedGrade'+grade));
+        const highestTopicCompleted = localStorage.getItem('highestTopicCompletedGrade'+grade);
+        if (highestTopicCompleted === null){
+            return -1;
+        }
+        else {
+            return parseInt(highestTopicCompleted);
+        }
     }
 
     function setHighestTopicCompleted(grade, index){
@@ -723,13 +727,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function incrementHighestTopicCompleted(grade) {
         let highestTopicCompleted = getHighestTopicCompleted(grade);
         
-    
-        if (isNaN(highestTopicCompleted)) {
-            highestTopicCompleted = 0; 
-        }
-        else if(getCurrentTopicIndex() > getHighestTopicCompleted()) {
+        if(getCurrentTopicIndex() > getHighestTopicCompleted()){
             highestTopicCompleted++;
         }
+
         setHighestTopicCompleted(grade, highestTopicCompleted);
     }
 
@@ -997,7 +998,57 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    
+    function loadGlossary(){
+        document.getElementById("page-title").innerHTML = "Glossary";
+
+        fetch("glossary.json")
+        .then(response => response.json())
+        .then(data => {
+            generateGlossary(data);
+        })
+        .catch(error => {
+            console.error('Error fetching the glossary data:', error);
+        });
+
+    function generateGlossary(data) {
+        
+        const glossaryContainer = document.createElement('div');
+        glossaryContainer.setAttribute('id', 'glossaryContainer');
+
+        data.forEach(item => {
+            const glossaryRow = document.createElement('div');
+            glossaryRow.className = 'glossary-row';
+
+            const termDiv = document.createElement('div');
+            termDiv.setAttribute('class', "termDiv");
+            termDiv.textContent = item.term;
+            glossaryRow.appendChild(termDiv);
+
+            const imageDiv = document.createElement('div');
+            if (item.image !== "null") {
+                const image = document.createElement('img');
+                image.src = item.image;
+                image.alt = item.term;
+                imageDiv.appendChild(image);
+            } else {
+                imageDiv.innerHTML = '&nbsp;'; // Render an empty space
+            }
+            glossaryRow.appendChild(imageDiv);
+
+            const definitionDiv = document.createElement('div');
+            definitionDiv.innerHTML = item.definition;
+            glossaryRow.appendChild(definitionDiv);
+
+            glossaryContainer.appendChild(glossaryRow);
+
+            const hr = document.createElement('hr');
+            glossaryContainer.appendChild(hr);
+        });
+
+        const mainContainer = document.getElementById("main-container");
+        mainContainer.appendChild(glossaryContainer);
+    }
+    }
 
     ////// Misc helper functions //////
 

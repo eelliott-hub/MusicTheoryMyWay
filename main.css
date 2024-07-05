@@ -16,6 +16,10 @@ body {
     margin: 0;
 }
 
+body emph {
+    font-weight: bold;
+}
+
 header {
     text-align: center;
     width: 100%;
@@ -75,6 +79,9 @@ nav .container {
     grid-template-columns: repeat(6, minmax(0, 1fr));
     padding-top: 5px;
     padding-bottom: 5px;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
 }
 
 .nav-button {
@@ -281,9 +288,11 @@ main .container{
     display: grid;
     border: 1px solid darkgrey;
     border-radius: 15px;
+    box-sizing: border-box;
     height: 150px;
-    width: 75%;
+    width: 80%;
     margin: 20px auto;
+    padding: 10px;
 }
 
 .informationImageContainer {
@@ -298,7 +307,7 @@ main .container{
 }
 
 #informationTextContainer {
-    width: 75%;
+    width: 80%;
     margin: 20px auto;
 }
 
@@ -308,7 +317,7 @@ main .container{
     display: grid;
     gap: 30px;
     height: 150px;
-    width: 75%;
+    width: 80%;
     margin: 30px auto;
 }
 
@@ -331,7 +340,7 @@ main .container{
 }
 
 #questionTextContainer {
-    width: 75%;
+    width: 80%;
     margin: 20px auto;
 }
 
@@ -342,6 +351,48 @@ main .container{
     height: 80px;
     width: 75%;
     margin: 30px auto;
+}
+
+/***** Glossary styling *****/
+
+#glossaryContainer{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px; /* Adjust the gap as needed */
+    width: 100%;
+    font-size: 16pt;
+}
+
+#glossaryContainer hr{
+    width: 100%;
+    margin: 0;
+    border: 1px solid darkslategrey;
+}
+
+.glossary-row{
+    display: grid;
+    grid-template-columns: 20% 10% 70%;
+    gap: 10px; /* Adjust the gap as needed */
+    margin: 0 auto;
+    padding: 20px 0;
+    width: 100%;
+    min-height: 50px;
+}
+
+.glossary-row div {
+    text-align: left; /* Left-align the text */
+    width: 100%;
+    padding: 5px;
+}
+
+.glossary-row img {
+    height: 60px; 
+    width: auto; /* Maintain aspect ratio */
+}
+
+.termDiv {
+    font-weight: bold;
+    font-size: 110%;
 }
 
 /***** Media queries *****/

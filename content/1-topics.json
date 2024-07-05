@@ -4,8 +4,16 @@
         "name": "Note values"
     },
     {
+        "id": "longerNoteValues",
+        "name": "Longer note values"
+    },
+    {
         "id": "restValues",
         "name": "Rest values"
+    },
+    {
+        "id": "dottedNotes",
+        "name": "Dotted notes"
     },
     {
         "id": "timeSignatures",

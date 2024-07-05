@@ -1,9 +1,9 @@
 [
     {
         "subheading": "Music Theory My Way",
-        "image": "/images/navigation/settings.png",
-        "altText": "Large settings icon",
-        "colour": "#ffa500",
+        "image": "/images/navigation/tutorial.png",
+        "altText": "Large tutorial icon",
+        "colour": "#ffff00",
         "text": "Music Theory My Way is a web app designed for people with dyslexia and can be customised in different ways to suit your learning style."
     },
     {
@@ -59,6 +59,6 @@
         "image": "/images/navigation/tutorial.png",
         "altText": "Large tutorial icon",
         "colour": "#ffff00",
-        "text": "To come back to the tutorial at any time, click the yellow question mark. For now, click the forwards arrow to go back home."  
+        "text": "To come back to the tutorial at any time, click the yellow question mark."  
     }
 ]

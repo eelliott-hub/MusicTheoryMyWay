@@ -1,17 +1,15 @@
 [
     {
         "contentType": "information",
-        "id": "crotchets1",
         "pageTitle": "Crotchet notes",
         "images": ["../images/grade1/Notes/crotchet-stem-down.png"],
-        "text": "A single beat in music is most often represented by a crotchet. The symbol above represents a crotchet note."
+        "text": "A <emph>single beat</emph> in music is most often represented by a crotchet. The symbol above represents a crotchet note."
     },
     {
         "contentType": "information",
-        "id": "crotchets2",
         "pageTitle": "Crotchet notes",
         "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-up.png"],
-        "text": "The stem of the note can stick up as well as down. The direction of the stem doesn't make any difference to the length of the note."
+        "text": "The <emph>stem</emph> of the note can stick up as well as down. The direction of the stem doesn't make any difference to the length of the note."
     },
     {
         "contentType": "question",
@@ -23,7 +21,6 @@
     },
     {
         "contentType": "information",
-        "id": "crotchets3",
         "pageTitle": "Crotchet notes",
         "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-down.png"],
         "text": "Clap your hands together four times in a row to a steady beat. <br>You have beaten four crotchets."
@@ -38,14 +35,12 @@
     },
     {
         "contentType": "information",
-        "id": "quavers1",
         "pageTitle": "Quaver notes",
         "images": ["../images/grade1/Notes/quaver-stem-down.png"],
-        "text": "A quaver is quicker than a crotchet and has a tail."
+        "text": "A quaver is <emph>quicker</emph> than a crotchet and has a <emph>tail</emph>."
     },
     {
         "contentType": "information",
-        "id": "quavers2",
         "pageTitle": "Quavers notes",
         "images": ["../images/grade1/Notes/quaver-stem-down.png", "../images/grade1/Notes/quaver-stem-up.png"],
         "text": "Like crotchets, the stem can go up or down."
@@ -60,10 +55,27 @@
     },
     {
         "contentType": "information",
-        "id": "quavers3",
         "pageTitle": "Quaver notes",
         "images": ["../images/grade1/Notes/two-quavers-stems-down.png", "../images/grade1/Notes/two-quavers-stems-up.png"],
-        "text": "Two quavers fit into the same amount of time as one crotchet and can be joined together by their tails."
+        "text": "Two quavers can be <emph>joined together</emph> by their tails."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Quaver notes",
+        "images": ["../images/grade1/Notes/two-quavers-stems-up.png", "../images/equals.png", "../images/grade1/Notes/crotchet-stem-up.png"],
+        "text": "<emph>Two quavers</emph> fit into the same amount of time as <emph>one crotchet</emph>."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Quaver notes",
+        "images": ["../images/grade1/Notes/four-quavers-stems-down.png", "../images/grade1/Notes/four-quavers-stems-up.png"],
+        "text": "Quavers can also be joined together in groups of four."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Quaver notes",
+        "images": ["../images/grade1/Notes/four-quavers-stems-down.png", "../images/equals.png", "../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-down.png"],
+        "text": "Four quavers fit into the same amount of time as two crotchets."
     },
     {
         "contentType": "question",
@@ -82,11 +94,18 @@
         "explanation": "The quaver is the black note that has a stem and a tail."
     },
     {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["../images/grade1/Notes/four-quavers-stems-up.png", "../images/grade1/Notes/two-quavers-stems-up.png"],
+        "text": "Which group of notes has the same time value as one crotchet?",
+        "correctAnswer": 1,
+        "explanation": "Remember that a quaver is half as long as a crotchet."
+    },
+    {
         "contentType": "information",
-        "id": "midPointActivity",
         "pageTitle": "Drawing",
         "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/quaver-stem-down.png", "../images/grade1/Notes/quaver-stem-up.png"],
-        "text": "Take a break from the screen and practise drawing crotchets and quavers with a pencil."
+        "text": "Take a break from the screen and <emph>practise drawing</emph> crotchets and quavers with a pencil."
     },
     {
         "contentType": "question",
@@ -106,16 +125,68 @@
     },
     {
         "contentType": "information",
-        "id": "clapping1",
         "pageTitle": "Clapping",
         "images": ["../images/grade1/Notes/two-quavers-stems-up.png", "../images/grade1/Notes/crotchet-stem-up.png","../images/grade1/Notes/two-quavers-stems-up.png", "../images/grade1/Notes/crotchet-stem-up.png"],
-        "text": "We know that crotchet notes are twice as long as quavers. Can you clap this rhythm?"
+        "text": "We know that crotchet notes are twice as long as quavers. Can you <emph>clap</emph> this rhythm?"
     },
     {
         "contentType": "information",
-        "id": "clapping2",
         "pageTitle": "Clapping",
         "images": ["../images/grade1/Notes/two-quavers-stems-up.png", "../images/grade1/Notes/two-quavers-stems-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png"],
         "text": "How about this one?"
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Semiquaver notes",
+        "images": ["../images/grade1/Notes/semiquaver-stem-up.png", "../images/grade1/Notes/semiquaver-stem-down.png"],
+        "text": "A <emph>semi</emph>quaver note is <emph>half</emph> the length of a <emph>quaver</emph>, and has two tails."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["../images/grade1/Notes/quaver-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/semiquaver-stem-up.png", "../images/grade1/Notes/two-quavers-stems-up.png"],
+        "text": "Which is the semiquaver?",
+        "correctAnswer": 2,
+        "explanation": "The semiquaver is the black note that has two tails attached to the stem."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Semiquaver notes",
+        "images": ["../images/grade1/Notes/two-semiquavers-stems-up.png", "../images/grade1/Notes/four-semiquavers-stems-down.png"],
+        "text": "Like quavers, semiquavers can be joined together in groups."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Semiquaver notes",
+        "images": ["../images/grade1/Notes/two-semiquavers-stems-up.png", "../images/equals.png", "../images/grade1/Notes/quaver-stem-up.png"],
+        "text": "Two semiquavers take the same time as one quaver to play."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/quaver-stem-down.png", "../images/grade1/Notes/semiquaver-stem-up.png", "../images/grade1/Notes/two-quavers-stems-up.png"],
+        "text": "Which note value is the same length as two semiquavers?",
+        "correctAnswer": 1,
+        "explanation": "Two semiquavers are equal to one quaver in length. Remember <emph>semi</emph> means <emph>half</emph>, so a semiquavers is half a quaver."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Semiquaver notes",
+        "images": ["../images/grade1/Notes/four-semiquavers-stems-up.png", "../images/equals.png", "../images/grade1/Notes/two-quavers-stems-up.png", "../images/equals.png", "../images/grade1/Notes/crotchet-stem-up.png"],
+        "text": "Four semiquavers take the same time as two quavers, or one crotchet, to play."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["../images/grade1/Notes/four-quavers-stems-up.png", "../images/grade1/Notes/two-semiquavers-stems-down.png", "../images/grade1/Notes/four-semiquavers-stems-down.png"],
+        "text": "Which group of notes is the same length as one crotchet?",
+        "correctAnswer": 2,
+        "explanation": "Four semiquavers are equal to one crotchet in length, because there are two semiquavers in a quaver, and two quavers in a crotchet."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Well done!",
+        "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/quaver-stem-down.png", "../images/grade1/Notes/quaver-stem-up.png", "../images/grade1/Notes/semiquaver-stem-down.png", "../images/grade1/Notes/semiquaver-stem-up.png"],
+        "text": "You have reached the end of this section on note values. You've learnt about three different note values and how they relate to each other. <br> Before you move on to the next section, take some time to <emph>practise drawing</emph> the notes you've learnt about. <br> Remember you can revise this topic by clicking on the purple <emph>Quiz</emph> button.<br>The <emph>glossary</emph> is also there to help with terms if you get stuck."
     }
 ]
