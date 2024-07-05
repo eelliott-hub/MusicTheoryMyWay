@@ -142,7 +142,7 @@ main .container{
 
 /***** Home page styling *****/
 
-.homePageContainer {
+.homePageContainer, .noQuizContainer {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     margin: 20px auto;
@@ -313,7 +313,7 @@ main .container{
 
 
 /*** Questions ***/
-#questionImagesContainer {
+#questionImagesContainer, #quizImagesContainer {
     display: grid;
     gap: 30px;
     height: 150px;
@@ -321,7 +321,7 @@ main .container{
     margin: 30px auto;
 }
 
-.questionImageContainer, #tryAgainContainer, #helpContainer  {
+.questionImageContainer, #tryAgainContainer, #helpContainer, .quizImageContainer  {
     height: 100%;
     display: flex;
     justify-content: center;  /* Center horizontally */
@@ -330,16 +330,16 @@ main .container{
     border-radius: 15px;
 }
 
-.questionImage {
+.questionImage, .quizImage {
     height: 80px;
 }
 
-.questionImageContainer:hover, #tryAgainContainer:hover, #helpContainer:hover {
+.questionImageContainer:hover, #tryAgainContainer:hover, #helpContainer:hover, .quizImageContainer:hover {
     border: 2px solid darkgrey !important;
     cursor: pointer;
 }
 
-#questionTextContainer {
+#questionTextContainer, #quizTextContainer {
     width: 80%;
     margin: 20px auto;
 }
@@ -375,7 +375,7 @@ main .container{
     gap: 10px; /* Adjust the gap as needed */
     margin: 0 auto;
     padding: 20px 0;
-    width: 100%;
+    width: 95%;
     min-height: 50px;
 }
 

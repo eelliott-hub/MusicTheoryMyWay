@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let tutorialPages = [];
     let currentTutorialIndex = 0;
     let topicContent = [];
-    let currentTopicIndex = 0;
+    let currentQuestionIndex = 0;
+    let currentQuizIndex = 0;
 
     // Default settings
     const defaultBackgroundColour = "#f5f5f5";
@@ -19,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const bothNavButtonImageWidth = 40;
     const homePageButtonImageWidth = 100;
 
+    // Number of questions in quiz
+    const quizNumber = 10;
+
 
 
     // TODO NEXT to make this an MVP
@@ -27,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Logic of other kinds of questions
         // Make a random selection of correct and incorrect messages, or totally slimline it and make have just tick/green or cross/red?
         // Quiz section: selection of questions from topics covered so far (in random order if possible)
+        // Increment grade when all questions completed
 
         // Improve question sections:
             // Modular Functions: Functions like createQuestionContainer, createQuestionImagesContainer, createQuestionImageContainer, and createQuestionTextContainer modularize the code, making it easier to read and maintain.
@@ -34,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Forward arrow event handlers are all very similar - break out into a function with arguments
 
     // Uncomment temporarily to clear elements of local storage
-        // localStorage.clear();
+        localStorage.clear();
         // localStorage.removeItem("tutorialCompleted");
         // localStorage.removeItem("settingsChanged");
 
@@ -69,11 +74,11 @@ document.addEventListener('DOMContentLoaded', function() {
             renderGradeHomePage(currentGrade);
         }
         else if(siteSection === "CONTENT"){
-            const topicId = sessionStorage.getItem('currentTopicId');
+            const topicId = getCurrentTopicId();
             loadContent(topicId);
         }
         else if(siteSection === "QUIZ"){
-            document.getElementById("page-title").innerHTML = "Quiz";
+            renderQuiz();
         }
         else if(siteSection === "SETTINGS"){
             currentSettingsIndex = 0;
@@ -245,11 +250,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         mainContainer.appendChild(homePageContainer);
 
-        addHomePageEventListener(siteSectionTo);
+        addHomePageEventListener(siteSectionTo, "homePageButton");
     }
 
-    function addHomePageEventListener(siteSectionTo) {
-        const homePageButton = document.getElementById("homePageButton");
+    function addHomePageEventListener(siteSectionTo, elementId) {
+        const homePageButton = document.getElementById(elementId);
         if (homePageButton) {
             homePageButton.addEventListener('click', function() {
                 changeSiteSection(siteSectionTo);
@@ -637,7 +642,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const thisGrade = availableGrades[i];
             gradeBlock.innerHTML = "Grade " + thisGrade;
            
-            const highestGradeCompleted = localStorage.getItem('highestGradeCompleted');
+            const highestGradeCompleted = getHighestGradeCompleted(); 
             if(highestGradeCompleted){
                 if(thisGrade <= parseInt(highestGradeCompleted)+1){ renderAvailableGradeBlock(gradeBlock, thisGrade); }
                 else{ renderUnavailableGradeBlock(gradeBlock); }
@@ -651,14 +656,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mainContainer.appendChild(progressContainer);
     }
 
-    // Store the current grade in the session storage
-    function setCurrentGrade(grade){
-        sessionStorage.setItem('currentGrade', grade);
-    }
-
-    function getCurrentGrade(){
-        return sessionStorage.getItem('currentGrade');
-    }
+    
 
     function renderAvailableGradeBlock(gradeBlock, gradeNumber){
         gradeBlock.setAttribute('class', "availableGradeBlock");
@@ -673,6 +671,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Page showing topics within the grade
+
     function renderGradeHomePage(grade){
         document.getElementById("page-title").innerHTML = "Choose your topic";
         fetch("./content/"+grade+"-topics.json")
@@ -710,43 +709,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function getHighestTopicCompleted(grade){
-        const highestTopicCompleted = localStorage.getItem('highestTopicCompletedGrade'+grade);
-        if (highestTopicCompleted === null){
-            return -1;
-        }
-        else {
-            return parseInt(highestTopicCompleted);
-        }
-    }
-
-    function setHighestTopicCompleted(grade, index){
-        localStorage.setItem('highestTopicCompletedGrade'+grade, index);
-    }
-
-    function incrementHighestTopicCompleted(grade) {
-        let highestTopicCompleted = getHighestTopicCompleted(grade);
-        
-        if(getCurrentTopicIndex() > getHighestTopicCompleted()){
-            highestTopicCompleted++;
-        }
-
-        setHighestTopicCompleted(grade, highestTopicCompleted);
-    }
-
-    function setCurrentTopic(topicIndex, topicId) {
-        sessionStorage.setItem('currentTopicIndex', topicIndex);
-        sessionStorage.setItem('currentTopicId', topicId);
-    }
-
-    function getCurrentTopicId(){
-        return sessionStorage.getItem('currentTopicId');
-    }
-
-    function getCurrentTopicIndex(){
-        return parseInt(sessionStorage.getItem('currentTopicIndex'));
-    }
-
     function renderAvailableTopicBlock(topicBlock, topicIndex, topicId) {
         topicBlock.setAttribute('class', "availableTopicBlock");
         topicBlock.addEventListener('click', function(){
@@ -760,14 +722,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     ////// Content and questions //////
+
     function loadContent(topicId) {
         const grade = getCurrentGrade();
-        fetch("./content/"+grade+"-"+topicId+".json")
+        fetch(`content/${grade}-${topicId}.json`)
         .then(response => response.json())
         .then(topicData => {
             topicContent = topicData;
-            currentTopicIndex = 0; // Reset index when entering topic content
-            renderContentPage(topicContent, currentTopicIndex);                   
+            currentQuestionIndex = 0; // Reset index when entering topic content
+            renderContentPage(topicContent, currentQuestionIndex);                   
         })
         .catch(error => console.error("Error loading topic data: ", error));
     }
@@ -825,15 +788,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         renderNextArrow();
         document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
-            currentTopicIndex++;
-            if (currentTopicIndex >= topicContent.length) {
-                incrementHighestTopicCompleted(getCurrentGrade());
-                changeSiteSection("GRADEHOMEPAGE");
-                
-            } 
-            else {
-                renderContentPage(topicContent, currentTopicIndex);
-            }
+            finishContent(topicContent);
         });
     }
 
@@ -912,7 +867,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function handleCorrectAnswer(chosenAnswerIndex){
-            const correctSelected = document.getElementById(+ chosenAnswerIndex);
+            const correctSelected = document.getElementById(chosenAnswerIndex);
             correctSelected.style.borderColor = "#328032";
             correctSelected.style.borderWidth = "4px";
             const answerText = "Correct!";
@@ -920,13 +875,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             renderNextArrow();
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
-                currentTopicIndex++;
-                if (currentTopicIndex >= topicContent.length) {
-                    incrementHighestTopicCompleted(getCurrentGrade());
-                    changeSiteSection("GRADEHOMEPAGE");
-                } else {
-                    renderContentPage(topicContent, currentTopicIndex);
-                }
+                finishContent(topicContent);
             });
         }
 
@@ -945,7 +894,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tryAgainContainer.innerHTML = "Try again";
 
             tryAgainContainer.addEventListener('click', function(){
-                renderContentPage(topicContent, currentTopicIndex);
+                renderContentPage(topicContent, currentQuestionIndex);
             });
 
             const helpContainer = document.createElement('div');
@@ -987,16 +936,317 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add next button
             renderNextArrow();
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
-                currentTopicIndex++;
-                if (currentTopicIndex >= topicContent.length) {
-                    incrementHighestTopicCompleted(getCurrentGrade());
-                    changeSiteSection("GRADEHOMEPAGE");
+                finishContent(topicContent);
+            });
+        }
+    }
+
+    function finishContent(topicContent){
+        currentQuestionIndex++;
+        if (currentQuestionIndex >= topicContent.length) {
+            if(getCurrentTopicIndex() > getHighestTopicCompleted(getCurrentGrade())){
+                incrementHighestTopicCompleted(getCurrentGrade());
+            }
+            changeSiteSection("GRADEHOMEPAGE");               
+        } 
+        else {
+            renderContentPage(topicContent, currentQuestionIndex);
+        }
+    }
+
+    ////// Quiz //////
+
+    async function renderQuiz(){
+        console.log("Rendering quiz...");
+        document.getElementById("page-title").innerHTML = "Quiz";
+        const highestGradeCompleted = getHighestGradeCompleted();
+        const maxQuizGrade = highestGradeCompleted + 1;
+        const highestTopicCompleted = getHighestTopicCompleted(maxQuizGrade);
+        console.log("Max quiz grade:", maxQuizGrade);
+        console.log("Highest topic completed:", highestTopicCompleted);
+
+
+        if(maxQuizGrade === 1 && highestTopicCompleted === -1){
+            console.log("No quiz available yet.");
+            emptyMainText();
+            emptyFooter();  
+            renderNoQuiz();
+        }
+
+        else {
+            generateQuizData(maxQuizGrade, highestTopicCompleted)
+                .then(quizQuestions => {
+                    console.log("Quiz questions:", quizQuestions);
+                    console.log("Number of quiz questions:", quizQuestions.length);
+                    currentQuizIndex = 0;
+                    renderQuizPage(quizQuestions, currentQuizIndex);
+                })
+                .catch(error => console.error("Error generating quiz data:", error));
+        }
+    }
+
+    function renderNoQuiz(){
+        document.getElementById("page-title").innerHTML = "No quiz available yet!";
+        const div = document.createElement('div');
+        div.setAttribute('class', "noQuizContainer");
+        div.innerHTML = "It doesn't look like you've started learning yet.";
+        const mainContainer = document.getElementById("main-container");
+        mainContainer.appendChild(div);
+
+        const noQuizContainer = document.createElement('div');
+        noQuizContainer.setAttribute('class', "noQuizContainer");
+
+        const noQuizButton = createHomePageButton("noQuizButton", "learn", "Click to start learning", "#6ff36f");
+        noQuizContainer.appendChild(noQuizButton);
+
+        mainContainer.appendChild(noQuizContainer);
+
+        addHomePageEventListener("LEARN", "noQuizButton");
+    }
+    
+    function renderQuizPage(quizQuestions, index){
+        if (index >= 0 && index < quizQuestions.length) {
+            const item = quizQuestions[index];
+    
+            emptyMainText();
+            emptyFooter();
+            renderQuizQuestion(item, quizQuestions);
+    
+        } else {
+            console.error('Page index out of range:', index);
+        }
+    }
+    
+    async function generateQuizData(maxQuizGrade, highestTopicCompleted) {
+        console.log("Generating quiz data for max grade:", maxQuizGrade, "and highest topic completed:", highestTopicCompleted);
+    
+        let quizQuestions = [];
+    
+        try {
+            // Loop through grades up to the maxQuizGrade
+            for (let grade = 1; grade <= maxQuizGrade; grade++) {
+                let gradeTopics = await loadTopicsForGrade(grade);
+                console.log(`Grade ${grade} topics:`, gradeTopics);
+    
+                for (let i = 0; i < gradeTopics.length; i++) {
+                    let topicId = gradeTopics[i].id;
+                    console.log(`Loading questions for grade ${grade} and topic ${topicId}...`);
+    
+                    if (grade < maxQuizGrade || (grade === maxQuizGrade && i <= highestTopicCompleted)) {
+                        let questions = await loadQuestions(grade, topicId);
+                        console.log(`Questions for ${topicId}:`, questions);
+                        quizQuestions = quizQuestions.concat(questions);
+                    }
+                }
+            }
+    
+            quizQuestions = shuffleArray(quizQuestions);
+            console.log("Shuffled quiz questions:", quizQuestions);
+        } catch (error) {
+            console.error("Error generating quiz data:", error);
+        }
+    
+        return quizQuestions.slice(0, quizNumber-1);
+    }
+    
+    async function loadTopicsForGrade(grade) {
+        try {
+            let response = await fetch(`content/${grade}-topics.json`);
+            let data = await response.json();
+            return data;
+        } catch (error) {
+            console.error("Error loading topic data: ", error);
+            return [];
+        }
+    }
+    
+    async function loadQuestions(grade, topicId) {
+        try {
+            console.log(`Loading questions for grade ${grade} and topic ${topicId}...`);
+    
+            let response = await fetch(`content/${grade}-${topicId}.json`);
+            let data = await response.json();
+            let questions = data.filter(item => item.contentType === 'question');
+            console.log(`Questions loaded:`, questions);
+    
+            return questions;
+        } catch (error) {
+            console.error(`Error loading questions for grade ${grade} and topic ${topicId}: `, error);
+            return [];
+        }
+    }
+    
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function renderQuizQuestion(item, quizQuestions){
+        const mainContainer = document.getElementById("main-container");
+        const quizContainer = document.createElement('div');
+        quizContainer.setAttribute('id', "quizContainer");
+        mainContainer.appendChild(quizContainer);
+    
+        const quizImagesContainer = document.createElement('div');
+        quizImagesContainer.setAttribute('id', "quizImagesContainer");
+        const numImages = item.images.length;
+        quizImagesContainer.style.gridTemplateColumns = "repeat(" + numImages + ", 1fr)";
+        quizContainer.appendChild(quizImagesContainer);
+    
+        let answerSelected = false; // Flag to track if answer has been selected
+    
+        // Function to handle click on an answer option
+        function handleQuizAnswerClick(index) {
+
+            if (!answerSelected) {
+                answerSelected = true; 
+    
+                for (let i = 0; i < numImages; i++) {
+                    const quizAnswerContainer = document.getElementById(i);
+                    quizAnswerContainer.removeEventListener('click', quizAnswerClickHandlers[i]);
+                    quizAnswerContainer.style.pointerEvents = 'none'; // Disable pointer events
+                }
+    
+                // Determine if selected answer is correct
+                checkQuizAnswer(item, index);
+            }
+        }
+    
+        // Array to store event handler references
+        const quizAnswerClickHandlers = [];
+    
+        // Create answer options
+        for (let i = 0; i < numImages; i++) {
+            const quizImageContainer = document.createElement('div');
+            quizImageContainer.setAttribute('class', "quizImageContainer");
+            quizImageContainer.setAttribute('id', i);
+            const quizImage = document.createElement('img');
+            const source = item.images[i];
+            quizImage.src = source;
+            quizImage.setAttribute('class', "quizImage");
+            quizImageContainer.appendChild(quizImage);
+            quizImagesContainer.appendChild(quizImageContainer);
+    
+            // Create event handler for each answer option
+            const quizAnswerClickHandler = function() {
+                handleQuizAnswerClick(i);
+            };
+    
+            quizAnswerClickHandlers.push(quizAnswerClickHandler);
+    
+            // Add click event listener to answer option
+            quizImageContainer.addEventListener('click', quizAnswerClickHandler);
+        }
+    
+        const quizTextContainer = document.createElement('div');
+        quizTextContainer.setAttribute('id', "quizTextContainer");
+        quizContainer.appendChild(quizTextContainer);
+        const quizText = item.text;
+        quizTextContainer.innerHTML = quizText;
+    
+        function checkQuizAnswer(question, chosenAnswerIndex) {
+            const correctAnswerIndex = question.correctAnswer;
+    
+            if (correctAnswerIndex === chosenAnswerIndex) {
+                handleCorrectQuizAnswer(chosenAnswerIndex);
+            } 
+            else {
+                handleIncorrectQuizAnswer(chosenAnswerIndex);
+            }
+        }
+
+        function handleCorrectQuizAnswer(chosenAnswerIndex){
+            console.log("Handling correct quiz answer...");
+            const correctSelected = document.getElementById(chosenAnswerIndex);
+            correctSelected.style.borderColor = "#328032";
+            correctSelected.style.borderWidth = "4px";
+            const answerText = "Correct!";
+            quizTextContainer.innerHTML = answerText;
+
+            renderNextArrow();
+            document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
+                currentQuizIndex++;
+                if (currentQuizIndex >= quizQuestions.length) {
+                    changeSiteSection("HOME");
                 } else {
-                    renderContentPage(topicContent, currentTopicIndex);
+                    renderQuizPage(quizQuestions, currentQuizIndex);
+                }
+            });
+        }
+
+        function handleIncorrectQuizAnswer(chosenAnswerIndex){
+            console.log("Handling incorrect quiz answer...");
+            const incorrectSelected = document.getElementById(chosenAnswerIndex);
+            incorrectSelected.style.borderColor = "#ed3b4d";
+            incorrectSelected.style.borderWidth = "4px";
+            const answerText = "Not quite! Would you like to try again?";
+            quizTextContainer.innerHTML = answerText;
+
+            const incorrectAnswerContainer = document.createElement('div');
+            incorrectAnswerContainer.setAttribute('id', 'incorrectAnswerContainer');
+
+            const tryAgainContainer = document.createElement('div');
+            tryAgainContainer.setAttribute('id', "tryAgainContainer");
+            tryAgainContainer.innerHTML = "Try again";
+
+            tryAgainContainer.addEventListener('click', function(){
+                renderQuizPage(quizQuestions, currentQuizIndex);
+            });
+
+            const helpContainer = document.createElement('div');
+            helpContainer.setAttribute('id', "helpContainer");
+            helpContainer.innerHTML = "See the correct answer";
+
+            helpContainer.addEventListener('click', function(){
+                showCorrectAnswer(item);
+            });
+
+            incorrectAnswerContainer.appendChild(tryAgainContainer);
+            incorrectAnswerContainer.appendChild(helpContainer);
+
+            quizContainer.appendChild(incorrectAnswerContainer);
+        }
+
+        function showCorrectAnswer(){
+            // Highlight the correct answer in green
+            const correctAnswerIndex = item.correctAnswer;
+            const correctSelected = document.getElementById(correctAnswerIndex);
+            correctSelected.style.borderColor = "#328032";
+            correctSelected.style.borderWidth = "4px";
+
+            // Clear the border from the incorrect answer if there was one
+            for (let i = 0; i < item.images.length; i++) {
+                if (i !== correctAnswerIndex) {
+                    const incorrectSelected = document.getElementById(i);
+                    incorrectSelected.style.borderColor = "";
+                    incorrectSelected.style.borderWidth = "";
+                }
+            }
+
+            // Add explanatory text
+            quizTextContainer.innerHTML = item.explanation;
+
+            // Remove other options
+            incorrectAnswerContainer.remove();
+            
+            // Add next button
+            renderNextArrow();
+            document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
+                currentQuizIndex++;
+                if (currentQuizIndex >= quizQuestions.length) {
+                    changeSiteSection("HOME");
+                } else {
+                    renderQuizPage(quizQuestions, currentQuizIndex);
                 }
             });
         }
     }
+    
+
+    ////// Glossary //////
     
     function loadGlossary(){
         document.getElementById("page-title").innerHTML = "Glossary";
@@ -1052,7 +1302,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Misc helper functions //////
 
-    // Function to render the forward and back arrows
+    /// Functions to render the forward and back arrows ///
     function renderNextBackArrows() {
         const footer = document.getElementById("footer");
         footer.style.display = "flex";
@@ -1097,14 +1347,87 @@ document.addEventListener('DOMContentLoaded', function() {
         footer.appendChild(nextButtonImageContainer);
     }
 
-    // Empty the main element
+    /// Functions to clear elements before rending new ones ///
+
+    // Clear the main element
     function emptyMainText() {
         document.getElementById("main-container").innerHTML = "";
     }
 
-    // Empty the footer
+    // Clear the footer
     function emptyFooter(){
         document.getElementById("footer").innerHTML = "";
+    }
+
+    /// Functions related to storing progress in local and session storage ///
+        // Grades are actual grade numbers, so start from 1
+        // Topics are indexes, so start from 0
+
+    // Set the highest grade completed
+    function setHighestGradeCompleted(grade){
+        localStorage.setItem('highestGradeCompleted', grade);
+    }
+
+    // Get the highest grade completed from local storage
+    function getHighestGradeCompleted(){
+        const highestGradeCompleted = localStorage.getItem('highestGradeCompleted');
+        if(highestGradeCompleted === null){
+            return 0;
+        }
+        else{
+            return parseInt(localStorage.getItem('highestGradeCompleted'));
+        }    
+    }
+
+    // Store the current grade in the session storage
+    function setCurrentGrade(grade){
+        sessionStorage.setItem('currentGrade', grade);
+    }
+
+    // Get the current grade from session storage
+    function getCurrentGrade(){
+        return sessionStorage.getItem('currentGrade');
+    }
+
+    // Set the index of the highest topic completed in local storage
+    function setHighestTopicCompleted(grade, index){
+        localStorage.setItem('highestTopicCompletedGrade'+grade, index);
+    }
+
+    // Get the index of the highest topic completed from local storage
+    function getHighestTopicCompleted(grade){
+        const highestTopicCompleted = localStorage.getItem('highestTopicCompletedGrade'+grade);
+        if (highestTopicCompleted === null){
+            return -1;
+        }
+        else {
+            return parseInt(highestTopicCompleted);
+        }
+    }
+
+    // Increment the highest topic completed
+    function incrementHighestTopicCompleted(grade) {
+        let highestTopicCompleted = getHighestTopicCompleted(grade);
+        if(getCurrentTopicIndex() > getHighestTopicCompleted()){
+            highestTopicCompleted++;
+        }
+        setHighestTopicCompleted(grade, highestTopicCompleted);
+    }
+
+    // Set the current topic in session storage
+    function setCurrentTopic(topicIndex, topicId) {
+        sessionStorage.setItem('currentTopicIndex', topicIndex);
+        sessionStorage.setItem('currentTopicId', topicId);
+    }
+
+    // Get the current topic id from session storage
+    function getCurrentTopicId(){
+        return sessionStorage.getItem('currentTopicId');
+    }
+
+    // Get the current topic index from session storage
+    function getCurrentTopicIndex(){
+        return parseInt(sessionStorage.getItem('currentTopicIndex'));
     }
 
     ////// Render the page content //////
