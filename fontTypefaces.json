@@ -1,26 +1,26 @@
 [
     {
-        "fontFamily": "Verdana, sans-serif",
-        "fontText": "Verdana"
-    },
-    {
-        "fontFamily": "Tahoma, sans-serif",
-        "fontText": "Tahoma"
-    },
-    {
         "fontFamily": "Calibri, sans-serif",
         "fontText": "Calibri"
-    },
-    {
-        "fontFamily": "'Trebuchet MS', sans-serif",
-        "fontText": "Trebuchet"
     },
     {
         "fontFamily": "'Lucida Console', monospace",
         "fontText": "Lucida console"
     },
     {
+        "fontFamily": "OpenDyslexic, sans-serif",
+        "fontText": "Open Dyslexic"
+    },
+    {
+        "fontFamily": "OpenSans, sans-serif",
+        "fontText": "Open Sans"
+    },
+    {
         "fontFamily": "'Times New Roman', Times, serif",
         "fontText": "Times New Roman"
+    },
+    {
+        "fontFamily": "Verdana, sans-serif",
+        "fontText": "Verdana"
     }
 ]

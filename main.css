@@ -1,5 +1,15 @@
 /***** Overall styling *****/
 
+@font-face {
+    font-family: OpenDyslexic;
+    src: url('Fonts/OpenDyslexic/OpenDyslexic3-Regular.ttf'); 
+}
+
+@font-face {
+    font-family: OpenSans;
+    src: url('Fonts/OpenSans/OpenSans-Regular.ttf'); 
+}
+
 html {
     min-height: 100%;
 }
@@ -9,7 +19,7 @@ body {
     letter-spacing: 0.2ch;
     word-spacing: 0.7ch; /* 3.5x letter-spacing */
     height: 100%;
-    background-color: rgb(247, 244, 207);
+    background-color: #e6f7f5;
     display: flex;
     flex-direction: column;
     align-items: center;

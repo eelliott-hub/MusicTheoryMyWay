@@ -4,23 +4,23 @@
         "colourText": "White"
     },
     {
-        "colourCode": "#f7fca0",
-        "colourText": "Yellow"
+        "colourCode": "#f7f4cf",
+        "colourText": "Cream"
     },
     {
-        "colourCode": "#B3E8B4",
+        "colourCode": "#c8fac9",
         "colourText": "Green"
     },
     {
-        "colourCode": "#EDD1B0",
+        "colourCode": "#f7e4cd",
         "colourText": "Peach"
     },
     {
-        "colourCode": "#9bb0f7",
+        "colourCode": "#bccaf7",
         "colourText": "Blue"
     },
     {
-        "colourCode": "#D8D3D6",
+        "colourCode": "#ded5da",
         "colourText": "Grey"
     }
 ]

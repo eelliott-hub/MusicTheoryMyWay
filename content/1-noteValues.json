@@ -167,7 +167,7 @@
         "images": ["../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/quaver-stem-down.png", "../images/grade1/Notes/semiquaver-stem-up.png", "../images/grade1/Notes/two-quavers-stems-up.png"],
         "text": "Which note value is the same length as two semiquavers?",
         "correctAnswer": 1,
-        "explanation": "Two semiquavers are equal to one quaver in length. Remember <emph>semi</emph> means <emph>half</emph>, so a semiquavers is half a quaver."
+        "explanation": "Two semiquavers are equal to one quaver in length. Remember <emph>semi</emph> means <emph>half</emph>, so a semiquaver is half a quaver."
     },
     {
         "contentType": "information",

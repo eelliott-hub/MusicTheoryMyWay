@@ -30,16 +30,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Progress bar?
         // Logic of other kinds of questions
         // Make a random selection of correct and incorrect messages, or totally slimline it and make have just tick/green or cross/red?
-        // Quiz section: selection of questions from topics covered so far (in random order if possible)
         // Increment grade when all questions completed
+        // Capture quiz scores and show when quiz is finished
 
         // Improve question sections:
             // Modular Functions: Functions like createQuestionContainer, createQuestionImagesContainer, createQuestionImageContainer, and createQuestionTextContainer modularize the code, making it easier to read and maintain.
             // Event Delegation: The event listener could be added to the parent container (questionImagesContainer). This is more efficient and makes it easier to handle events for dynamically added or removed elements.
         // Forward arrow event handlers are all very similar - break out into a function with arguments
+        // Add some more console messages and error handling
 
     // Uncomment temporarily to clear elements of local storage
-        localStorage.clear();
+        // localStorage.clear();
         // localStorage.removeItem("tutorialCompleted");
         // localStorage.removeItem("settingsChanged");
 
@@ -693,9 +694,7 @@ document.addEventListener('DOMContentLoaded', function() {
             topicBlock.innerHTML = thisTopic.name;
             
             const highestTopicCompleted = getHighestTopicCompleted(grade);
-            if(i === 0){
-                { renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
-            }
+            if(i === 0){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
             else if(i <= (highestTopicCompleted+1)){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
             else{ renderUnavailableTopicBlock(topicBlock); }
 
@@ -1167,14 +1166,7 @@ document.addEventListener('DOMContentLoaded', function() {
             quizTextContainer.innerHTML = answerText;
 
             renderNextArrow();
-            document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
-                currentQuizIndex++;
-                if (currentQuizIndex >= quizQuestions.length) {
-                    changeSiteSection("HOME");
-                } else {
-                    renderQuizPage(quizQuestions, currentQuizIndex);
-                }
-            });
+            finishQuiz(quizQuestions);
         }
 
         function handleIncorrectQuizAnswer(chosenAnswerIndex){
@@ -1234,6 +1226,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add next button
             renderNextArrow();
+            finishQuiz(quizQuestions);
+        }
+
+        function finishQuiz(quizQuestions){
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
                 currentQuizIndex++;
                 if (currentQuizIndex >= quizQuestions.length) {
@@ -1259,6 +1255,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error('Error fetching the glossary data:', error);
         });
+    }
 
     function generateGlossary(data) {
         
@@ -1298,7 +1295,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(glossaryContainer);
     }
-    }
+
 
     ////// Misc helper functions //////
 
