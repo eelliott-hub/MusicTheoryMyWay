@@ -5,9 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const availableGrades = [1, 2, 3, 4, 5];
     let tutorialPages = [];
     let currentTutorialIndex = 0;
+    let currentSettingsIndex = 0;
     let topicContent = [];
     let currentQuestionIndex = 0;
     let currentQuizIndex = 0;
+    let quizResult = 0;
+    let quizResultsData = [];
 
     // Default settings
     const defaultBackgroundColour = "#f5f5f5";
@@ -24,14 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const quizNumber = 10;
 
 
-
     // TODO NEXT to make this an MVP
         // Storing progress within topics and grades - need to store number of right answers to questions
         // Progress bar?
         // Logic of other kinds of questions
         // Make a random selection of correct and incorrect messages, or totally slimline it and make have just tick/green or cross/red?
         // Increment grade when all questions completed
-        // Capture quiz scores and show when quiz is finished
 
         // Improve question sections:
             // Modular Functions: Functions like createQuestionContainer, createQuestionImagesContainer, createQuestionImageContainer, and createQuestionTextContainer modularize the code, making it easier to read and maintain.
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add some more console messages and error handling
 
     // Uncomment temporarily to clear elements of local storage
-        // localStorage.clear();
+         localStorage.clear();
         // localStorage.removeItem("tutorialCompleted");
         // localStorage.removeItem("settingsChanged");
 
@@ -217,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderHomePageStartLearn(){
         const pageTitle = "Welcome back to Music Theory My Way!";
-        const introText = "";
+        const introText = "Click the music notes to start learning.";
         const buttonNav = "learn";
         const buttonText = "Start learning now";
         const siteSectionTo = "LEARN";
@@ -227,9 +228,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderHomePageContinueLearn(){
         const pageTitle = "Welcome back to Music Theory My Way!";
-        const introText = "Click the music notes to continue learning.";
+        const introText = "";
         const buttonNav = "learn";
-        const buttonText = "Contibue learning now";
+        const buttonText = "Continue learning now";
         const siteSectionTo = "LEARN";
         const buttonColour = "#6ff36f";
         renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour);
@@ -945,6 +946,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentQuestionIndex >= topicContent.length) {
             if(getCurrentTopicIndex() > getHighestTopicCompleted(getCurrentGrade())){
                 incrementHighestTopicCompleted(getCurrentGrade());
+                localStorage.setItem('learningStarted', "true");
             }
             changeSiteSection("GRADEHOMEPAGE");               
         } 
@@ -956,6 +958,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ////// Quiz //////
 
     async function renderQuiz(){
+        quizResult = 0;
         console.log("Rendering quiz...");
         document.getElementById("page-title").innerHTML = "Quiz";
         const highestGradeCompleted = getHighestGradeCompleted();
@@ -975,7 +978,6 @@ document.addEventListener('DOMContentLoaded', function() {
         else {
             generateQuizData(maxQuizGrade, highestTopicCompleted)
                 .then(quizQuestions => {
-                    console.log("Quiz questions:", quizQuestions);
                     console.log("Number of quiz questions:", quizQuestions.length);
                     currentQuizIndex = 0;
                     renderQuizPage(quizQuestions, currentQuizIndex);
@@ -1033,19 +1035,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
                     if (grade < maxQuizGrade || (grade === maxQuizGrade && i <= highestTopicCompleted)) {
                         let questions = await loadQuestions(grade, topicId);
-                        console.log(`Questions for ${topicId}:`, questions);
                         quizQuestions = quizQuestions.concat(questions);
                     }
                 }
             }
     
             quizQuestions = shuffleArray(quizQuestions);
-            console.log("Shuffled quiz questions:", quizQuestions);
         } catch (error) {
             console.error("Error generating quiz data:", error);
         }
     
-        return quizQuestions.slice(0, quizNumber-1);
+        return quizQuestions.slice(0, quizNumber);
     }
     
     async function loadTopicsForGrade(grade) {
@@ -1066,7 +1066,6 @@ document.addEventListener('DOMContentLoaded', function() {
             let response = await fetch(`content/${grade}-${topicId}.json`);
             let data = await response.json();
             let questions = data.filter(item => item.contentType === 'question');
-            console.log(`Questions loaded:`, questions);
     
             return questions;
         } catch (error) {
@@ -1164,6 +1163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             correctSelected.style.borderWidth = "4px";
             const answerText = "Correct!";
             quizTextContainer.innerHTML = answerText;
+            quizResult++;
 
             renderNextArrow();
             finishQuiz(quizQuestions);
@@ -1233,14 +1233,66 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
                 currentQuizIndex++;
                 if (currentQuizIndex >= quizQuestions.length) {
-                    changeSiteSection("HOME");
+                    renderQuizResult();
                 } else {
                     renderQuizPage(quizQuestions, currentQuizIndex);
                 }
             });
         }
+
+        function renderQuizResult(){
+            fetch("quizResults.json")
+            .then(response => response.json())
+            .then(data => {
+                quizResultsData = data;
+                renderQuizResultPage(quizResultsData);
+            })
+            .catch(error => console.error("Error loading quiz results data: ", error));
+        }
+
+        function renderQuizResultPage(quizResultsData){
+            emptyMainText();
+            emptyFooter();
+            let shortText = "";
+            let longText = "";
+
+            // For each quiz result range check the user's score against the min and max values
+            // Extract the relevant text and render it to the page with the score out of the quizNumber value
+
+            for(let i = 0; i < quizResultsData.length; i++){
+                if(quizResult >= quizResultsData[i].minScore && quizResult <= quizResultsData[i].maxScore){
+                    shortText = quizResultsData[i].shortText;
+                    longText = quizResultsData[i].longText;
+                }
+            }
+
+            document.getElementById("page-title").innerHTML = shortText;
+
+            const quizResultContainer = document.createElement('div');
+            quizResultContainer.setAttribute('id', 'quizResultContainer');
+
+            const quizScoreContainer = document.createElement('div');
+            quizScoreContainer.setAttribute('id', 'quizScoreContainer');
+
+            quizScoreContainer.innerHTML = quizResult + "/" + quizNumber;
+            quizResultContainer.appendChild(quizScoreContainer);
+
+            const quizScoreLongText = document.createElement('div');
+            quizScoreLongText.setAttribute('id', 'quizScoreLongText');
+
+            quizScoreLongText.innerHTML = longText;
+            quizScoreContainer.appendChild(quizScoreLongText);
+
+            const mainContainer = document.getElementById("main-container");
+            mainContainer.appendChild(quizResultContainer);
+
+            renderNextArrow();
+            document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
+                changeSiteSection("HOME");
+            });
+        }
     }
-    
+
 
     ////// Glossary //////
     

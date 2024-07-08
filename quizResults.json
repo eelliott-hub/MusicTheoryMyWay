@@ -1,0 +1,20 @@
+[
+    {
+        "minScore": 8,
+        "maxScore": 10,
+        "shortText": "Fantastic!",
+        "longText": "You know these topics really well! Try moving onto the next topic now."
+    },
+    {
+        "minScore": 4,
+        "maxScore": 7,
+        "shortText": "Well done!",
+        "longText": "You are starting to get to grips with these topics. You might like to take a couple more quizzes before moving onto the next topic."
+    },
+    {
+        "minScore": 0,
+        "maxScore": 3,
+        "shortText": "Good start!",
+        "longText": "You made it to the end of the quiz. If there are topics you're struggling with, revise them again, and if you have a music teacher, ask them for some more guidance with the parts you're finding difficult."
+    }
+]

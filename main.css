@@ -363,6 +363,20 @@ main .container{
     margin: 30px auto;
 }
 
+#quizScoreContainer{
+    font-size: 400%;
+    text-align: center;
+    padding: 10px;
+}
+
+#quizScoreLongText{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 20px auto;
+    width: 75%;
+    text-align: left;
+}
+
 /***** Glossary styling *****/
 
 #glossaryContainer{
