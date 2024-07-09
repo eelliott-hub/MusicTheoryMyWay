@@ -130,7 +130,7 @@ nav .container {
     border: 1px solid #ffa500;
 }
 
-#tutorial-button {
+#tour-button {
     background-color: #ffff00;
     border: 1px solid #ffff00;
 }
@@ -218,16 +218,16 @@ main .container{
     cursor: pointer;
 }
 
-/***** Tutorial pages styling *****/
+/***** Tour pages styling *****/
 
-#tutorialContainer {
+#tourContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-#tutorialImageContainer {
+#tourImageContainer {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -238,11 +238,11 @@ main .container{
     padding: 10px;
 }
 
-#tutorialTextContainer {
+#tourTextContainer {
     padding: 5px;
 }
 
-#tutorialContainer img {
+#tourContainer img {
     width: 150px;
 }
 
@@ -440,7 +440,7 @@ main .container{
     .homePageContainer {
         width: 100%;
     }
-    .tutorialContainer {
+    .tourContainer {
         grid-template-columns: repeat(1, 1fr);
     }
     #colourContainer, #typefaceContainer {

@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // Variables for site navigation
-    let siteSection = "HOME"; // HOME, LEARN, CONTENT, QUIZ, SETTINGS, TUTORIAL, GLOSSARY
+    let siteSection = "HOME"; // HOME, LEARN, CONTENT, QUIZ, SETTINGS, TOUR, GLOSSARY
     const availableGrades = [1, 2, 3, 4, 5];
-    let tutorialPages = [];
-    let currentTutorialIndex = 0;
+    let tourPages = [];
+    let currentTourIndex = 0;
     let currentSettingsIndex = 0;
     let topicContent = [];
     let currentQuestionIndex = 0;
@@ -41,8 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add some more console messages and error handling
 
     // Uncomment temporarily to clear elements of local storage
-         localStorage.clear();
-        // localStorage.removeItem("tutorialCompleted");
+        // localStorage.clear();
+        // localStorage.removeItem("tourCompleted");
         // localStorage.removeItem("settingsChanged");
 
     // Set to make grade 2 available
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         emptyFooter();
 
         if(siteSection === "HOME") {
-            if (!localStorage.getItem('tutorialCompleted', "true")) { renderHomePageTutorial(); }
+            if (!localStorage.getItem('tourCompleted', "true")) { renderHomePageTour(); }
             else if (!localStorage.getItem('settingsChanged', "true")) { renderHomePageSettings(); }
             else if (!localStorage.getItem('learningStarted', "true")) { renderHomePageStartLearn(); }
             else { renderHomePageContinueLearn(); }
@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
             currentSettingsIndex = 0;
             renderSettingsPage(currentSettingsIndex);
         }
-        else if(siteSection === "TUTORIAL"){
-            loadTutorialData();
+        else if(siteSection === "TOUR"){
+            loadTourData();
         }
         else if(siteSection === "GLOSSARY"){
             loadGlossary();
@@ -103,21 +103,21 @@ document.addEventListener('DOMContentLoaded', function() {
             navButtonText("learn", "Learn");
             navButtonText("quiz", "Quiz");
             navButtonText("settings", "Settings");
-            navButtonText("tutorial", "Tutorial");
+            navButtonText("tour", "Tour");
             navButtonText("glossary", "Glossary");
         } else if (variant === "images") {
             navButtonImage("home");
             navButtonImage("learn");
             navButtonImage("quiz");
             navButtonImage("settings");
-            navButtonImage("tutorial");
+            navButtonImage("tour");
             navButtonImage("glossary");
         } else {
             navButtonImageText("home", "Home");
             navButtonImageText("learn", "Learn");
             navButtonImageText("quiz", "Quiz");
             navButtonImageText("settings", "Settings");
-            navButtonImageText("tutorial", "Tutorial");
+            navButtonImageText("tour", "Tour");
             navButtonImageText("glossary", "Glossary");
         }
     }
@@ -186,8 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("settings-button").addEventListener('click', function(){
         changeSiteSection("SETTINGS");
     });
-    document.getElementById("tutorial-button").addEventListener('click', function(){
-        changeSiteSection("TUTORIAL");
+    document.getElementById("tour-button").addEventListener('click', function(){
+        changeSiteSection("TOUR");
     });
     document.getElementById("glossary-button").addEventListener('click', function(){
         changeSiteSection("GLOSSARY");
@@ -196,12 +196,12 @@ document.addEventListener('DOMContentLoaded', function() {
     ////// Home page functions //////
 
     // TODO change to JSON file instead?
-    function renderHomePageTutorial(){
+    function renderHomePageTour(){
         const pageTitle = "Welcome to Music Theory My Way!";
-        const introText = "It looks like you are new to this site. Take the tutorial to learn your way around.";
-        const buttonNav = "tutorial";
-        const buttonText = "Take the tutorial";
-        const siteSectionTo = "TUTORIAL";
+        const introText = "It looks like you are new to this site. Take the tour to learn your way around.";
+        const buttonNav = "tour";
+        const buttonText = "Take the tour";
+        const siteSectionTo = "TOUR";
         const buttonColour = "#ffff00";
         renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour);
     }
@@ -542,84 +542,84 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    ////// Tutorial functions //////
+    ////// Tour functions //////
 
-    // Function to load tutorial data
-    function loadTutorialData() {
-        fetch('tutorialData.json')
+    // Function to load tour data
+    function loadTourData() {
+        fetch('tourData.json')
             .then(response => response.json())
-            .then(tutorialData => {
-                tutorialPages = tutorialData;
-                currentTutorialIndex = 0; // Reset index when entering tutorial
-                renderTutorialPage(currentTutorialIndex);                   
+            .then(tourData => {
+                tourPages = tourData;
+                currentTourIndex = 0; // Reset index when entering tour
+                renderTourPage(currentTourIndex);                   
             })
-            .catch(error => console.error("Error loading tutorial data: ", error));
+            .catch(error => console.error("Error loading tour data: ", error));
     }
 
-    // Function to render tutorial page
-    function renderTutorialPage(index) {
-        if (index >= 0 && index < tutorialPages.length) {
-            const page = tutorialPages[index];
-            document.getElementById("page-title").innerHTML = "Tutorial";
+    // Function to render tour page
+    function renderTourPage(index) {
+        if (index >= 0 && index < tourPages.length) {
+            const page = tourPages[index];
+            document.getElementById("page-title").innerHTML = "Tour";
             emptyMainText();
             emptyFooter();
     
             const mainContainer = document.getElementById("main-container");
-            const tutorialContainer = document.createElement('div');
-            tutorialContainer.setAttribute('id', "tutorialContainer");
+            const tourContainer = document.createElement('div');
+            tourContainer.setAttribute('id', "tourContainer");
 
-            const tutorialImageContainer = document.createElement('div');
-            tutorialImageContainer.setAttribute('id', 'tutorialImageContainer');
-            tutorialImageContainer.style.backgroundColor = page.colour;
+            const tourImageContainer = document.createElement('div');
+            tourImageContainer.setAttribute('id', 'tourImageContainer');
+            tourImageContainer.style.backgroundColor = page.colour;
 
-            const tutorialImage = document.createElement('img');
-            tutorialImage.setAttribute('id', 'tutorialImage');
+            const tourImage = document.createElement('img');
+            tourImage.setAttribute('id', 'tourImage');
 
-            tutorialImageContainer.appendChild(tutorialImage);
+            tourImageContainer.appendChild(tourImage);
 
-            const tutorialTextContainer = document.createElement('div');
-            tutorialTextContainer.setAttribute('id', 'tutorialTextContainer');
+            const tourTextContainer = document.createElement('div');
+            tourTextContainer.setAttribute('id', 'tourTextContainer');
 
-            const tutorialSubheading = document.createElement('h2');
-            tutorialSubheading.setAttribute('id', 'tutorialSubheading');
+            const tourSubheading = document.createElement('h2');
+            tourSubheading.setAttribute('id', 'tourSubheading');
 
-            const tutorialText = document.createElement('p');
-            tutorialText.setAttribute('id', 'tutorialText');
+            const tourText = document.createElement('p');
+            tourText.setAttribute('id', 'tourText');
 
-            tutorialTextContainer.appendChild(tutorialSubheading);
-            tutorialTextContainer.appendChild(tutorialText);
+            tourTextContainer.appendChild(tourSubheading);
+            tourTextContainer.appendChild(tourText);
 
-            tutorialContainer.appendChild(tutorialImageContainer);
-            tutorialContainer.appendChild(tutorialTextContainer);
-            mainContainer.appendChild(tutorialContainer);
+            tourContainer.appendChild(tourImageContainer);
+            tourContainer.appendChild(tourTextContainer);
+            mainContainer.appendChild(tourContainer);
 
-            document.getElementById('tutorialSubheading').innerHTML = page.subheading;
-            document.getElementById('tutorialText').innerHTML = page.text;
-            document.getElementById('tutorialImage').src = page.image;
-            document.getElementById('tutorialImage').alt = page.altText;
+            document.getElementById('tourSubheading').innerHTML = page.subheading;
+            document.getElementById('tourText').innerHTML = page.text;
+            document.getElementById('tourImage').src = page.image;
+            document.getElementById('tourImage').alt = page.altText;
 
             renderNextBackArrows();
 
-            if(index === tutorialPages.length - 1){
-                localStorage.setItem('tutorialCompleted', "true");
+            if(index === tourPages.length - 1){
+                localStorage.setItem('tourCompleted', "true");
             }
 
             // TODO: duplication of code here - sort out if time
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
-                currentTutorialIndex++;
-                if (currentTutorialIndex >= tutorialPages.length) {
+                currentTourIndex++;
+                if (currentTourIndex >= tourPages.length) {
                     changeSiteSection("HOME");
                 } else {
-                    renderTutorialPage(currentTutorialIndex);
+                    renderTourPage(currentTourIndex);
                 }
             });
 
             document.getElementById("backButtonImageContainer").addEventListener('click', function() {
-                currentTutorialIndex--;
-                if (currentTutorialIndex < 0) {
+                currentTourIndex--;
+                if (currentTourIndex < 0) {
                     changeSiteSection("HOME");
                 } else {
-                    renderTutorialPage(currentTutorialIndex);
+                    renderTourPage(currentTourIndex);
                 }
             });
 
