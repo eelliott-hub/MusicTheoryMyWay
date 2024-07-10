@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const button = document.getElementById(buttonName+"-button");
         button.innerHTML = "";
         const img = document.createElement('img');
-        img.src = "./images/navigation/" + buttonName + ".png";
+        img.src = "images/navigation/" + buttonName + ".png";
         img.alt = buttonName + " button";
         img.width = imagesOnlyNavButtonImageWidth;
         img.style.display = "block";
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
         container.style.display = "flex";
         container.style.alignItems = "center";
         const img = document.createElement('img');
-        img.src = "./images/navigation/" + buttonName + ".png";
+        img.src = "images/navigation/" + buttonName + ".png";
         img.alt = buttonName + " button";
         img.width = bothNavButtonImageWidth;
         img.style.marginRight = "5px";
@@ -1406,7 +1406,7 @@ document.addEventListener('DOMContentLoaded', function() {
         backButtonImageContainer.setAttribute('id', "backButtonImageContainer");
         const backButtonImage = document.createElement('img');
         backButtonImage.setAttribute('id', "backButtonImage");
-        backButtonImage.src = "/images/leftArrow.png";
+        backButtonImage.src = "images/leftArrow.png";
         backButtonImage.width = arrowImageWidth;
         backButtonImageContainer.appendChild(backButtonImage);
         footer.appendChild(backButtonImageContainer);
@@ -1417,7 +1417,7 @@ document.addEventListener('DOMContentLoaded', function() {
         nextButtonImageContainer.setAttribute('id', "nextButtonImageContainer");
         const nextButtonImage = document.createElement('img');
         nextButtonImage.setAttribute('id', "nextButtonImage");
-        nextButtonImage.src = "/images/rightArrow.png";
+        nextButtonImage.src = "images/rightArrow.png";
         nextButtonImage.width = arrowImageWidth;
         nextButtonImageContainer.appendChild(nextButtonImage);
         footer.appendChild(nextButtonImageContainer);
