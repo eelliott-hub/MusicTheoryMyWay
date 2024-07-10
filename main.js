@@ -992,7 +992,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderNoQuiz(){
         document.getElementById("page-title").innerHTML = "No quiz available yet!";
         const div = document.createElement('div');
-        div.setAttribute('class', "noQuizContainer");
+        div.setAttribute('class', "noQuizTextContainer");
         div.innerHTML = "It doesn't look like you've covered any of the topics yet.";
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(div);
