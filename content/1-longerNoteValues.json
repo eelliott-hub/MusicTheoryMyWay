@@ -2,19 +2,19 @@
     {
         "contentType": "information",
         "pageTitle": "Longer note values",
-        "images": ["../images/grade1/Notes/crotchet-stem-up.png"],
+        "images": ["images/grade1/Notes/crotchet-stem-up.png"],
         "text": "In this section you'll learn about two more types of note. <br>Previously you learnt about crotchets, which are each one beat long."
     },
     {
         "contentType": "information",
         "pageTitle": "Minim notes",
-        "images": ["../images/grade1/Notes/minim-stem-up.png", "../images/grade1/Notes/minim-stem-down.png"],
+        "images": ["images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/minim-stem-down.png"],
         "text": "A minim has a stem that can go up or down and the note head isn't coloured in black. <br> A minim lasts for two beats."
     },
     {
         "contentType": "question",
         "questionType": "multipleChoice",
-        "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/minim-stem-down.png"],
+        "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/minim-stem-down.png"],
         "text": "Click on the minim note.",
         "correctAnswer": 1,
         "explanation": "Crotchets and minims do look similar, but the minim is not coloured in black."
@@ -22,19 +22,19 @@
     {
         "contentType": "information",
         "pageTitle": "Minim notes",
-        "images": ["../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/equals.png", "../images/grade1/Notes/minim-stem-up.png"],
+        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/equals.png", "images/grade1/Notes/minim-stem-up.png"],
         "text": "A minim lasts for two crotchet beats."
     },
     {
         "contentType": "information",
         "pageTitle": "Semibreve notes",
-        "images": ["../images/grade1/Notes/semibreve-small.png"],
+        "images": ["images/grade1/Notes/semibreve-small.png"],
         "text": "A semibreve doesn't have a stem at all and it lasts for four beats."
     },
     {
         "contentType": "question",
         "questionType": "multipleChoice",
-        "images": ["../images/grade1/Notes/minim-stem-up.png", "../images/grade1/Notes/semibreve-small.png"],
+        "images": ["images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/semibreve-small.png"],
         "text": "Click on the semibreve note.",
         "correctAnswer": 1,
         "explanation": "A semibreve is the one without the stem."
@@ -42,7 +42,7 @@
     {
         "contentType": "question",
         "questionType": "multipleChoice",
-        "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/minim-stem-up.png"],
+        "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/minim-stem-up.png"],
         "text": "Click on the minim note.",
         "correctAnswer": 1,
         "explanation": "Remember that minim notes aren't coloured in black."
@@ -50,25 +50,25 @@
     {
         "contentType": "information",
         "pageTitle": "Semibreve notes",
-        "images": ["../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/equals.png", "../images/grade1/Notes/minim-stem-up.png", "../images/grade1/Notes/minim-stem-up.png", "../images/equals.png",  "../images/grade1/Notes/semibreve-small.png"],
+        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/equals.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/equals.png",  "images/grade1/Notes/semibreve-small.png"],
         "text": "A semibreve lasts for two minims, or four crotchet beats."
     },
     {
         "contentType": "information",
         "pageTitle": "Semibreve notes",
-        "images": ["../images/grade1/Notes/two-quavers-stems-down.png", "../images/equals.png", "../images/grade1/Notes/crotchet-stem-down.png"],
+        "images": ["images/grade1/Notes/two-quavers-stems-down.png", "images/equals.png", "images/grade1/Notes/crotchet-stem-down.png"],
         "text": "We know that there are two quavers in a crotchet... "
     },
     {
         "contentType": "information",
         "pageTitle": "Semibreve notes",
-        "images": ["../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/crotchet-stem-down.png", "../images/equals.png", "../images/grade1/Notes/minim-stem-down.png"],
+        "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png", "images/equals.png", "images/grade1/Notes/minim-stem-down.png"],
         "text": "...and two crotchets in a minim. "
     },
     {
         "contentType": "question",
         "questionType": "multipleChoice",
-        "images": ["../images/grade1/Notes/four-quavers-stems-down.png", "../images/grade1/Notes/two-quavers-stems-down.png"],
+        "images": ["images/grade1/Notes/four-quavers-stems-down.png", "images/grade1/Notes/two-quavers-stems-down.png"],
         "text": "How many quavers in a minim?",
         "correctAnswer": 0,
         "explanation": "Two quavers equals one crotchet, so four quavers equals two crotchets."
@@ -76,7 +76,7 @@
     {
         "contentType": "question",
         "questionType": "multipleChoice",
-        "images": ["../images/grade1/Notes/quaver-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/minim-stem-up.png"],
+        "images": ["images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/minim-stem-up.png"],
         "text": "Click on the note that lasts for two crotchet beats.",
         "correctAnswer": 2,
         "explanation": "There are two crotchets in a minim."
@@ -84,7 +84,7 @@
     {
         "contentType": "question",
         "questionType": "multipleChoice",
-        "images": ["../images/grade1/Notes/semibreve-small.png", "../images/grade1/Notes/crotchet-stem-down.png", "../images/grade1/Notes/minim-stem-down.png"],
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/minim-stem-down.png"],
         "text": "Click on the note that lasts for four crotchet beats.",
         "correctAnswer": 0,
         "explanation": "There are four crotchets in a semibreve."
@@ -92,13 +92,13 @@
     {
         "contentType": "information",
         "pageTitle": "Good work!",
-        "images": ["../images/grade1/Notes/semiquaver-stem-up.png", "../images/grade1/Notes/quaver-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/minim-stem-up.png", "../images/grade1/Notes/semibreve-small.png"],
+        "images": ["images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/semibreve-small.png"],
         "text": "You have reached the end of this section on note values. Here are all of the note values you've learnt so far in order of length. <br> Have you tried drawing them?"
     },
     {
         "contentType": "information",
         "pageTitle": "Try a quiz",
-        "images": ["../images/grade1/Notes/semiquaver-stem-up.png", "../images/grade1/Notes/quaver-stem-up.png", "../images/grade1/Notes/crotchet-stem-up.png", "../images/grade1/Notes/minim-stem-up.png", "../images/grade1/Notes/semibreve-small.png"],
+        "images": ["images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/semibreve-small.png"],
         "text": "Try taking a <emph>quiz</emph> of the things you've learnt so far.<br>The <emph>glossary</emph> is always there to help if you want to look something up."
     }
 
