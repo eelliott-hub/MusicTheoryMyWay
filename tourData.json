@@ -1,24 +1,17 @@
 [
     {
         "subheading": "Music Theory My Way",
-        "image": "/images/navigation/tour.png",
-        "altText": "Large tour icon",
-        "colour": "#ffff00",
-        "text": "Music Theory My Way is a web app designed for people with dyslexia and can be customised in different ways to suit your learning style."
-    },
-    {
-        "subheading": "Settings",
-        "image": "/images/navigation/settings.png",
-        "altText": "Large settings icon",
-        "colour": "#ffa500",
-        "text": "Click on the orange settings icon at any time to update your background colour, font and other settings."
+        "image": "/images/fun-music.png",
+        "altText": "Icon of musical notes",
+        "colour": "",
+        "text": "Music Theory My Way is a website designed for people with dyslexia and can be customised in different ways to suit your learning style.<br><br>This tour will show you what the different sections of the website are for."
     },
 
     {
         "subheading": "Using Music Theory My Way",
-        "image": "/images/navigation/learn.png",
-        "altText": "Large learn icon",
-        "colour": "#6ff36f",
+        "image": "images/tablet-and-laptop.png",
+        "altText": "Icon of a laptop and tablet",
+        "colour": "",
         "text": "It is possible to use Music Theory My Way on a mobile phone screen, but a tablet or laptop screen is better."
     },
 
@@ -27,15 +20,7 @@
         "image": "/images/navigation/learn.png",
         "altText": "Large learn icon",
         "colour": "#6ff36f",
-        "text": "You will be learning about music theory up to grade 2. The green music notes icon takes you to the learning section."
-    },
-
-    {
-        "subheading": "Terminology",
-        "image": "/images/navigation/glossary.png",
-        "altText": "Large glossary icon",
-        "colour": "#f15252",
-        "text": "There will be some new words to learn, and they will be explained along the way."  
+        "text": "You will be learning about music theory up to grade 2. The <emph>green music notes</emph> icon takes you to the <emph>learning</emph> section. <br><br>It would be useful to have a pencil and paper to hand for some of the content."
     },
 
     {
@@ -43,7 +28,7 @@
         "image": "/images/navigation/glossary.png",
         "altText": "Large glossary icon",
         "colour": "#f15252",
-        "text": "Look up any words you're not sure about in the glossary by clicking the red button."  
+        "text": "There will be some new words to learn, and they will be explained along the way.<br><br> You can look up any words you're not sure about in the <emph>glossary</emph> by clicking the <emph>red</emph> button."  
     },
 
     {
@@ -51,7 +36,15 @@
         "image": "/images/navigation/quiz.png",
         "altText": "Large quiz icon",
         "colour": "#ae52fa",
-        "text": "Click the purple button to take a quiz on the topics that you've covered."  
+        "text": "You will be covering lots of different topics, and the <emph>purple quiz</emph> button will take you to a 10-question quiz based on the topics you've covered so far."  
+    },
+
+    {
+        "subheading": "Settings",
+        "image": "/images/navigation/settings.png",
+        "altText": "Large settings icon",
+        "colour": "#ffa500",
+        "text": "The <emph>orange settings</emph> button will take you to a screen where you can update your background colour, font and other aspects of the way information is presented.<br><br> We suggest that you go and investigate the settings after the tour."
     },
 
     {
@@ -59,6 +52,6 @@
         "image": "/images/navigation/tour.png",
         "altText": "Large tour icon",
         "colour": "#ffff00",
-        "text": "To come back to the tour at any time, click the yellow question mark."  
+        "text": "To come back to the <emph>tour</emph> at any time, click the <emph>yellow question mark</emph> from the home page."  
     }
 ]

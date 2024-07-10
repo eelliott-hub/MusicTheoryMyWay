@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSettingsIndex = 0;
     let topicContent = [];
     let currentQuestionIndex = 0;
-    let currentQuizIndex = 0;
+    let currentQuizIndex = -1;
     let quizResult = 0;
     let quizResultsData = [];
 
@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function updatePageContent(){
         emptyMainText();
         emptyFooter();
+        highlightCurrentNav();
 
         if(siteSection === "HOME") {
             if (!localStorage.getItem('tourCompleted', "true")) { renderHomePageTour(); }
@@ -239,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderHomePage(pageTitle, introText, buttonNav, buttonText, siteSectionTo, buttonColour) {
         document.getElementById("page-title").innerHTML = pageTitle;
         const div = document.createElement('div');
-        div.setAttribute('class', "homePageContainer");
+        div.setAttribute('class', "homePageTextContainer");
         div.innerHTML = introText;
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(div);
@@ -595,8 +596,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             document.getElementById('tourSubheading').innerHTML = page.subheading;
             document.getElementById('tourText').innerHTML = page.text;
-            document.getElementById('tourImage').src = page.image;
-            document.getElementById('tourImage').alt = page.altText;
+            if(page.image != "null"){
+                document.getElementById('tourImage').src = page.image;
+                document.getElementById('tourImage').alt = page.altText;
+            }
 
             renderNextBackArrows();
 
@@ -793,7 +796,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderQuestion(item) {
-        document.getElementById("page-title").innerHTML = "";
+        document.getElementById("page-title").innerHTML = "Test your knowledge";
         const mainContainer = document.getElementById("main-container");
         const questionContainer = document.createElement('div');
         questionContainer.setAttribute('id', "questionContainer");
@@ -979,7 +982,7 @@ document.addEventListener('DOMContentLoaded', function() {
             generateQuizData(maxQuizGrade, highestTopicCompleted)
                 .then(quizQuestions => {
                     console.log("Number of quiz questions:", quizQuestions.length);
-                    currentQuizIndex = 0;
+                    currentQuizIndex = -1;
                     renderQuizPage(quizQuestions, currentQuizIndex);
                 })
                 .catch(error => console.error("Error generating quiz data:", error));
@@ -990,7 +993,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("page-title").innerHTML = "No quiz available yet!";
         const div = document.createElement('div');
         div.setAttribute('class', "noQuizContainer");
-        div.innerHTML = "It doesn't look like you've started learning yet.";
+        div.innerHTML = "It doesn't look like you've covered any of the topics yet.";
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(div);
 
@@ -1006,16 +1009,38 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function renderQuizPage(quizQuestions, index){
-        if (index >= 0 && index < quizQuestions.length) {
+        emptyMainText();
+        emptyFooter();
+
+        if (index === -1){
+            renderQuizPreamble(quizQuestions);
+        }
+        else if (index >= 0 && index < quizQuestions.length) {
             const item = quizQuestions[index];
-    
-            emptyMainText();
-            emptyFooter();
-            renderQuizQuestion(item, quizQuestions);
+            renderQuizQuestion(item, quizQuestions, index);
     
         } else {
             console.error('Page index out of range:', index);
         }
+    }
+
+    function renderQuizPreamble(quizQuestions){
+        document.getElementById("page-title").innerHTML = "Quiz time!";
+        const quizPreambleContainer = document.createElement('div');
+        quizPreambleContainer.setAttribute('id', "quizPreambleContainer");
+        quizPreambleContainer.innerHTML = "You'll be asked 10 questions on topics you've covered on this website so far.<br><br>Click the green arrow to start the quiz.<br><br>Good luck!";
+        const mainContainer = document.getElementById("main-container");
+        mainContainer.appendChild(quizPreambleContainer);
+
+        renderNextArrow();
+        document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
+            currentQuizIndex++;
+            if (currentQuizIndex >= quizQuestions.length) {
+                changeSiteSection("HOME");
+            } else {
+                renderQuizPage(quizQuestions, currentQuizIndex);
+            }
+        });
     }
     
     async function generateQuizData(maxQuizGrade, highestTopicCompleted) {
@@ -1082,7 +1107,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return array;
     }
 
-    function renderQuizQuestion(item, quizQuestions){
+    function renderQuizQuestion(item, quizQuestions, index){
+        const questionNumber = index+1;
+        document.getElementById("page-title").innerHTML = questionNumber;
         const mainContainer = document.getElementById("main-container");
         const quizContainer = document.createElement('div');
         quizContainer.setAttribute('id', "quizContainer");
@@ -1406,6 +1433,40 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clear the footer
     function emptyFooter(){
         document.getElementById("footer").innerHTML = "";
+    }
+
+    /// Function to highlight one nav button
+    function highlightCurrentNav(){
+        // Loop through all nav buttons and set their border to the default
+        const buttons = document.getElementsByClassName('nav-button');
+        for(let i = 0; i < buttons.length; i++){
+            buttons[i].style.borderWidth = "0";
+        }
+
+        // Then get the current site section nav button and that set the border to highlight
+        if(siteSection === "HOME"){
+            addBottomBorder("home-button");
+        }
+        else if(siteSection === "LEARN"){
+            addBottomBorder("learn-button");
+        }
+        else if(siteSection === "GLOSSARY"){
+            addBottomBorder("glossary-button");
+        }
+        else if(siteSection === "QUIZ"){
+            addBottomBorder("quiz-button");
+        }
+        else if(siteSection === "SETTINGS"){
+            addBottomBorder("settings-button");
+        }
+        else if(siteSection === "TOUR"){
+            addBottomBorder("tour-button");
+        }
+    }
+
+    function addBottomBorder(buttonName){
+        document.getElementById(buttonName).style.borderColor = "#646363";
+        document.getElementById(buttonName).style.borderWidth = "0 0 7px 0"
     }
 
     /// Functions related to storing progress in local and session storage ///

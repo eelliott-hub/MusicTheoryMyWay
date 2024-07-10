@@ -41,7 +41,7 @@
     },
     {
         "contentType": "information",
-        "pageTitle": "Quavers notes",
+        "pageTitle": "Quaver notes",
         "images": ["../images/grade1/Notes/quaver-stem-down.png", "../images/grade1/Notes/quaver-stem-up.png"],
         "text": "Like crotchets, the stem can go up or down."
     },
