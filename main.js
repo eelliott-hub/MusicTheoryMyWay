@@ -673,6 +673,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderUnavailableGradeBlock(gradeBlock){
         gradeBlock.setAttribute('class', "unavailableGradeBlock");
+        const tooltip = createTooltip();
+        gradeBlock.appendChild(tooltip);
+
     }
 
     // Page showing topics within the grade
@@ -722,6 +725,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderUnavailableTopicBlock(topicBlock) {
         topicBlock.setAttribute('class', "unavailableTopicBlock");
+        const tooltip = createTooltip();
+        topicBlock.appendChild(tooltip);
+    }
+
+    function createTooltip() {
+        const tooltip = document.createElement('span');
+        tooltip.setAttribute('class', "tooltip");
+        tooltip.innerHTML = "Not available yet!"
+        return tooltip;
     }
 
     ////// Content and questions //////
@@ -1406,6 +1418,7 @@ document.addEventListener('DOMContentLoaded', function() {
         backButtonImageContainer.setAttribute('id', "backButtonImageContainer");
         const backButtonImage = document.createElement('img');
         backButtonImage.setAttribute('id', "backButtonImage");
+        backButtonImage.alt = "Green back arrow";
         backButtonImage.src = "images/leftArrow.png";
         backButtonImage.width = arrowImageWidth;
         backButtonImageContainer.appendChild(backButtonImage);
@@ -1417,6 +1430,7 @@ document.addEventListener('DOMContentLoaded', function() {
         nextButtonImageContainer.setAttribute('id', "nextButtonImageContainer");
         const nextButtonImage = document.createElement('img');
         nextButtonImage.setAttribute('id', "nextButtonImage");
+        nextButtonImage.alt = "Green forwards arrow";
         nextButtonImage.src = "images/rightArrow.png";
         nextButtonImage.width = arrowImageWidth;
         nextButtonImageContainer.appendChild(nextButtonImage);

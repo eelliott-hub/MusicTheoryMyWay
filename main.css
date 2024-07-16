@@ -16,6 +16,7 @@ html {
 
 body {
     font-family: 'Times New Roman', Times, serif;
+    font-size: 18pt; /* Baseline font size set here. Everything else is in proportion with this, and can be changed in the settings */
     letter-spacing: 0.2ch;
     word-spacing: 0.7ch; /* 3.5x letter-spacing */
     height: 100%;
@@ -69,19 +70,18 @@ nav {
 }
 
 h1 {
-    font-size: 28pt;
+    font-size: 160%;
     width: 100%;
     text-align: center;
 }
 
 h2 {
     margin: 0;
-    font-size: 20pt;
+    font-size: 110%;
 }
 
 p, div {
     line-height: 1.5;
-    font-size: 18pt;
 }
 
 /***** Navigation button styling *****/
@@ -290,7 +290,7 @@ main .container{
     text-align: center;
     padding: 10px;
     margin: 20px;
-    font-size: 20pt;
+    font-size: 120%;
     background-color: #6ff36f;
     display: flex;
     flex-direction: column;
@@ -311,11 +311,24 @@ main .container{
     text-align: center;
     padding: 10px;
     margin: 20px;
-    font-size: 20pt;
+    font-size: 120%;
     background-color: lightgrey;
     display: flex;
     flex-direction: column;
     justify-content: center; /* Center vertically */
+}
+
+.tooltip {
+    visibility: hidden;
+    font-size: 75%;
+}
+
+.unavailableGradeBlock:hover .tooltip {
+    visibility: visible;
+}
+
+.unavailableTopicBlock:hover .tooltip {
+    visibility: visible;
 }
 
 /***** Content styling *****/
@@ -417,7 +430,6 @@ main .container{
     grid-template-columns: 1fr;
     gap: 10px; /* Adjust the gap as needed */
     width: 100%;
-    font-size: 16pt;
 }
 
 #glossaryContainer hr{
@@ -490,7 +502,7 @@ main .container{
         grid-template-columns: repeat(2, 1fr);
     }
     .availableGradeBlock, .availableTopicBlock, .unavailableGradeBlock, .unavailableTopicBlock {
-        font-size: 16pt;
+        font-size: 80%;
     }
 }
 
