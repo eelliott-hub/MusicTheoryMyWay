@@ -1,26 +1,27 @@
 [
-    {
-        "fontFamily": "Calibri, sans-serif",
-        "fontText": "Calibri"
-    },
-    {
-        "fontFamily": "'Lucida Console', monospace",
-        "fontText": "Lucida console"
-    },
-    {
-        "fontFamily": "OpenDyslexic, sans-serif",
-        "fontText": "Open Dyslexic"
-    },
+ 
     {
         "fontFamily": "OpenSans, sans-serif",
         "fontText": "Open Sans"
     },
     {
-        "fontFamily": "'Times New Roman', Times, serif",
-        "fontText": "Times New Roman"
+        "fontFamily": "Helvetica, sans-serif",
+        "fontText": "Helvetica"
     },
     {
         "fontFamily": "Verdana, sans-serif",
         "fontText": "Verdana"
+    },
+    {
+        "fontFamily": "'Comic Sans MS', 'Comic Sans', sans-serif",
+        "fontText": "Comic Sans"
+    },
+    {
+        "fontFamily": "'Lucida Console', monospace",
+        "fontText": "Lucida Console"
+    },
+    {
+        "fontFamily": "OpenDyslexic, sans-serif",
+        "fontText": "Open Dyslexic"
     }
 ]

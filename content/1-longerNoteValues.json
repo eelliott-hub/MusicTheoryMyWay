@@ -22,7 +22,7 @@
     {
         "contentType": "information",
         "pageTitle": "Minim notes",
-        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/equals.png", "images/grade1/Notes/minim-stem-up.png"],
+        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/equivalence.png", "images/grade1/Notes/minim-stem-up.png"],
         "text": "A minim lasts for two crotchet beats."
     },
     {
@@ -50,19 +50,19 @@
     {
         "contentType": "information",
         "pageTitle": "Semibreve notes",
-        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/equals.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/equals.png",  "images/grade1/Notes/semibreve-small.png"],
+        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/equivalence.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/equivalence.png",  "images/grade1/Notes/semibreve-small.png"],
         "text": "A semibreve lasts for two minims, or four crotchet beats."
     },
     {
         "contentType": "information",
         "pageTitle": "Semibreve notes",
-        "images": ["images/grade1/Notes/two-quavers-stems-down.png", "images/equals.png", "images/grade1/Notes/crotchet-stem-down.png"],
+        "images": ["images/grade1/Notes/two-quavers-stems-down.png", "images/equivalence.png", "images/grade1/Notes/crotchet-stem-down.png"],
         "text": "We know that there are two quavers in a crotchet... "
     },
     {
         "contentType": "information",
         "pageTitle": "Semibreve notes",
-        "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png", "images/equals.png", "images/grade1/Notes/minim-stem-down.png"],
+        "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png", "images/equivalence.png", "images/grade1/Notes/minim-stem-down.png"],
         "text": "...and two crotchets in a minim. "
     },
     {

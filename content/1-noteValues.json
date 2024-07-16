@@ -62,7 +62,7 @@
     {
         "contentType": "information",
         "pageTitle": "Quaver notes",
-        "images": ["images/grade1/Notes/two-quavers-stems-up.png", "images/equals.png", "images/grade1/Notes/crotchet-stem-up.png"],
+        "images": ["images/grade1/Notes/two-quavers-stems-up.png", "images/equivalence.png", "images/grade1/Notes/crotchet-stem-up.png"],
         "text": "<emph>Two quavers</emph> fit into the same amount of time as <emph>one crotchet</emph>."
     },
     {
@@ -74,7 +74,7 @@
     {
         "contentType": "information",
         "pageTitle": "Quaver notes",
-        "images": ["images/grade1/Notes/four-quavers-stems-down.png", "images/equals.png", "images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png"],
+        "images": ["images/grade1/Notes/four-quavers-stems-down.png", "images/equivalence.png", "images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png"],
         "text": "Four quavers fit into the same amount of time as two crotchets."
     },
     {
@@ -158,7 +158,7 @@
     {
         "contentType": "information",
         "pageTitle": "Semiquaver notes",
-        "images": ["images/grade1/Notes/two-semiquavers-stems-up.png", "images/equals.png", "images/grade1/Notes/quaver-stem-up.png"],
+        "images": ["images/grade1/Notes/two-semiquavers-stems-up.png", "images/equivalence.png", "images/grade1/Notes/quaver-stem-up.png"],
         "text": "Two semiquavers take the same time as one quaver to play."
     },
     {
@@ -172,7 +172,7 @@
     {
         "contentType": "information",
         "pageTitle": "Semiquaver notes",
-        "images": ["images/grade1/Notes/four-semiquavers-stems-up.png", "images/equals.png", "images/grade1/Notes/two-quavers-stems-up.png", "images/equals.png", "images/grade1/Notes/crotchet-stem-up.png"],
+        "images": ["images/grade1/Notes/four-semiquavers-stems-up.png", "images/equivalence.png", "images/grade1/Notes/two-quavers-stems-up.png", "images/equivalence.png", "images/grade1/Notes/crotchet-stem-up.png"],
         "text": "Four semiquavers take the same time as two quavers, or one crotchet, to play."
     },
     {
