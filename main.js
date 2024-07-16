@@ -1320,7 +1320,7 @@ document.addEventListener('DOMContentLoaded', function() {
             quizScoreLongText.setAttribute('id', 'quizScoreLongText');
 
             quizScoreLongText.innerHTML = longText;
-            quizScoreContainer.appendChild(quizScoreLongText);
+            quizResultContainer.appendChild(quizScoreLongText);
 
             const mainContainer = document.getElementById("main-container");
             mainContainer.appendChild(quizResultContainer);

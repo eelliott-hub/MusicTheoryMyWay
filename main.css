@@ -16,9 +16,9 @@ html {
 
 body {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 18pt; /* Baseline font size set here. Everything else is in proportion with this, and can be changed in the settings */
+    font-size: 18pt;  /* Baseline font size set here. Everything else is in proportion with this, and can be changed in the settings */
     letter-spacing: 0.2ch;
-    word-spacing: 0.7ch; /* 3.5x letter-spacing */
+    word-spacing: 0.7ch; /* 3.5 x letter spacing */
     height: 100%;
     background-color: #e6f7f5;
     display: flex;
@@ -31,53 +31,40 @@ body emph {
     font-weight: bold;
 }
 
-header {
-    text-align: center;
+header, main, footer, nav {
     width: 100%;
     max-width: 1200px;
     background-color: whitesmoke;
     margin: 0 auto;
-    padding: 20px 40px;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+header {
+    text-align: center;
+    height: 70%;
 }
 
 main {
     text-align: left;
-    width: 100%;
-    max-width: 1200px;
-    background-color: whitesmoke;
-    margin: 0 auto;
-    padding: 20px 40px;
 }
 
 footer {    
     text-align: left;
     display: flex;
     justify-content: flex-end;
-    width: 100%;
-    max-width: 1200px;
-    background-color: whitesmoke;
-    margin: 0 auto;
-    padding: 20px 40px;
-    height: 90px;
-}
-
-nav {
-    width: 100%;
-    max-width: 1200px;
-    background-color: whitesmoke;
-    margin: 0 auto;
-    padding: 20px 40px;
+    height: 120px;
 }
 
 h1 {
-    font-size: 160%;
+    font-size: 1.6em;
     width: 100%;
     text-align: center;
 }
 
 h2 {
     margin: 0;
-    font-size: 110%;
+    font-size: 1.1em;
 }
 
 p, div {
@@ -88,13 +75,12 @@ p, div {
 
 nav .container {
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(6, 1fr);
     gap: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 0;
     margin: 0 auto;
-    max-width: 1200px;
     width: 100%;
+    max-width: 1200px;
 }
 
 .nav-button {
@@ -102,8 +88,8 @@ nav .container {
     padding: 5px;
     border-radius: 5px;
     display: flex;
-    justify-content: center;  /* Center horizontally */
-    align-items: center;      /* Center vertically */
+    justify-content: center;
+    align-items: center;
     margin: 5px;
     box-sizing: border-box;
 }
@@ -113,66 +99,34 @@ nav .container {
     cursor: pointer;
 }
 
-#home-button{
-    background-color: #87cefa;
-    border: 0 solid #87cefa;
-}
-
-#learn-button{
-    background-color: #6ff36f;
-    border: 0 solid #6ff36f;
-}
-
-#quiz-button{
-    background-color: #ae52fa;
-    border: 0 solid #ae52fa;
-}
-
-#settings-button{
-    background-color: #ffa500;
-    border: 0 solid #ffa500;
-}
-
-#tour-button {
-    background-color: #ffff00;
-    border: 0 solid #ffff00;
-}
-
-#glossary-button{
-    background-color: #f15252;
-    border: 0 solid #f15252;
-}
+#home-button{ background-color: #87cefa; border: 0 solid #87cefa;}
+#learn-button{ background-color: #6ff36f; border: 0 solid #6ff36f;}
+#quiz-button{ background-color: #ae52fa; border: 0 solid #ae52fa;}
+#settings-button{ background-color: #ffa500; border: 0 solid #ffa500;}
+#tour-button { background-color: #ffff00; border: 0 solid #ffff00;}
+#glossary-button{ background-color: #f15252; border: 0 solid #f15252;}
 
 /***** Main element styling *****/
 
-main .container{
+main .container {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    padding-top: 5px;
-    padding-bottom: 5px;
+    grid-template-columns: 1fr;
+    padding: 5px 0;
 }
-
 
 /***** Home page styling *****/
 
 .homePageContainer, .noQuizContainer {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
     margin: 20px auto;
     width: 50%;
     height: 400px;
 }
 
-.noQuizTextContainer {
+.noQuizTextContainer, .homePageTextContainer {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    margin: 20px auto;
-    width: 50%;
-}
-
-.homePageTextContainer {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
     margin: 20px auto;
     width: 50%;
 }
@@ -184,11 +138,10 @@ main .container{
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center vertically */
-    align-items: center;     /* Center horizontally */
+    justify-content: center;
+    align-items: center;
     margin: 5px;
     box-sizing: border-box;
-    padding: 10px;
     text-align: center;
     font-weight: bold;
 }
@@ -201,11 +154,9 @@ main .container{
 /***** Settings pages styling *****/
 #settingsContainer {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    grid-template-columns: 1fr;
+    padding: 5px 0;
+    margin: 20px 0;
     height: 400px;
 }
 
@@ -225,7 +176,7 @@ main .container{
 }
 
 .navOptionContainer {
-    height: 100px;;
+    height: 100px;
     border-radius: 5px;
     box-sizing: border-box;
     text-align: center;
@@ -242,8 +193,7 @@ main .container{
 #tourContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 0;
     height: 400px;
 }
 
@@ -251,8 +201,8 @@ main .container{
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center vertically */
-    align-items: center;     /* Center horizontally */
+    justify-content: center;
+    align-items: center;
     margin-right: 30px;
     box-sizing: border-box;
     padding: 10px;
@@ -267,6 +217,10 @@ main .container{
     width: 150px;
 }
 
+#nextButtonImageContainer, #backButtonImageContainer {
+    height: 100px;
+}
+
 #nextButtonImageContainer:hover, #backButtonImageContainer:hover {
     cursor: pointer;
 }
@@ -275,9 +229,8 @@ main .container{
 
 #progressContainer, #gradeTopicsContainer {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    padding-top: 5px;
-    padding-bottom: 5px;
+    grid-template-columns: 1fr;
+    padding: 5px 0;
     margin: 20px auto;
     width: 50%;
 }
@@ -290,18 +243,17 @@ main .container{
     text-align: center;
     padding: 10px;
     margin: 20px;
-    font-size: 120%;
+    font-size: 1.2em;
     background-color: #6ff36f;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center vertically */
+    justify-content: center;
 }
 
 .availableGradeBlock:hover, .availableTopicBlock:hover {
     border: 2px solid darkgrey !important;
     cursor: pointer;
 }
-
 
 .unavailableGradeBlock, .unavailableTopicBlock {
     height: 100px;
@@ -311,23 +263,19 @@ main .container{
     text-align: center;
     padding: 10px;
     margin: 20px;
-    font-size: 120%;
+    font-size: 1.2em;
     background-color: lightgrey;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center vertically */
+    justify-content: center;
 }
 
 .tooltip {
     visibility: hidden;
-    font-size: 75%;
+    font-size: 0.75em;
 }
 
-.unavailableGradeBlock:hover .tooltip {
-    visibility: visible;
-}
-
-.unavailableTopicBlock:hover .tooltip {
+.unavailableGradeBlock:hover .tooltip, .unavailableTopicBlock:hover .tooltip {
     visibility: visible;
 }
 
@@ -348,8 +296,8 @@ main .container{
 .informationImageContainer {
     height: 100%;
     display: flex;
-    justify-content: center;  /* Center horizontally */
-    align-items: center;      /* Center vertically */
+    justify-content: center;
+    align-items: center;
 }
 
 .informationImage {
@@ -361,7 +309,6 @@ main .container{
     margin: 20px auto;
 }
 
-
 /*** Questions ***/
 #questionImagesContainer, #quizImagesContainer {
     display: grid;
@@ -371,11 +318,11 @@ main .container{
     margin: 30px auto;
 }
 
-.questionImageContainer, #tryAgainContainer, #helpContainer, .quizImageContainer  {
+.questionImageContainer, #tryAgainContainer, #helpContainer, .quizImageContainer {
     height: 100%;
     display: flex;
-    justify-content: center;  /* Center horizontally */
-    align-items: center;      /* Center vertically */
+    justify-content: center;
+    align-items: center;
     border: 1px solid darkgrey;
     border-radius: 15px;
 }
@@ -394,24 +341,24 @@ main .container{
     margin: 20px auto;
 }
 
-#incorrectAnswerContainer{
+#incorrectAnswerContainer {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
     height: 80px;
     width: 75%;
     margin: 30px auto;
 }
 
-#quizScoreContainer{
-    font-size: 400%;
+#quizScoreContainer {
+    font-size: 4em;
     text-align: center;
     padding: 10px;
 }
 
-#quizScoreLongText{
+#quizScoreLongText {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
     margin: 20px auto;
     width: 75%;
     text-align: left;
@@ -419,29 +366,29 @@ main .container{
 
 /***** Quiz styling *****/
 
-#informationContainer, #questionContainer, #quizPreambleContainer, #quizContainer, #quizResultContainer{
+#informationContainer, #questionContainer, #quizPreambleContainer, #quizContainer, #quizResultContainer {
     height: 450px;
 }
 
 /***** Glossary styling *****/
 
-#glossaryContainer{
+#glossaryContainer {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 10px; /* Adjust the gap as needed */
+    gap: 10px;
     width: 100%;
 }
 
-#glossaryContainer hr{
+#glossaryContainer hr {
     width: 100%;
     margin: 0;
     border: 1px solid darkslategrey;
 }
 
-.glossary-row{
+.glossary-row {
     display: grid;
     grid-template-columns: 20% 10% 70%;
-    gap: 10px; /* Adjust the gap as needed */
+    gap: 10px;
     margin: 0 auto;
     padding: 20px 0;
     width: 95%;
@@ -449,19 +396,19 @@ main .container{
 }
 
 .glossary-row div {
-    text-align: left; /* Left-align the text */
+    text-align: left;
     width: 100%;
     padding: 5px;
 }
 
 .glossary-row img {
-    height: 60px; 
-    width: auto; /* Maintain aspect ratio */
+    height: 60px;
+    width: auto;
 }
 
 .termDiv {
     font-weight: bold;
-    font-size: 110%;
+    font-size: 1.1em;
 }
 
 /***** Media queries *****/
@@ -481,7 +428,7 @@ main .container{
     }
 }
 
-@media screen and (max-width: 560px){
+@media screen and (max-width: 560px) {
     nav .container {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -489,20 +436,20 @@ main .container{
         width: 100%;
     }
     .tourContainer {
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: 1fr;
     }
     #informationContainer, #questionContainer, #quizContainer {
         height: 800px;
     }
     #questionImagesContainer, #quizImagesContainer {
-        grid-template-columns: repeat(1, 1fr) !important;
+        grid-template-columns: 1fr !important;
         height: 400px;
     }
     #colourContainer, #typefaceContainer {
         grid-template-columns: repeat(2, 1fr);
     }
     .availableGradeBlock, .availableTopicBlock, .unavailableGradeBlock, .unavailableTopicBlock {
-        font-size: 80%;
+        font-size: 0.8em;
     }
 }
 
