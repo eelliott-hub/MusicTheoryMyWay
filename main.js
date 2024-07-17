@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add some more console messages and error handling
 
     // Uncomment temporarily to clear elements of local storage
-        localStorage.clear();
+        // localStorage.clear();
         // localStorage.removeItem("tourCompleted");
         // localStorage.removeItem("settingsChanged");
 
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const settingsPageTitles = [
         "Background colour",
         "Font",
-        "Font size and spacing (in progress)",
+        "Font size and spacing",
         "Navigation buttons" 
     ];
 
