@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Default settings
     const defaultBackgroundColour = "#f5f5f5";
     const defaultTypeface = "Verdana, sans-serif";
+    const defaultFontSize = "24px";
+    const defaultCharSpacing = "0.2px";
     const defaultNavButtons = "both";
    
     // Variables for sizes
@@ -22,6 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const imagesOnlyNavButtonImageWidth = 50;
     const bothNavButtonImageWidth = 40;
     const homePageButtonImageWidth = 100;
+    const maxFontSize = 34;
+    const minFontSize = 14;
+    const maxCharSpacing = 6.6;
+    const minCharSpacing = 0.2;
 
     // Number of questions in quiz
     const quizNumber = 10;
@@ -41,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add some more console messages and error handling
 
     // Uncomment temporarily to clear elements of local storage
-        // localStorage.clear();
+        localStorage.clear();
         // localStorage.removeItem("tourCompleted");
         // localStorage.removeItem("settingsChanged");
 
@@ -128,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const button = document.getElementById(buttonName+"-button");
         button.innerHTML = "";
         button.innerHTML = buttonText;
-        button.style.fontSize = "20pt";
+        button.style.fontSize = "1.2em";
         button.style.textAlign = "center";
         button.style.padding = "20px 0";
         button.style.fontWeight = "bold";
@@ -161,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
         img.style.marginRight = "5px";
         const text = document.createElement('span');
         text.innerHTML = buttonText;
-        text.style.fontSize = "18pt";
+        text.style.fontSize = "0.9em";
         text.style.fontWeight = "normal";
         container.appendChild(img);
         container.appendChild(text);
@@ -339,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 renderFontTypefaceSettings();
             }
             else if(index === 2){
-                // TO DO
+                renderOtherFontSettings();
             }
             else if(index === 3){
                 renderNavigationButtonSettings();
@@ -432,6 +438,83 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('header').style.fontFamily = typeface;
         document.getElementById('main').style.fontFamily = typeface;
         document.getElementById('footer').style.fontFamily = typeface;
+    }
+
+    function renderOtherFontSettings() {
+
+        const exampleText = document.createElement('div');
+        exampleText.setAttribute('id', "exampleText");
+        exampleText.innerHTML = "Here is some example text in your chosen font size and character spacing.<br><br>";
+        const settingsContainer = document.getElementById("settingsContainer");
+        settingsContainer.appendChild(exampleText);
+
+        const otherFontContainer = document.createElement('div');
+        otherFontContainer.setAttribute('id', "otherFontContainer");
+        
+        settingsContainer.appendChild(otherFontContainer);
+
+        const decreaseFontSizeButton = document.createElement('div');
+        decreaseFontSizeButton.setAttribute('id', "decreaseFontSizeButton");
+        decreaseFontSizeButton.setAttribute('class', "fontButton");
+        decreaseFontSizeButton.innerHTML = 'Decrease font size';
+        decreaseFontSizeButton.onclick = function() { adjustFontSize('decrease'); };
+        otherFontContainer.appendChild(decreaseFontSizeButton);
+
+        const increaseFontSizeButton = document.createElement('div');
+        increaseFontSizeButton.setAttribute('id', "increaseFontSizeButton");
+        increaseFontSizeButton.setAttribute('class', "fontButton");
+        increaseFontSizeButton.textContent = 'Increase font size';
+        increaseFontSizeButton.onclick = function() { adjustFontSize('increase'); };
+        otherFontContainer.appendChild(increaseFontSizeButton);
+
+        const decreaseSpacingButton = document.createElement('div');
+        decreaseSpacingButton.setAttribute('id', "decreaseSpacingButton");
+        decreaseSpacingButton.setAttribute('class', "fontButton");
+        decreaseSpacingButton.textContent = 'Decrease character spacing';
+        decreaseSpacingButton.onclick = function() { adjustCharSpacing('decrease'); };
+        otherFontContainer.appendChild(decreaseSpacingButton);
+    
+        const increaseSpacingButton = document.createElement('div');
+        increaseSpacingButton.setAttribute('id', "increaseSpacingButton");
+        increaseSpacingButton.setAttribute('class', "fontButton");
+        increaseSpacingButton.textContent = 'Increase character spacing';
+        increaseSpacingButton.onclick = function() { adjustCharSpacing('increase'); };
+        otherFontContainer.appendChild(increaseSpacingButton);
+
+    }
+
+    function adjustFontSize(action){
+        const body = document.body;
+        let currentFontSize = parseFloat(window.getComputedStyle(body, null).getPropertyValue('font-size'));
+        if(action === "increase"){
+           if(currentFontSize < maxFontSize) { currentFontSize ++; }
+        }
+        else {
+            if(currentFontSize > minFontSize){ currentFontSize --; }
+        }
+        setFontSize(currentFontSize + "px");
+        localStorage.setItem('fontSize', currentFontSize);
+    }
+
+    function setFontSize(size) {
+        document.body.style.fontSize = size;
+    }
+
+    function adjustCharSpacing(action) {
+        const body = document.body;
+        let currentCharSpacing = parseFloat(window.getComputedStyle(body, null).getPropertyValue('letter-spacing'));
+        if(action === "increase"){
+            if(currentCharSpacing < maxCharSpacing) { currentCharSpacing += 0.2; }
+        }
+        else { if(currentCharSpacing > minCharSpacing) { currentCharSpacing -= 0.2; }
+        }
+
+        setCharSpacing(currentCharSpacing + "px");
+        localStorage.setItem('charSpacing', currentCharSpacing);
+    }
+
+    function setCharSpacing(size) {
+        document.body.style.letterSpacing = size;
     }
 
     function renderNavigationButtonSettings(){
@@ -532,6 +615,25 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Applying default font typeface:', defaultTypeface);
             setTypeface(defaultTypeface);
         }
+        const savedFontSize = localStorage.getItem('fontSize');
+        if (savedFontSize) {
+            console.log('Applying saved font size: ', savedFontSize);
+            setFontSize(savedFontSize);
+        }
+        else {
+            console.log('Applying default font size: 18pt');
+            setFontSize(defaultFontSize);
+        }
+        const savedCharSpacing = localStorage.getItem('charSpacing');
+        if (savedCharSpacing) {
+            console.log('Applying saved letter spacing: ', savedCharSpacing);
+            setCharSpacing(savedCharSpacing);
+        }
+        else {
+            console.log('Applying default letter spacing');
+            setCharSpacing(defaultCharSpacing);
+        }
+
         const savedNavButtonsView = localStorage.getItem('navButtonsView');
         if(savedNavButtonsView){
             console.log('Applying saved navigation buttons:', savedNavButtonsView);
