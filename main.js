@@ -1363,6 +1363,7 @@ document.addEventListener('DOMContentLoaded', function() {
             glossaryRow.appendChild(termDiv);
 
             const imageDiv = document.createElement('div');
+            imageDiv.setAttribute('class', "imageDiv");
             if (item.image !== "null") {
                 const image = document.createElement('img');
                 image.src = item.image;
