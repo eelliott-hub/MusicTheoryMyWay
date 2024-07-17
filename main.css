@@ -129,6 +129,8 @@ main .container {
     grid-template-columns: 1fr;
     margin: 20px auto;
     width: 50%;
+    overflow-y: auto;
+    scrollbar-gutter: auto;
 }
 
 .bigHomeButton {
@@ -431,6 +433,13 @@ main .container {
     nav .container {
         grid-template-columns: repeat(3, 1fr);
     }
+    #glossaryContainer {
+        font-size: 80%;
+    }
+    .glossary-row img {
+        height: 40px;
+        width: auto;
+    }
 }
 
 @media screen and (max-width: 700px) {
@@ -439,6 +448,13 @@ main .container {
     }
     #tourContainer {
         height: 700px;
+    }
+    #glossaryContainer {
+        font-size: 65%;
+    }
+    .glossary-row img {
+        height: 30px;
+        width: auto;
     }
 }
 
@@ -465,6 +481,17 @@ main .container {
     .availableGradeBlock, .availableTopicBlock, .unavailableGradeBlock, .unavailableTopicBlock {
         font-size: 0.8em;
         height: 150px;
+    }
+    #glossaryContainer {
+        font-size: 50%;
+    }
+    .glossary-row {
+        grid-template-columns: 10% 10% 80%;
+        overflow-wrap: break-word;
+    }
+    .glossary-row img {
+        height: 30px;
+        width: auto;
     }
 }
 
