@@ -15,9 +15,6 @@ html {
 }
 
 body {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 18pt;  /* Baseline font size set here. Everything else is in proportion with this, and can be changed in the settings */
-    letter-spacing: 0.2ch;
     word-spacing: 0.7ch; /* 3.5 x letter spacing */
     height: 100%;
     background-color: #e6f7f5;
@@ -75,7 +72,7 @@ p, div {
 
 nav .container {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 10px;
     padding: 5px 0;
     margin: 0 auto;
@@ -160,6 +157,8 @@ main .container {
     padding: 5px 0;
     margin: 20px 0;
     height: 400px;
+    overflow-y: auto;
+    scrollbar-gutter: auto;
 }
 
 #colourContainer, #typefaceContainer, #navigationOptionsContainer {
@@ -168,7 +167,7 @@ main .container {
     grid-template-columns: repeat(3, 1fr);
 }
 
-.colourBlock, .typefaceBlock {
+.colourBlock, .typefaceBlock, .fontButton {
     height: 100px;
     border: 1px solid darkgrey;
     border-radius: 5px;
@@ -188,9 +187,18 @@ main .container {
     padding: 30px;
 }
 
-.colourBlock:hover, .typefaceBlock:hover {
+.colourBlock:hover, .typefaceBlock:hover, .fontButton:hover {
     border: 2px solid darkgrey !important;
     cursor: pointer;
+}
+
+#otherFontContainer {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 10px;
 }
 
 /***** Tour pages styling *****/
@@ -357,7 +365,7 @@ main .container {
 
 #incorrectAnswerContainer {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 30px;
     height: 80px;
     width: 75%;
