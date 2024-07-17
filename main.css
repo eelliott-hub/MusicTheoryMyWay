@@ -171,8 +171,11 @@ main .container {
     border: 1px solid darkgrey;
     border-radius: 5px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    padding: 30px;
+    padding: 10px;
 }
 
 .navOptionContainer {
@@ -211,6 +214,8 @@ main .container {
 
 #tourTextContainer {
     padding: 5px;
+    overflow-y: auto;
+    scrollbar-gutter: auto;
 }
 
 #tourContainer img {
@@ -282,6 +287,12 @@ main .container {
 /***** Content styling *****/
 
 /*** Information ***/
+
+#informationContainer {
+    overflow-y: auto;
+    scrollbar-gutter: auto;
+}
+
 #informationImagesContainer {
     display: grid;
     border: 1px solid darkgrey;
@@ -310,6 +321,7 @@ main .container {
 }
 
 /*** Questions ***/
+
 #questionImagesContainer, #quizImagesContainer {
     display: grid;
     gap: 30px;
@@ -368,6 +380,8 @@ main .container {
 
 #informationContainer, #questionContainer, #quizPreambleContainer, #quizContainer, #quizResultContainer {
     height: 450px;
+    overflow-y: auto;
+    scrollbar-gutter: auto;
 }
 
 /***** Glossary styling *****/
@@ -435,7 +449,7 @@ main .container {
     .homePageContainer {
         width: 100%;
     }
-    .tourContainer {
+    #tourContainer {
         grid-template-columns: 1fr;
     }
     #informationContainer, #questionContainer, #quizContainer {
@@ -450,6 +464,7 @@ main .container {
     }
     .availableGradeBlock, .availableTopicBlock, .unavailableGradeBlock, .unavailableTopicBlock {
         font-size: 0.8em;
+        height: 150px;
     }
 }
 
