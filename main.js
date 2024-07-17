@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add some more console messages and error handling
 
     // Uncomment temporarily to clear elements of local storage
-        // localStorage.clear();
+       // localStorage.clear();
         // localStorage.removeItem("tourCompleted");
         // localStorage.removeItem("settingsChanged");
 
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const button = document.getElementById(buttonName+"-button");
         button.innerHTML = "";
         button.innerHTML = buttonText;
-        button.style.fontSize = "1.2em";
+        button.style.fontSize = "24px";
         button.style.textAlign = "center";
         button.style.padding = "20px 0";
         button.style.fontWeight = "bold";
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
         img.style.marginRight = "5px";
         const text = document.createElement('span');
         text.innerHTML = buttonText;
-        text.style.fontSize = "0.9em";
+        text.style.fontSize = "24px";
         text.style.fontWeight = "normal";
         container.appendChild(img);
         container.appendChild(text);
@@ -528,7 +528,7 @@ document.addEventListener('DOMContentLoaded', function() {
         navOption1.setAttribute('class', "navOptionContainer");
         navOption1.setAttribute('class', "nav-button");
         navOption1.innerHTML = "Learn";
-        navOption1.style.fontSize = "20pt";
+        navOption1.style.fontSize = "24px";
         navOption1.style.textAlign = "center";
         navOption1.style.padding = "20px 0";
         navOption1.style.fontWeight = "bold";
@@ -577,7 +577,7 @@ document.addEventListener('DOMContentLoaded', function() {
         img3.style.marginRight = "5px";
         const text = document.createElement('span');
         text.innerHTML = "Learn";
-        text.style.fontSize = "18pt";
+        text.style.fontSize = "24px";
         navOption3.style.backgroundColor = "#6ff36f";
         container.appendChild(img3);
         container.appendChild(text);
@@ -618,7 +618,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const savedFontSize = localStorage.getItem('fontSize');
         if (savedFontSize) {
             console.log('Applying saved font size: ', savedFontSize);
-            setFontSize(savedFontSize);
+            setFontSize(savedFontSize+"px");
         }
         else {
             console.log('Applying default font size: 18pt');
@@ -627,7 +627,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const savedCharSpacing = localStorage.getItem('charSpacing');
         if (savedCharSpacing) {
             console.log('Applying saved letter spacing: ', savedCharSpacing);
-            setCharSpacing(savedCharSpacing);
+            setCharSpacing(savedCharSpacing+"px");
         }
         else {
             console.log('Applying default letter spacing');
