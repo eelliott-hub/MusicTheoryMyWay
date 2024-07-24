@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add some more console messages and error handling
 
     // Uncomment temporarily to clear elements of local storage
-       // localStorage.clear();
+        // localStorage.clear();
         // localStorage.removeItem("tourCompleted");
         // localStorage.removeItem("settingsChanged");
 
@@ -181,24 +181,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     ////// Navigation button event listeners //////
-    document.getElementById("home-button").addEventListener('click', function(){
-        changeSiteSection("HOME");
-    });
-    document.getElementById("learn-button").addEventListener('click', function(){
-        changeSiteSection("LEARN");
-    });
-    document.getElementById("quiz-button").addEventListener('click', function(){
-        changeSiteSection("QUIZ");
-    });
-    document.getElementById("settings-button").addEventListener('click', function(){
-        changeSiteSection("SETTINGS");
-    });
-    document.getElementById("tour-button").addEventListener('click', function(){
-        changeSiteSection("TOUR");
-    });
-    document.getElementById("glossary-button").addEventListener('click', function(){
-        changeSiteSection("GLOSSARY");
-    });
+    addNavigationEventListener("home-button", "HOME");
+    addNavigationEventListener("learn-button", "LEARN");
+    addNavigationEventListener("quiz-button", "QUIZ");
+    addNavigationEventListener("settings-button", "SETTINGS");
+    addNavigationEventListener("tour-button", "TOUR");
+    addNavigationEventListener("glossary-button", "GLOSSARY");  
+
+    function addNavigationEventListener(buttonName, sectionToGoTo){
+        document.getElementById(buttonName).addEventListener('click', function(){
+            changeSiteSection(sectionToGoTo);
+        });
+        document.getElementById(buttonName).addEventListener('keydown', function(event){
+            if (event.key === 'Enter') {
+                changeSiteSection(sectionToGoTo);
+            }
+        });
+    }
 
     ////// Home page functions //////
 
@@ -268,7 +267,12 @@ document.addEventListener('DOMContentLoaded', function() {
             homePageButton.addEventListener('click', function() {
                 changeSiteSection(siteSectionTo);
             });
-        }
+            homePageButton.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    changeSiteSection(siteSectionTo);
+                }
+            });
+        }       
     }
 
     // Big button on home page
@@ -276,7 +280,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const homePageButton = document.createElement('div');
         homePageButton.setAttribute('class', 'bigHomeButton');
         homePageButton.setAttribute('id', buttonId);
+        homePageButton.setAttribute('role', "button");
         homePageButton.style.backgroundColor = buttonColour;
+        homePageButton.tabIndex = 0;
 
         const img = document.createElement('img');
         img.src = "./images/navigation/" + buttonName + ".png";
@@ -298,9 +304,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderSettingsPage(index){
 
         if(index >= 0 && index < settingsPageTitles.length){
-            document.getElementById("page-title").innerHTML = "Settings";
             emptyMainText();
             emptyFooter();
+            document.getElementById("page-title").innerHTML = "Settings";
             
             const mainContainer = document.getElementById("main-container");
             const settingsContainer = document.createElement('div');
@@ -329,12 +335,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
+            document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    currentSettingsIndex++;
+                    if (currentSettingsIndex >= settingsPageTitles.length) {
+                        changeSiteSection("HOME");
+                    } else {
+                        renderSettingsPage(currentSettingsIndex);
+                    }
+                }
+            });
+
             document.getElementById("backButtonImageContainer").addEventListener('click', function() {
                 currentSettingsIndex--;
                 if (currentSettingsIndex < 0) {
                     changeSiteSection("HOME");
                 } else {
                     renderSettingsPage(currentSettingsIndex);
+                }
+            });
+
+            document.getElementById("backButtonImageContainer").addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    currentSettingsIndex--;
+                    if (currentSettingsIndex < 0) {
+                        changeSiteSection("HOME");
+                    } else {
+                        renderSettingsPage(currentSettingsIndex);
+                    }
                 }
             });
 
@@ -373,12 +401,20 @@ document.addEventListener('DOMContentLoaded', function() {
         colourData.forEach(colour => {
             const colourBlock = document.createElement('div');
             colourBlock.setAttribute('class', "colourBlock");
+            colourBlock.setAttribute('role', "button");
             colourBlock.style.backgroundColor = colour.colourCode;
             colourBlock.innerHTML = colour.colourText;
+            colourBlock.tabIndex = 0;
 
             colourBlock.addEventListener('click', function(){
                 changeBackgroundColour(colour.colourCode);
                 localStorage.setItem('settingsChanged', "true");
+            });
+            colourBlock.addEventListener('keydown', function(event){
+                if (event.key === 'Enter') {
+                    changeBackgroundColour(colour.colourCode);
+                    localStorage.setItem('settingsChanged', "true");
+                }
             });
             colourContainer.appendChild(colourBlock);
         })
@@ -414,13 +450,21 @@ document.addEventListener('DOMContentLoaded', function() {
         typefaceData.forEach(typeface => {
             const typefaceBlock = document.createElement('div');
             typefaceBlock.setAttribute('class', "typefaceBlock");
+            typefaceBlock.setAttribute('role', "button");
             typefaceBlock.style.fontFamily = typeface.fontFamily;
             typefaceBlock.innerHTML = typeface.fontText;
+            typefaceBlock.tabIndex = 0;
 
             typefaceBlock.addEventListener('click', function(){
                 changeTypeface(typeface.fontFamily);
                 localStorage.setItem('settingsChanged', "true");
             });
+            typefaceBlock.addEventListener('keydown', function(event){
+                if (event.key === 'Enter') {
+                    changeTypeface(typeface.fontFamily);
+                    localStorage.setItem('settingsChanged', "true");
+                }
+            });          
             typefaceContainer.appendChild(typefaceBlock);
         })
 
@@ -456,29 +500,41 @@ document.addEventListener('DOMContentLoaded', function() {
         const decreaseFontSizeButton = document.createElement('div');
         decreaseFontSizeButton.setAttribute('id', "decreaseFontSizeButton");
         decreaseFontSizeButton.setAttribute('class', "fontButton");
+        decreaseFontSizeButton.setAttribute('role', "button");
         decreaseFontSizeButton.innerHTML = 'Decrease font size';
         decreaseFontSizeButton.onclick = function() { adjustFontSize('decrease'); };
+        decreaseFontSizeButton.onkeydown = function(event) { if (event.key === 'Enter') { adjustFontSize('decrease'); } };
+        decreaseFontSizeButton.tabIndex = 0;
         otherFontContainer.appendChild(decreaseFontSizeButton);
 
         const increaseFontSizeButton = document.createElement('div');
         increaseFontSizeButton.setAttribute('id', "increaseFontSizeButton");
         increaseFontSizeButton.setAttribute('class', "fontButton");
+        increaseFontSizeButton.setAttribute('role', "button");
         increaseFontSizeButton.textContent = 'Increase font size';
         increaseFontSizeButton.onclick = function() { adjustFontSize('increase'); };
+        increaseFontSizeButton.onkeydown = function(event) { if (event.key === 'Enter') { adjustFontSize('increase'); } };
+        increaseFontSizeButton.tabIndex = 0;
         otherFontContainer.appendChild(increaseFontSizeButton);
 
         const decreaseSpacingButton = document.createElement('div');
         decreaseSpacingButton.setAttribute('id', "decreaseSpacingButton");
         decreaseSpacingButton.setAttribute('class', "fontButton");
+        decreaseSpacingButton.setAttribute('role', "button");
         decreaseSpacingButton.textContent = 'Decrease character spacing';
         decreaseSpacingButton.onclick = function() { adjustCharSpacing('decrease'); };
+        decreaseSpacingButton.onkeydown = function(event) { if (event.key === 'Enter') { adjustCharSpacing('decrease'); } };
+        decreaseSpacingButton.tabIndex = 0;
         otherFontContainer.appendChild(decreaseSpacingButton);
     
         const increaseSpacingButton = document.createElement('div');
         increaseSpacingButton.setAttribute('id', "increaseSpacingButton");
         increaseSpacingButton.setAttribute('class', "fontButton");
+        increaseSpacingButton.setAttribute('role', "button");
         increaseSpacingButton.textContent = 'Increase character spacing';
         increaseSpacingButton.onclick = function() { adjustCharSpacing('increase'); };
+        increaseSpacingButton.onkeydown = function(event) { if (event.key === 'Enter') { adjustCharSpacing('increase'); } };
+        increaseSpacingButton.tabIndex = 0;
         otherFontContainer.appendChild(increaseSpacingButton);
 
     }
@@ -527,17 +583,26 @@ document.addEventListener('DOMContentLoaded', function() {
         const navOption1 = document.createElement('div');
         navOption1.setAttribute('class', "navOptionContainer");
         navOption1.setAttribute('class', "nav-button");
+        navOption1.setAttribute('role', "button");
         navOption1.innerHTML = "Learn";
         navOption1.style.fontSize = "24px";
         navOption1.style.textAlign = "center";
         navOption1.style.padding = "20px 0";
         navOption1.style.fontWeight = "bold";
         navOption1.style.backgroundColor = "#6ff36f";
+        navOption1.tabIndex = 0;
 
         navOption1.addEventListener('click', function(){
             localStorage.setItem('navButtonsView', "text");
             localStorage.setItem('settingsChanged', "true");
             setNavButtons("text");
+        });
+        navOption1.addEventListener('keydown', function(event){
+            if (event.key === 'Enter') {
+                localStorage.setItem('navButtonsView', "text");
+                localStorage.setItem('settingsChanged', "true");
+                setNavButtons("text");
+            }
         });
 
         navigationOptionsContainer.appendChild(navOption1);
@@ -545,7 +610,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const navOption2 = document.createElement('div');
         navOption2.setAttribute('class', "navOptionContainer");
         navOption2.setAttribute('class', "nav-button");
-
+        navOption2.setAttribute('role', "button");
         const img2 = document.createElement('img');
         img2.src = "./images/navigation/learn.png";
         img2.alt = "Learn button";
@@ -554,11 +619,19 @@ document.addEventListener('DOMContentLoaded', function() {
         img2.style.margin = "0 auto";
         navOption2.style.backgroundColor = "#6ff36f";
         navOption2.appendChild(img2);
+        navOption2.tabIndex = 0;
 
         navOption2.addEventListener('click', function(){
             localStorage.setItem('navButtonsView', "images");
             localStorage.setItem('settingsChanged', "true");
             setNavButtons("images");
+        });
+        navOption2.addEventListener('keydown', function(event){
+            if (event.key === 'Enter') {
+                localStorage.setItem('navButtonsView', "images");
+                localStorage.setItem('settingsChanged', "true");
+                setNavButtons("images");
+            }
         });
 
         navigationOptionsContainer.appendChild(navOption2);
@@ -566,6 +639,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const navOption3 = document.createElement('div');
         navOption3.setAttribute('class', "navOptionContainer");
         navOption3.setAttribute('class', "nav-button");
+        navOption3.setAttribute('role', "button");
+        navOption3.tabIndex = 0;
 
         const container = document.createElement('div');
         container.style.display = "flex";
@@ -587,6 +662,13 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('navButtonsView', "both");
             localStorage.setItem('settingsChanged', "true");
             setNavButtons("both");
+        });
+        navOption3.addEventListener('keydown', function(event){
+            if (event.key === 'Enter') {
+                localStorage.setItem('navButtonsView', "both");
+                localStorage.setItem('settingsChanged', "true");
+                setNavButtons("both");
+            }
         });
 
         navigationOptionsContainer.appendChild(navOption3);
@@ -663,9 +745,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderTourPage(index) {
         if (index >= 0 && index < tourPages.length) {
             const page = tourPages[index];
-            document.getElementById("page-title").innerHTML = "Tour";
             emptyMainText();
             emptyFooter();
+            document.getElementById("page-title").innerHTML = "Tour";
     
             const mainContainer = document.getElementById("main-container");
             const tourContainer = document.createElement('div');
@@ -682,6 +764,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const tourTextContainer = document.createElement('div');
             tourTextContainer.setAttribute('id', 'tourTextContainer');
+            tourTextContainer.setAttribute('labelledby', "tourSubheading");
 
             const tourSubheading = document.createElement('h2');
             tourSubheading.setAttribute('id', 'tourSubheading');
@@ -719,12 +802,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
+            document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    currentTourIndex++;
+                    if (currentTourIndex >= tourPages.length) {
+                        changeSiteSection("HOME");
+                    } else {
+                        renderTourPage(currentTourIndex);
+                    }
+                }
+            });
+
             document.getElementById("backButtonImageContainer").addEventListener('click', function() {
                 currentTourIndex--;
                 if (currentTourIndex < 0) {
                     changeSiteSection("HOME");
                 } else {
                     renderTourPage(currentTourIndex);
+                }
+            });
+
+            document.getElementById("backButtonImageContainer").addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    currentTourIndex--;
+                    if (currentTourIndex < 0) {
+                        changeSiteSection("HOME");
+                    } else {
+                        renderTourPage(currentTourIndex);
+                    }
                 }
             });
 
@@ -751,13 +856,15 @@ document.addEventListener('DOMContentLoaded', function() {
            
             const highestGradeCompleted = getHighestGradeCompleted(); 
             if(highestGradeCompleted){
-                if(thisGrade <= parseInt(highestGradeCompleted)+1){ renderAvailableGradeBlock(gradeBlock, thisGrade); }
+                if(thisGrade < parseInt(highestGradeCompleted)+1){ renderCompletedGradeBlock(gradeBlock, thisGrade); }
+                else if(thisGrade <= parseInt(highestGradeCompleted)+1){ renderAvailableGradeBlock(gradeBlock, thisGrade);} 
                 else{ renderUnavailableGradeBlock(gradeBlock); }
             }
             else{
                 if(thisGrade === 1){ renderAvailableGradeBlock(gradeBlock, thisGrade); }
                 else{ renderUnavailableGradeBlock(gradeBlock); }
             }
+
             progressContainer.appendChild(gradeBlock);
         }
         mainContainer.appendChild(progressContainer);
@@ -767,17 +874,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderAvailableGradeBlock(gradeBlock, gradeNumber){
         gradeBlock.setAttribute('class', "availableGradeBlock");
+        gradeBlock.setAttribute('role', "button");
+        gradeBlock.tabIndex = 0;
         gradeBlock.addEventListener('click', function(){
             setCurrentGrade(gradeNumber);
             changeSiteSection("GRADEHOMEPAGE");
         });
+        gradeBlock.addEventListener('keydown', function(event){
+            if (event.key === 'Enter') {
+                setCurrentGrade(gradeNumber);
+                changeSiteSection("GRADEHOMEPAGE");
+            }
+        });
+        const tooltip = createTooltip("New grade!");
+        gradeBlock.appendChild(tooltip);
+    }
+
+    function renderCompletedGradeBlock(gradeBlock, gradeNumber){
+        gradeBlock.setAttribute('class', "completedGradeBlock");
+        gradeBlock.setAttribute('role', "button");
+        gradeBlock.tabIndex = 0;
+        gradeBlock.addEventListener('click', function(){
+            setCurrentGrade(gradeNumber);
+            changeSiteSection("GRADEHOMEPAGE");
+        });
+        gradeBlock.addEventListener('keydown', function(event){
+            if (event.key === 'Enter') {
+                setCurrentGrade(gradeNumber);
+                changeSiteSection("GRADEHOMEPAGE");
+            }
+        });
+        const tooltip = createTooltip("Revise!");
+        gradeBlock.appendChild(tooltip);
     }
 
     function renderUnavailableGradeBlock(gradeBlock){
         gradeBlock.setAttribute('class', "unavailableGradeBlock");
-        const tooltip = createTooltip();
+        const tooltip = createTooltip("Not available yet!");
         gradeBlock.appendChild(tooltip);
-
     }
 
     // Page showing topics within the grade
@@ -803,8 +937,16 @@ document.addEventListener('DOMContentLoaded', function() {
             topicBlock.innerHTML = thisTopic.name;
             
             const highestTopicCompleted = getHighestTopicCompleted(grade);
-            if(i === 0){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
-            else if(i <= (highestTopicCompleted+1)){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
+            if(i === 0){ 
+                if(highestTopicCompleted >= 0){
+                    renderCompletedTopicBlock(topicBlock, i, thisTopic.id);
+                }
+                else{
+                    renderAvailableTopicBlock(topicBlock, i, thisTopic.id); 
+                }
+            }
+            else if(i < (highestTopicCompleted+1)){ renderCompletedTopicBlock(topicBlock, i, thisTopic.id); }
+            else if(i === (highestTopicCompleted+1)){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
             else{ renderUnavailableTopicBlock(topicBlock); }
 
             gradeTopicsContainer.appendChild(topicBlock);
@@ -815,26 +957,59 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("backButtonImageContainer").addEventListener('click', function() {
             changeSiteSection("LEARN");
         });
+        document.getElementById("backButtonImageContainer").addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                changeSiteSection("LEARN");
+            }
+        });
     }
 
     function renderAvailableTopicBlock(topicBlock, topicIndex, topicId) {
         topicBlock.setAttribute('class', "availableTopicBlock");
+        topicBlock.setAttribute('role', "button");
+        topicBlock.tabIndex = 0;
         topicBlock.addEventListener('click', function(){
             setCurrentTopic(topicIndex, topicId);
             changeSiteSection("CONTENT");
         });
+        topicBlock.addEventListener('keydown', function(event){
+            if (event.key === 'Enter') {
+                setCurrentTopic(topicIndex, topicId);
+                changeSiteSection("CONTENT");
+            }
+        });
+        const tooltip = createTooltip("New topic!");
+        topicBlock.appendChild(tooltip);
+    }
+
+    function renderCompletedTopicBlock(topicBlock, topicIndex, topicId){
+        topicBlock.setAttribute('class', "completedTopicBlock");
+        topicBlock.setAttribute('role', "button");
+        topicBlock.tabIndex = 0;
+        topicBlock.addEventListener('click', function(){
+            setCurrentTopic(topicIndex, topicId);
+            changeSiteSection("CONTENT");
+        });
+        topicBlock.addEventListener('keydown', function(event){
+            if (event.key === 'Enter') {
+                setCurrentTopic(topicIndex, topicId);
+                changeSiteSection("CONTENT");
+            }
+        });
+        const tooltip = createTooltip("Revise!");
+        topicBlock.appendChild(tooltip);
     }
 
     function renderUnavailableTopicBlock(topicBlock) {
         topicBlock.setAttribute('class', "unavailableTopicBlock");
-        const tooltip = createTooltip();
+        const tooltip = createTooltip("Not available yet!");
         topicBlock.appendChild(tooltip);
     }
 
-    function createTooltip() {
+    function createTooltip(tooltipText) {
         const tooltip = document.createElement('span');
         tooltip.setAttribute('class', "tooltip");
-        tooltip.innerHTML = "Not available yet!"
+        tooltip.innerHTML = tooltipText;
         return tooltip;
     }
 
@@ -907,6 +1082,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
             finishContent(topicContent);
         });
+        document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                finishContent(topicContent);
+            }
+        });
     }
 
     function renderQuestion(item) {
@@ -923,7 +1103,7 @@ document.addEventListener('DOMContentLoaded', function() {
         questionContainer.appendChild(questionImagesContainer);
     
         let answerSelected = false; // Flag to track if answer has been selected
-    
+
         // Function to handle click on an answer option
         function handleAnswerClick(index) {
             if (!answerSelected) {
@@ -931,8 +1111,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
                 for (let i = 0; i < numImages; i++) {
                     const answerContainer = document.getElementById(i);
+                    answerContainer.removeAttribute('role');
                     answerContainer.removeEventListener('click', answerClickHandlers[i]);
+                    answerContainer.removeEventListener('keydown', answerKeydownHandlers[i]);
                     answerContainer.style.pointerEvents = 'none'; // Disable pointer events
+                    answerContainer.tabIndex = -1;
                 }
     
                 // Determine if selected answer is correct
@@ -940,14 +1123,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     
-        // Array to store event handler references
+        // Arrays to store event handler references
         const answerClickHandlers = [];
+        const answerKeydownHandlers = [];
     
         // Create answer options
         for (let i = 0; i < numImages; i++) {
             const questionImageContainer = document.createElement('div');
             questionImageContainer.setAttribute('class', "questionImageContainer");
             questionImageContainer.setAttribute('id', i);
+            questionImageContainer.setAttribute('role', "button");
+            questionImageContainer.tabIndex = 0;
             const image = document.createElement('img');
             const source = item.images[i];
             image.src = source;
@@ -959,11 +1145,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const answerClickHandler = function() {
                 handleAnswerClick(i);
             };
-    
+
+            const answerKeydownHandler = function(event) {
+                if(event.key === 'Enter'){
+                    handleAnswerClick(i);
+                }
+            };
+
             answerClickHandlers.push(answerClickHandler);
+            answerKeydownHandlers.push(answerKeydownHandler);
     
-            // Add click event listener to answer option
+            // Add click and keydown event listeners to answer option
             questionImageContainer.addEventListener('click', answerClickHandler);
+            questionImageContainer.addEventListener('keydown', answerKeydownHandler);
         }
     
         const questionTextContainer = document.createElement('div');
@@ -994,6 +1188,11 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
                 finishContent(topicContent);
             });
+            document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    finishContent(topicContent);
+                }
+            });
         }
 
         function handleIncorrectAnswer(chosenAnswerIndex){
@@ -1009,17 +1208,29 @@ document.addEventListener('DOMContentLoaded', function() {
             const tryAgainContainer = document.createElement('div');
             tryAgainContainer.setAttribute('id', "tryAgainContainer");
             tryAgainContainer.innerHTML = "Try again";
+            tryAgainContainer.tabIndex = 0;
 
             tryAgainContainer.addEventListener('click', function(){
                 renderContentPage(topicContent, currentQuestionIndex);
+            });
+            tryAgainContainer.addEventListener('keydown', function(event){
+                if (event.key === 'Enter') {
+                    renderContentPage(topicContent, currentQuestionIndex);
+                }
             });
 
             const helpContainer = document.createElement('div');
             helpContainer.setAttribute('id', "helpContainer");
             helpContainer.innerHTML = "See the correct answer";
+            helpContainer.tabIndex = 0;
 
             helpContainer.addEventListener('click', function(){
                 showCorrectAnswer(item);
+            });
+            helpContainer.addEventListener('keydown', function(event){
+                if (event.key === 'Enter') {
+                    showCorrectAnswer(item);
+                }
             });
 
             incorrectAnswerContainer.appendChild(tryAgainContainer);
@@ -1054,6 +1265,11 @@ document.addEventListener('DOMContentLoaded', function() {
             renderNextArrow();
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
                 finishContent(topicContent);
+            });
+            document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    finishContent(topicContent);
+                }
             });
         }
     }
@@ -1155,6 +1371,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 renderQuizPage(quizQuestions, currentQuizIndex);
             }
         });
+
+        document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                currentQuizIndex++;
+                if (currentQuizIndex >= quizQuestions.length) {
+                    changeSiteSection("HOME");
+                } else {
+                    renderQuizPage(quizQuestions, currentQuizIndex);
+                }
+            }
+        });
     }
     
     async function generateQuizData(maxQuizGrade, highestTopicCompleted) {
@@ -1221,8 +1448,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return array;
     }
 
-    function renderQuizQuestion(item, quizQuestions, index){
-        const questionNumber = index+1;
+    function renderQuizQuestion(item, quizQuestions, index) {
+        const questionNumber = index + 1;
         document.getElementById("page-title").innerHTML = questionNumber;
         const mainContainer = document.getElementById("main-container");
         const quizContainer = document.createElement('div');
@@ -1237,16 +1464,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
         let answerSelected = false; // Flag to track if answer has been selected
     
-        // Function to handle click on an answer option
+        // Function to handle click or keydown on an answer option
         function handleQuizAnswerClick(index) {
-
             if (!answerSelected) {
-                answerSelected = true; 
+                answerSelected = true;
     
                 for (let i = 0; i < numImages; i++) {
                     const quizAnswerContainer = document.getElementById(i);
+                    quizAnswerContainer.removeAttribute('role');
                     quizAnswerContainer.removeEventListener('click', quizAnswerClickHandlers[i]);
+                    quizAnswerContainer.removeEventListener('keydown', quizAnswerKeydownHandlers[i]);
                     quizAnswerContainer.style.pointerEvents = 'none'; // Disable pointer events
+                    quizAnswerContainer.tabIndex = -1;
                 }
     
                 // Determine if selected answer is correct
@@ -1254,14 +1483,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     
-        // Array to store event handler references
+        // Arrays to store event handler references
         const quizAnswerClickHandlers = [];
+        const quizAnswerKeydownHandlers = [];
     
         // Create answer options
         for (let i = 0; i < numImages; i++) {
             const quizImageContainer = document.createElement('div');
             quizImageContainer.setAttribute('class', "quizImageContainer");
             quizImageContainer.setAttribute('id', i);
+            quizImageContainer.setAttribute('role', "button");
+            quizImageContainer.tabIndex = 0;
             const quizImage = document.createElement('img');
             const source = item.images[i];
             quizImage.src = source;
@@ -1269,15 +1501,23 @@ document.addEventListener('DOMContentLoaded', function() {
             quizImageContainer.appendChild(quizImage);
             quizImagesContainer.appendChild(quizImageContainer);
     
-            // Create event handler for each answer option
-            const quizAnswerClickHandler = function() {
+            // Create event handlers for each answer option
+            const quizAnswerClickHandler = function () {
                 handleQuizAnswerClick(i);
             };
     
-            quizAnswerClickHandlers.push(quizAnswerClickHandler);
+            const quizAnswerKeydownHandler = function (event) {
+                if (event.key === 'Enter') {
+                    handleQuizAnswerClick(i);
+                }
+            };
     
-            // Add click event listener to answer option
+            quizAnswerClickHandlers.push(quizAnswerClickHandler);
+            quizAnswerKeydownHandlers.push(quizAnswerKeydownHandler);
+    
+            // Add click and keydown event listeners to answer option
             quizImageContainer.addEventListener('click', quizAnswerClickHandler);
+            quizImageContainer.addEventListener('keydown', quizAnswerKeydownHandler);
         }
     
         const quizTextContainer = document.createElement('div');
@@ -1291,13 +1531,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
             if (correctAnswerIndex === chosenAnswerIndex) {
                 handleCorrectQuizAnswer(chosenAnswerIndex);
-            } 
-            else {
+            } else {
                 handleIncorrectQuizAnswer(chosenAnswerIndex);
             }
         }
-
-        function handleCorrectQuizAnswer(chosenAnswerIndex){
+    
+        function handleCorrectQuizAnswer(chosenAnswerIndex) {
             console.log("Handling correct quiz answer...");
             const correctSelected = document.getElementById(chosenAnswerIndex);
             correctSelected.style.borderColor = "#328032";
@@ -1305,10 +1544,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const answerText = "Correct!";
             quizTextContainer.innerHTML = answerText;
             quizResult++;
-
+    
             renderNextArrow();
             finishQuiz(quizQuestions);
-        }
+        }   
 
         function handleIncorrectQuizAnswer(chosenAnswerIndex){
             console.log("Handling incorrect quiz answer...");
@@ -1324,17 +1563,30 @@ document.addEventListener('DOMContentLoaded', function() {
             const tryAgainContainer = document.createElement('div');
             tryAgainContainer.setAttribute('id', "tryAgainContainer");
             tryAgainContainer.innerHTML = "Try again";
+            tryAgainContainer.tabIndex = 0;
 
             tryAgainContainer.addEventListener('click', function(){
                 renderQuizPage(quizQuestions, currentQuizIndex);
             });
 
+            tryAgainContainer.addEventListener('keydown', function(event){
+                if (event.key === 'Enter') {
+                    renderQuizPage(quizQuestions, currentQuizIndex);
+                }
+            });
+
             const helpContainer = document.createElement('div');
             helpContainer.setAttribute('id', "helpContainer");
             helpContainer.innerHTML = "See the correct answer";
+            helpContainer.tabIndex = 0;
 
             helpContainer.addEventListener('click', function(){
                 showCorrectAnswer(item);
+            });
+            helpContainer.addEventListener('keydown', function(event){
+                if (event.key === 'Enter') {
+                    showCorrectAnswer(item);
+                }
             });
 
             incorrectAnswerContainer.appendChild(tryAgainContainer);
@@ -1377,6 +1629,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     renderQuizResult();
                 } else {
                     renderQuizPage(quizQuestions, currentQuizIndex);
+                }
+            });
+
+            document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    currentQuizIndex++;
+                    if (currentQuizIndex >= quizQuestions.length) {
+                        renderQuizResult();
+                    } else {
+                        renderQuizPage(quizQuestions, currentQuizIndex);
+                    }
                 }
             });
         }
@@ -1431,6 +1694,11 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
                 changeSiteSection("HOME");
             });
+            document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    changeSiteSection("HOME");
+                }
+            });
         }
     }
 
@@ -1462,6 +1730,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const termDiv = document.createElement('div');
             termDiv.setAttribute('class', "termDiv");
             termDiv.textContent = item.term;
+            if(item.lang) { termDiv.setAttribute('lang', item.lang); }
+            
             glossaryRow.appendChild(termDiv);
 
             const imageDiv = document.createElement('div');
@@ -1521,9 +1791,11 @@ document.addEventListener('DOMContentLoaded', function() {
         backButtonImageContainer.setAttribute('id', "backButtonImageContainer");
         const backButtonImage = document.createElement('img');
         backButtonImage.setAttribute('id', "backButtonImage");
+        backButtonImage.setAttribute('role', "button");
         backButtonImage.alt = "Green back arrow";
         backButtonImage.src = "images/leftArrow.png";
         backButtonImage.width = arrowImageWidth;
+        backButtonImage.tabIndex = 0;
         backButtonImageContainer.appendChild(backButtonImage);
         footer.appendChild(backButtonImageContainer);
     }
@@ -1532,10 +1804,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const nextButtonImageContainer = document.createElement('div');
         nextButtonImageContainer.setAttribute('id', "nextButtonImageContainer");
         const nextButtonImage = document.createElement('img');
+        nextButtonImage.setAttribute('role', "button");
         nextButtonImage.setAttribute('id', "nextButtonImage");
         nextButtonImage.alt = "Green forwards arrow";
         nextButtonImage.src = "images/rightArrow.png";
         nextButtonImage.width = arrowImageWidth;
+        nextButtonImage.tabIndex = 0;
         nextButtonImageContainer.appendChild(nextButtonImage);
         footer.appendChild(nextButtonImageContainer);
     }

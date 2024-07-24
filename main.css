@@ -10,6 +10,11 @@
     src: url('Fonts/OpenSans/OpenSans-Regular.ttf'); 
 }
 
+@font-face {
+    font-family: ComicSans;
+    src: url('Fonts/ComicSans/Comic\ Sans\ MS\ 400.ttf');
+}
+
 html {
     min-height: 100%;
 }
@@ -92,7 +97,7 @@ nav .container {
     box-sizing: border-box;
 }
 
-.nav-button:hover, .bigHomeButton:hover{
+.nav-button:hover, .bigHomeButton:hover {
     border: 2px solid darkgrey !important;
     cursor: pointer;
 }
@@ -266,7 +271,22 @@ main .container {
     justify-content: center;
 }
 
-.availableGradeBlock:hover, .availableTopicBlock:hover {
+.completedGradeBlock, .completedTopicBlock {
+    height: 100px;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 10px;
+    margin: 20px;
+    font-size: 1.2em;
+    background-color: #6fbef3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.availableGradeBlock:hover, .completedGradeBlock:hover, .availableTopicBlock:hover, .completedTopicBlock:hover {
     border: 2px solid darkgrey !important;
     cursor: pointer;
 }
@@ -291,7 +311,7 @@ main .container {
     font-size: 0.75em;
 }
 
-.unavailableGradeBlock:hover .tooltip, .unavailableTopicBlock:hover .tooltip {
+.unavailableGradeBlock:hover .tooltip, .availableGradeBlock:hover .tooltip, .unavailableTopicBlock:hover .tooltip, .availableTopicBlock:hover .tooltip, .completedGradeBlock:hover .tooltip, .completedTopicBlock:hover .tooltip {
     visibility: visible;
 }
 
