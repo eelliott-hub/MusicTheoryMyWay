@@ -934,19 +934,19 @@ document.addEventListener('DOMContentLoaded', function() {
         for(i = 0; i < gradeTopics.length; i++){
             const topicBlock = document.createElement('div');
             const thisTopic = gradeTopics[i];
-            topicBlock.innerHTML = thisTopic.name;
+            topicBlock.innerHTML = (i+1) + ". " + thisTopic.name;
             
             const highestTopicCompleted = getHighestTopicCompleted(grade);
             if(i === 0){ 
                 if(highestTopicCompleted >= 0){
-                    renderCompletedTopicBlock(topicBlock, i, thisTopic.id);
+                    renderCompletedTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name);
                 }
                 else{
-                    renderAvailableTopicBlock(topicBlock, i, thisTopic.id); 
+                    renderAvailableTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); 
                 }
             }
-            else if(i < (highestTopicCompleted+1)){ renderCompletedTopicBlock(topicBlock, i, thisTopic.id); }
-            else if(i === (highestTopicCompleted+1)){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id); }
+            else if(i < (highestTopicCompleted+1)){ renderCompletedTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
+            else if(i === (highestTopicCompleted+1)){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
             else{ renderUnavailableTopicBlock(topicBlock); }
 
             gradeTopicsContainer.appendChild(topicBlock);
@@ -964,12 +964,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function renderAvailableTopicBlock(topicBlock, topicIndex, topicId) {
+    function renderAvailableTopicBlock(topicBlock, topicIndex, topicId, topicName) {
         topicBlock.setAttribute('class', "availableTopicBlock");
         topicBlock.setAttribute('role', "button");
         topicBlock.tabIndex = 0;
         topicBlock.addEventListener('click', function(){
-            setCurrentTopic(topicIndex, topicId);
+            setCurrentTopic(topicIndex, topicId, topicName);
             changeSiteSection("CONTENT");
         });
         topicBlock.addEventListener('keydown', function(event){
@@ -982,17 +982,17 @@ document.addEventListener('DOMContentLoaded', function() {
         topicBlock.appendChild(tooltip);
     }
 
-    function renderCompletedTopicBlock(topicBlock, topicIndex, topicId){
+    function renderCompletedTopicBlock(topicBlock, topicIndex, topicId, topicName){
         topicBlock.setAttribute('class', "completedTopicBlock");
         topicBlock.setAttribute('role', "button");
         topicBlock.tabIndex = 0;
         topicBlock.addEventListener('click', function(){
-            setCurrentTopic(topicIndex, topicId);
+            setCurrentTopic(topicIndex, topicId, topicName);
             changeSiteSection("CONTENT");
         });
         topicBlock.addEventListener('keydown', function(event){
             if (event.key === 'Enter') {
-                setCurrentTopic(topicIndex, topicId);
+                setCurrentTopic(topicIndex, topicId, topicName);
                 changeSiteSection("CONTENT");
             }
         });
@@ -1049,7 +1049,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderInformation(item){
-        document.getElementById("page-title").innerHTML = item.pageTitle;
+        document.getElementById("page-title").innerHTML = getCurrentTopicName() + ": " + item.pageTitle;
         const mainContainer = document.getElementById("main-container");
         const informationContainer = document.createElement('div');
         informationContainer.setAttribute('id', "informationContainer");
@@ -1090,7 +1090,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderQuestion(item) {
-        document.getElementById("page-title").innerHTML = "Test your knowledge";
+        document.getElementById("page-title").innerHTML =getCurrentTopicName() + ": Test your knowledge";
         const mainContainer = document.getElementById("main-container");
         const questionContainer = document.createElement('div');
         questionContainer.setAttribute('id', "questionContainer");
@@ -1916,9 +1916,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Set the current topic in session storage
-    function setCurrentTopic(topicIndex, topicId) {
+    function setCurrentTopic(topicIndex, topicId, topicName) {
         sessionStorage.setItem('currentTopicIndex', topicIndex);
         sessionStorage.setItem('currentTopicId', topicId);
+        sessionStorage.setItem('currentTopicName', topicName)
     }
 
     // Get the current topic id from session storage
@@ -1929,6 +1930,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get the current topic index from session storage
     function getCurrentTopicIndex(){
         return parseInt(sessionStorage.getItem('currentTopicIndex'));
+    }
+
+    function getCurrentTopicName(){
+        return sessionStorage.getItem('currentTopicName');
     }
 
     ////// Render the page content //////
