@@ -23,7 +23,7 @@
         "contentType": "information",
         "pageTitle": "Crotchet notes",
         "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png"],
-        "text": "Clap your hands together four times in a row to a steady beat. <br>You have beaten four crotchets."
+        "text": "Clap your hands together four times at a steady speed. <br>You have beaten four crotchets."
     },
     {
         "contentType": "question",
@@ -57,7 +57,7 @@
         "contentType": "information",
         "pageTitle": "Quaver notes",
         "images": ["images/grade1/Notes/two-quavers-stems-down.png", "images/grade1/Notes/two-quavers-stems-up.png"],
-        "text": "Two quavers can be <emph>joined together</emph> by their tails."
+        "text": "Two quavers can be <emph>joined together</emph> with a beam which replaces their tails."
     },
     {
         "contentType": "information",
@@ -75,7 +75,7 @@
         "contentType": "information",
         "pageTitle": "Quaver notes",
         "images": ["images/grade1/Notes/four-quavers-stems-down.png", "images/equivalence.png", "images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png"],
-        "text": "Four quavers fit into the same amount of time as two crotchets."
+        "text": "Quavers can be grouped together in beams to make up whole numbers of beats. Four quavers fit into the same amount of time as two crotchets."
     },
     {
         "contentType": "question",
@@ -105,7 +105,7 @@
         "contentType": "information",
         "pageTitle": "Drawing",
         "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-down.png", "images/grade1/Notes/quaver-stem-up.png"],
-        "text": "Take a break from the screen and <emph>practise drawing</emph> crotchets and quavers with a pencil."
+        "text": "Take a break from the screen and <emph>practise drawing</emph> crotchets and quavers with a pencil. Pay special attention to which way the stems and tails go."
     },
     {
         "contentType": "question",

@@ -8,6 +8,14 @@
     },
 
     {
+        "subheading": "What is Music Theory?",
+        "image": "images/grade1/treble-clef-stave.png",
+        "altText": "Image of a treble clef on a music stave",
+        "colour": "",
+        "text": "Music theory is the language used to communicate music and the understanding behind it.<br><br>It includes things like the words we use to describe the different sounds and ways of playing music, and the way we explain rhythms and the intervals between notes. <br><br> Music theory helps musicians write down their musical ideas so that other musicians can interpret them."
+    },
+
+    {
         "subheading": "Using Music Theory My Way",
         "image": "images/tablet-and-laptop.png",
         "altText": "Icon of a laptop and tablet",

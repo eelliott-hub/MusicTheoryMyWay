@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // Variables for site navigation
-    let siteSection = "HOME"; // HOME, LEARN, CONTENT, QUIZ, SETTINGS, TOUR, GLOSSARY
+    let siteSection = "HOME"; // HOME, LEARN, CONTENT, QUIZ, SETTINGS, TOUR, GLOSSARY, ABOUT
     const availableGrades = [1, 2, 3, 4, 5];
     let tourPages = [];
     let currentTourIndex = 0;
@@ -99,6 +99,9 @@ document.addEventListener('DOMContentLoaded', function() {
         else if(siteSection === "GLOSSARY"){
             loadGlossary();
         }
+        else if(siteSection === "ABOUT"){
+            renderAboutPage();
+        }
     }
 
     ////// Navigation button functions //////
@@ -112,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
             navButtonText("settings", "Settings");
             navButtonText("tour", "Tour");
             navButtonText("glossary", "Glossary");
+            navButtonText("about", "About");
         } else if (variant === "images") {
             navButtonImage("home");
             navButtonImage("learn");
@@ -119,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
             navButtonImage("settings");
             navButtonImage("tour");
             navButtonImage("glossary");
+            navButtonImage("about");
         } else {
             navButtonImageText("home", "Home");
             navButtonImageText("learn", "Learn");
@@ -126,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
             navButtonImageText("settings", "Settings");
             navButtonImageText("tour", "Tour");
             navButtonImageText("glossary", "Glossary");
+            navButtonImageText("about", "About");
         }
     }
 
@@ -187,6 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addNavigationEventListener("settings-button", "SETTINGS");
     addNavigationEventListener("tour-button", "TOUR");
     addNavigationEventListener("glossary-button", "GLOSSARY");  
+    addNavigationEventListener("about-button", "ABOUT");
 
     function addNavigationEventListener(buttonName, sectionToGoTo){
         document.getElementById(buttonName).addEventListener('click', function(){
@@ -204,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // TODO change to JSON file instead?
     function renderHomePageTour(){
         const pageTitle = "Welcome to Music Theory My Way!";
-        const introText = "It looks like you are new to this site. Take the tour to learn your way around.";
+        const introText = "Are you here to learn or revise Music Theory?<br><br> Music Theory My Way is designed to be dyslexia-friendly and customisable to suit your learning preferences, and provides information and quizzes about music theory topics up to Grade 5.<br><br>It looks like you are new to this site. Take the tour to learn your way around.";
         const buttonNav = "tour";
         const buttonText = "Take the tour";
         const siteSectionTo = "TOUR";
@@ -395,6 +402,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderColourOptions(colourData){
+
+        const backgroundColourText = document.createElement('div');
+        backgroundColourText.setAttribute('id', "backgroundColourText");
+        backgroundColourText.innerHTML = "Click on your chosen colour to change the background colour for text and musical notes.<br><br>";
+        const settingsContainer = document.getElementById("settingsContainer");
+        settingsContainer.appendChild(backgroundColourText);
+
         const colourContainer = document.createElement('div');
         colourContainer.setAttribute('id', "colourContainer");
 
@@ -405,7 +419,9 @@ document.addEventListener('DOMContentLoaded', function() {
             colourBlock.style.backgroundColor = colour.colourCode;
             colourBlock.innerHTML = colour.colourText;
             colourBlock.tabIndex = 0;
-
+            // if(colourBlock.style.backgroundColor === localStorage.getItem('backgroundColour')){
+            //     colourBlock.innerHTML += "   &#x2714;";
+            // }
             colourBlock.addEventListener('click', function(){
                 changeBackgroundColour(colour.colourCode);
                 localStorage.setItem('settingsChanged', "true");
@@ -432,6 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('header').style.backgroundColor = backgroundColour;
         document.getElementById('main').style.backgroundColor = backgroundColour;
         document.getElementById('footer').style.backgroundColor = backgroundColour;
+        
     }
 
     function renderFontTypefaceSettings(){
@@ -444,9 +461,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderFontTypefaceOptions(typefaceData){
+        const typefaceText = document.createElement('div');
+        typefaceText.setAttribute('id', "typefaceText");
+        typefaceText.innerHTML = "Click below to choose your prefered font.<br><br>";
+        const settingsContainer = document.getElementById("settingsContainer");
+        settingsContainer.appendChild(typefaceText);
+
         const typefaceContainer = document.createElement('div');
         typefaceContainer.setAttribute('id', "typefaceContainer");
-
+    
         typefaceData.forEach(typeface => {
             const typefaceBlock = document.createElement('div');
             typefaceBlock.setAttribute('class', "typefaceBlock");
@@ -486,11 +509,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderOtherFontSettings() {
 
-        const exampleText = document.createElement('div');
-        exampleText.setAttribute('id', "exampleText");
-        exampleText.innerHTML = "Here is some example text in your chosen font size and character spacing.<br><br>";
+        const otherFontText = document.createElement('div');
+        otherFontText.setAttribute('id', "otherFontText");
+        otherFontText.innerHTML = "Click the buttons below to increase or decrease your font size and character spacing.<br><br>";
         const settingsContainer = document.getElementById("settingsContainer");
-        settingsContainer.appendChild(exampleText);
+        settingsContainer.appendChild(otherFontText);
 
         const otherFontContainer = document.createElement('div');
         otherFontContainer.setAttribute('id', "otherFontContainer");
@@ -574,6 +597,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderNavigationButtonSettings(){
+
+        const navigationButtonText = document.createElement('div');
+        navigationButtonText.setAttribute('id', "navigationButtonText");
+        navigationButtonText.innerHTML = "Choose between text, icons or both from the options below.<br><br>";
+        const settingsContainer = document.getElementById("settingsContainer");
+        settingsContainer.appendChild(navigationButtonText);
 
         const navigationOptionsContainer = document.createElement('div');
         navigationOptionsContainer.setAttribute('id', "navigationOptionsContainer");
@@ -886,7 +915,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 changeSiteSection("GRADEHOMEPAGE");
             }
         });
-        const tooltip = createTooltip("New grade!");
+        const tooltip = createTooltip("Your current grade!");
         gradeBlock.appendChild(tooltip);
     }
 
@@ -938,12 +967,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const highestTopicCompleted = getHighestTopicCompleted(grade);
             if(i === 0){ 
-                if(highestTopicCompleted >= 0){
-                    renderCompletedTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name);
-                }
-                else{
-                    renderAvailableTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); 
-                }
+                if(highestTopicCompleted >= 0){ renderCompletedTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
+                else{ renderAvailableTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
             }
             else if(i < (highestTopicCompleted+1)){ renderCompletedTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
             else if(i === (highestTopicCompleted+1)){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
@@ -983,6 +1008,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderCompletedTopicBlock(topicBlock, topicIndex, topicId, topicName){
+        topicBlock.innerHTML += "   &#x2714;";
         topicBlock.setAttribute('class', "completedTopicBlock");
         topicBlock.setAttribute('role', "button");
         topicBlock.tabIndex = 0;
@@ -1358,7 +1384,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("page-title").innerHTML = "Quiz time!";
         const quizPreambleContainer = document.createElement('div');
         quizPreambleContainer.setAttribute('id', "quizPreambleContainer");
-        quizPreambleContainer.innerHTML = "You'll be asked 10 questions on topics you've covered on this website so far.<br><br>Click the green arrow to start the quiz.<br><br>Good luck!";
+        quizPreambleContainer.innerHTML = "Take a quiz to revise what you've learnt so far.<br><br>You'll be asked 10 questions on topics you've covered on this website so far.<br><br>Click the green arrow to start the quiz.<br><br>Good luck!";
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(quizPreambleContainer);
 
@@ -1760,6 +1786,17 @@ document.addEventListener('DOMContentLoaded', function() {
         mainContainer.appendChild(glossaryContainer);
     }
 
+    ////// About page //////
+
+    function renderAboutPage(){
+        document.getElementById("page-title").innerHTML = "About Music Theory My Way";
+        const aboutContainer = document.createElement('div');
+        aboutContainer.setAttribute('id', "aboutContainer");
+        aboutContainer.innerHTML = 'Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>It is a prototype for a dyslexia-friendly website for learning music theory.<br><br>If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!<br>Liz Elliott<br>University of Bristol<br><br><br><br>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)';
+        const mainContainer = document.getElementById("main-container");
+        mainContainer.appendChild(aboutContainer);
+    }
+
 
     ////// Misc helper functions //////
 
@@ -1852,6 +1889,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else if(siteSection === "TOUR"){
             addBottomBorder("tour-button");
+        }
+        else if(siteSection === "ABOUT"){
+            addBottomBorder("about-button");
         }
     }
 
