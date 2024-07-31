@@ -1104,13 +1104,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const informationText = item.text;
         informationTextContainer.innerHTML = informationText;
 
-        renderNextArrow();
+        renderNextBackArrows();
         document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
             finishContent(topicContent);
         });
         document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 finishContent(topicContent);
+            }
+        });
+        document.getElementById("backButtonImageContainer").addEventListener('click', function() {
+            contentGoBack(topicContent);
+        });
+        document.getElementById("backButtonImageContainer").addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                contentGoBack(topicContent);
             }
         });
     }
@@ -1127,6 +1135,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const numImages = item.images.length;
         questionImagesContainer.style.gridTemplateColumns = "repeat(" + numImages + ", 1fr)";
         questionContainer.appendChild(questionImagesContainer);
+
+        renderBackArrow();
+        document.getElementById("backButtonImageContainer").addEventListener('click', function() {
+            contentGoBack(topicContent);
+        });
+        document.getElementById("backButtonImageContainer").addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                contentGoBack(topicContent);
+            }
+        });
     
         let answerSelected = false; // Flag to track if answer has been selected
 
@@ -1210,13 +1228,24 @@ document.addEventListener('DOMContentLoaded', function() {
             const answerText = "Correct!";
             questionTextContainer.innerHTML = answerText;
 
-            renderNextArrow();
+            const backButton = document.getElementById("backButtonImageContainer");
+            backButton.remove();
+
+            renderNextBackArrows();
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
                 finishContent(topicContent);
             });
             document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
                 if (event.key === 'Enter') {
                     finishContent(topicContent);
+                }
+            });
+            document.getElementById("backButtonImageContainer").addEventListener('click', function() {
+                contentGoBack(topicContent);
+            });
+            document.getElementById("backButtonImageContainer").addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    contentGoBack(topicContent);
                 }
             });
         }
@@ -1313,6 +1342,17 @@ document.addEventListener('DOMContentLoaded', function() {
             renderContentPage(topicContent, currentQuestionIndex);
         }
     }
+
+    function contentGoBack(){
+        currentQuestionIndex--;
+        if(currentQuestionIndex < 0){
+            changeSiteSection("LEARN");
+        }
+        else{
+            renderContentPage(topicContent, currentQuestionIndex);
+        }
+    }
+    
 
     ////// Quiz //////
 
@@ -1792,7 +1832,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("page-title").innerHTML = "About Music Theory My Way";
         const aboutContainer = document.createElement('div');
         aboutContainer.setAttribute('id', "aboutContainer");
-        aboutContainer.innerHTML = 'Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>It is a prototype for a dyslexia-friendly website for learning music theory.<br><br>If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!<br>Liz Elliott<br>University of Bristol<br><br><br><br>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)';
+        aboutContainer.innerHTML = 'Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>It is a prototype for a dyslexia-friendly website for learning music theory.<br><br>If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your data is not collected by any third parties. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!<br>Liz Elliott<br>University of Bristol<br><br><br><br>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)';
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(aboutContainer);
     }
