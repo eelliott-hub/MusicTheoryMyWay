@@ -462,7 +462,7 @@ main .container {
 
 /***** Speech controls styling *****/
 
-#speechButtonsContainer {
+.speechButtonsContainer {
     width: 60%;
     display: grid;
     grid-template-columns: 40% 40%;

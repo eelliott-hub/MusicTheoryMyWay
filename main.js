@@ -787,142 +787,114 @@ document.addEventListener('DOMContentLoaded', function() {
             const mainContainer = document.getElementById("main-container");
             const tourContainer = document.createElement('div');
             tourContainer.setAttribute('id', "tourContainer");
-
+    
             const tourImageContainer = document.createElement('div');
             tourImageContainer.setAttribute('id', 'tourImageContainer');
             tourImageContainer.style.backgroundColor = page.colour;
-
+    
             const tourImage = document.createElement('img');
             tourImage.setAttribute('id', 'tourImage');
-
             tourImageContainer.appendChild(tourImage);
-
+    
             const tourTextContainer = document.createElement('div');
             tourTextContainer.setAttribute('id', 'tourTextContainer');
             tourTextContainer.setAttribute('labelledby', "tourSubheading");
-
+    
             const tourSubheading = document.createElement('h2');
             tourSubheading.setAttribute('id', 'tourSubheading');
-
+    
             const tourText = document.createElement('p');
             tourText.setAttribute('id', 'tourText');
-
+    
             tourTextContainer.appendChild(tourSubheading);
             tourTextContainer.appendChild(tourText);
-
+    
             const speechButtonsContainer = document.createElement('div');
-            speechButtonsContainer.setAttribute('id', "speechButtonsContainer");
-
+            speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+            speechButtonsContainer.setAttribute('id', "tourSpeechButtonsContainer");
+    
             tourTextContainer.appendChild(speechButtonsContainer);
-
-            // TO DO : make this much more function-based
-            const playButton = document.createElement('div');
-            playButton.setAttribute('id', "playButton");
-            playButton.setAttribute('class', "speechButton");
-            playButton.setAttribute('aria-lavel', "Play");
-            playButton.innerHTML = "🔊 Play";
-            speechButtonsContainer.appendChild(playButton);
-            const pauseButton = document.createElement('div');
-            pauseButton.setAttribute('id', "pauseButton");
-            pauseButton.setAttribute('class', "speechButton");
-            pauseButton.setAttribute('aria-lavel', "Pause");
-            pauseButton.innerHTML = "⏸ Pause";
-            speechButtonsContainer.appendChild(pauseButton);
-        
-            playButton.addEventListener('click', () => {
-                const textToRead = tourSubheading.innerHTML + '! . ! . !' + tourText.innerHTML; 
-                 
-                
-                // If already speaking do nothing
-                if (speechSynthesis.speaking && !speechSynthesis.paused) {
-                    return; 
-                }
-        
-                if (speechSynthesis.paused) {
-                    speechSynthesis.resume();
-                } else {
-                    utterance = new SpeechSynthesisUtterance(textToRead);
-                    var voices = speechSynthesis.getVoices();
-                    utterance.voice = voices[2];
-                    speechSynthesis.speak(utterance);
-                }
-            });
-        
-            pauseButton.addEventListener('click', () => {
-                if (speechSynthesis.speaking) {
-                    speechSynthesis.pause();
-                }
-            });
-        
-            // Stop speaking when the user navigates away from the section.
-            window.addEventListener('beforeunload', () => {
-                speechSynthesis.cancel();
-            });
-
+    
             tourContainer.appendChild(tourImageContainer);
             tourContainer.appendChild(tourTextContainer);
             mainContainer.appendChild(tourContainer);
-
+    
+            // Set the text content after elements are added to the DOM
             document.getElementById('tourSubheading').innerHTML = page.subheading;
             document.getElementById('tourText').innerHTML = page.text;
-            if(page.image != "null"){
+            if (page.image != "null") {
                 document.getElementById('tourImage').src = page.image;
                 document.getElementById('tourImage').alt = page.altText;
             }
-
+    
+            // Create speech buttons after setting content
+            const textToRead = document.getElementById('tourSubheading').innerHTML + ' . ' + document.getElementById('tourText').innerHTML;
+            createSpeechButtons("tourSpeechButtonsContainer", "tourPlayButton", "tourPauseButton", textToRead);
+    
             renderNextBackArrows();
-
-            if(index === tourPages.length - 1){
+    
+            if (index === tourPages.length - 1) {
                 localStorage.setItem('tourCompleted', "true");
             }
-
-            // TODO: duplication of code here - sort out if time
+    
+            // Event listeners for navigation
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
                 currentTourIndex++;
                 if (currentTourIndex >= tourPages.length) {
                     changeSiteSection("HOME");
                 } else {
+                    if (speechSynthesis.speaking) {
+                        speechSynthesis.cancel();
+                    }
                     renderTourPage(currentTourIndex);
                 }
             });
-
+    
             document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
                 if (event.key === 'Enter') {
                     currentTourIndex++;
                     if (currentTourIndex >= tourPages.length) {
                         changeSiteSection("HOME");
                     } else {
+                        if (speechSynthesis.speaking) {
+                            speechSynthesis.cancel();
+                        }
                         renderTourPage(currentTourIndex);
                     }
                 }
             });
-
+    
             document.getElementById("backButtonImageContainer").addEventListener('click', function() {
                 currentTourIndex--;
                 if (currentTourIndex < 0) {
                     changeSiteSection("HOME");
                 } else {
+                    if (speechSynthesis.speaking) {
+                        speechSynthesis.cancel();
+                    }
                     renderTourPage(currentTourIndex);
                 }
             });
-
+    
             document.getElementById("backButtonImageContainer").addEventListener('keydown', function(event) {
                 if (event.key === 'Enter') {
                     currentTourIndex--;
                     if (currentTourIndex < 0) {
                         changeSiteSection("HOME");
                     } else {
+                        if (speechSynthesis.speaking) {
+                            speechSynthesis.cancel();
+                        }
                         renderTourPage(currentTourIndex);
                     }
                 }
             });
-
-        } 
-        
-        else {
+    
+        } else {
             console.error('Page index out of range:', index);
         }
     }
+    
 
     ////// Progress functions //////
 
@@ -1968,7 +1940,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /// Speech buttons 
 
-    function createSpeechButtons() {}
+    function createSpeechButtons(speechButtonsContainerName, playButtonName, pauseButtonName, textToRead) {
+        const speechButtonsContainer = document.getElementById(speechButtonsContainerName);
+        const playButton = document.createElement('div');
+        playButton.setAttribute('id', playButtonName);
+        playButton.setAttribute('class', "speechButton");
+        playButton.setAttribute('aria-label', "Play");
+        playButton.innerHTML = "🔊 Play";
+        speechButtonsContainer.appendChild(playButton);
+        const pauseButton = document.createElement('div');
+        pauseButton.setAttribute('id', pauseButtonName);
+        pauseButton.setAttribute('class', "speechButton");
+        pauseButton.setAttribute('aria-label', "Pause");
+        pauseButton.innerHTML = "⏸ Pause";
+        speechButtonsContainer.appendChild(pauseButton);
+
+    
+        playButton.addEventListener('click', () => {
+            
+            // If already speaking do nothing
+            if (speechSynthesis.speaking && !speechSynthesis.paused) {
+                return; 
+            }
+    
+            if (speechSynthesis.paused) {
+                speechSynthesis.resume();
+            } else {
+                utterance = new SpeechSynthesisUtterance(textToRead);
+                var voices = speechSynthesis.getVoices();
+                utterance.voice = voices[2];
+                speechSynthesis.speak(utterance);
+            }
+        });
+    
+        pauseButton.addEventListener('click', () => {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+            }
+        });
+    
+        // Stop speaking when the user navigates away from the section.
+        window.addEventListener('beforeunload', () => {
+            speechSynthesis.cancel();
+        });
+    }
 
     /// Functions to clear elements before rending new ones ///
 
