@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Number of questions in quiz
     const quizNumber = 10;
 
+    // Text to speech set-up variables
+    let speechSynthesis = window.speechSynthesis;
+    let utterance;
 
     // TODO NEXT to make this an MVP
         // Storing progress within topics and grades - need to store number of right answers to questions
@@ -65,6 +68,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Main function to update page content //////
     function updatePageContent(){
+        if (speechSynthesis.speaking) {
+            speechSynthesis.cancel();
+        }
         emptyMainText();
         emptyFooter();
         highlightCurrentNav();
@@ -804,6 +810,55 @@ document.addEventListener('DOMContentLoaded', function() {
             tourTextContainer.appendChild(tourSubheading);
             tourTextContainer.appendChild(tourText);
 
+            const speechButtonsContainer = document.createElement('div');
+            speechButtonsContainer.setAttribute('id', "speechButtonsContainer");
+
+            tourTextContainer.appendChild(speechButtonsContainer);
+
+            // TO DO : make this much more function-based
+            const playButton = document.createElement('div');
+            playButton.setAttribute('id', "playButton");
+            playButton.setAttribute('class', "speechButton");
+            playButton.setAttribute('aria-lavel', "Play");
+            playButton.innerHTML = "🔊 Play";
+            speechButtonsContainer.appendChild(playButton);
+            const pauseButton = document.createElement('div');
+            pauseButton.setAttribute('id', "pauseButton");
+            pauseButton.setAttribute('class', "speechButton");
+            pauseButton.setAttribute('aria-lavel', "Pause");
+            pauseButton.innerHTML = "⏸ Pause";
+            speechButtonsContainer.appendChild(pauseButton);
+        
+            playButton.addEventListener('click', () => {
+                const textToRead = tourSubheading.innerHTML + '! . ! . !' + tourText.innerHTML; 
+                 
+                
+                // If already speaking do nothing
+                if (speechSynthesis.speaking && !speechSynthesis.paused) {
+                    return; 
+                }
+        
+                if (speechSynthesis.paused) {
+                    speechSynthesis.resume();
+                } else {
+                    utterance = new SpeechSynthesisUtterance(textToRead);
+                    var voices = speechSynthesis.getVoices();
+                    utterance.voice = voices[2];
+                    speechSynthesis.speak(utterance);
+                }
+            });
+        
+            pauseButton.addEventListener('click', () => {
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.pause();
+                }
+            });
+        
+            // Stop speaking when the user navigates away from the section.
+            window.addEventListener('beforeunload', () => {
+                speechSynthesis.cancel();
+            });
+
             tourContainer.appendChild(tourImageContainer);
             tourContainer.appendChild(tourTextContainer);
             mainContainer.appendChild(tourContainer);
@@ -1317,13 +1372,22 @@ document.addEventListener('DOMContentLoaded', function() {
             incorrectAnswerContainer.remove();
             
             // Add next button
-            renderNextArrow();
+            backButtonImageContainer.remove();
+            renderNextBackArrows();
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
                 finishContent(topicContent);
             });
             document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
                 if (event.key === 'Enter') {
                     finishContent(topicContent);
+                }
+            });
+            document.getElementById("backButtonImageContainer").addEventListener('click', function() {
+                contentGoBack(topicContent);
+            });
+            document.getElementById("backButtonImageContainer").addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    contentGoBack(topicContent);
                 }
             });
         }
@@ -1832,9 +1896,20 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("page-title").innerHTML = "About Music Theory My Way";
         const aboutContainer = document.createElement('div');
         aboutContainer.setAttribute('id', "aboutContainer");
-        aboutContainer.innerHTML = 'Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>It is a prototype for a dyslexia-friendly website for learning music theory.<br><br>If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your data is not collected by any third parties. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!<br>Liz Elliott<br>University of Bristol<br><br><br><br>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)';
+        aboutContainer.innerHTML = 'Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>It is a prototype for a dyslexia-friendly website for learning music theory.<br><br>If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your data is not collected by any third parties. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!<br>Liz Elliott<br>University of Bristol<br><br><br>';
+        // if ('speechSynthesis' in window) {
+        //     var msg = new SpeechSynthesisUtterance();
+        //     msg.text = aboutContainer.innerHTML;
+        //     window.speechSynthesis.speak(msg);
+        //    }else{
+        //      alert("Sorry, your browser doesn't support text to speech!");
+        //    }
+        const acknowledgementsContainer = document.createElement('div');
+        acknowledgementsContainer.setAttribute('id', "acknowledgementsContainer");
+        acknowledgementsContainer.innerHTML = '<h2>Acknowledgements</h2><br>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)';
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(aboutContainer);
+        mainContainer.appendChild(acknowledgementsContainer);
     }
 
 
@@ -1890,6 +1965,10 @@ document.addEventListener('DOMContentLoaded', function() {
         nextButtonImageContainer.appendChild(nextButtonImage);
         footer.appendChild(nextButtonImageContainer);
     }
+
+    /// Speech buttons 
+
+    function createSpeechButtons() {}
 
     /// Functions to clear elements before rending new ones ///
 

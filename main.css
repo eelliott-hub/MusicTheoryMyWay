@@ -459,6 +459,32 @@ main .container {
     font-size: 1.1em;
 }
 
+
+/***** Speech controls styling *****/
+
+#speechButtonsContainer {
+    width: 60%;
+    display: grid;
+    grid-template-columns: 40% 40%;
+    gap: 10px;
+    margin: 20 auto;
+    align-items: left;
+}
+
+.speechButton {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.speechButton:hover {
+    background-color: #0056b3;
+}
+
 /***** Media queries *****/
 
 @media screen and (max-width: 1100px) {
