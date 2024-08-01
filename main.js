@@ -32,22 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Number of questions in quiz
     const quizNumber = 10;
 
-    // Text to speech set-up variables
+    // Text to speech set-up variable
     let speechSynthesis = window.speechSynthesis;
-    let utterance;
-
-    // TODO NEXT to make this an MVP
-        // Storing progress within topics and grades - need to store number of right answers to questions
-        // Progress bar?
-        // Logic of other kinds of questions
-        // Make a random selection of correct and incorrect messages, or totally slimline it and make have just tick/green or cross/red?
-        // Increment grade when all questions completed
-
-        // Improve question sections:
-            // Modular Functions: Functions like createQuestionContainer, createQuestionImagesContainer, createQuestionImageContainer, and createQuestionTextContainer modularize the code, making it easier to read and maintain.
-            // Event Delegation: The event listener could be added to the parent container (questionImagesContainer). This is more efficient and makes it easier to handle events for dynamically added or removed elements.
-        // Forward arrow event handlers are all very similar - break out into a function with arguments
-        // Add some more console messages and error handling
 
     // Uncomment temporarily to clear elements of local storage
         // localStorage.clear();
@@ -58,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // localStorage.setItem('highestGradeCompleted', "1");
     
 
-    // Settings variables - consider storing externally?
+    // Settings variables
     const settingsPageTitles = [
         "Background colour",
         "Font",
@@ -313,7 +299,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Settings functions //////
 
-    // TODO if time, split this function into smaller ones
     function renderSettingsPage(index){
 
         if(index >= 0 && index < settingsPageTitles.length){
@@ -411,10 +396,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const backgroundColourText = document.createElement('div');
         backgroundColourText.setAttribute('id', "backgroundColourText");
-        backgroundColourText.innerHTML = "Click on your chosen colour to change the background colour for text and musical notes.<br><br>";
+        backgroundColourText.innerHTML = "Click on your chosen colour to change the background colour for text and musical notes.<br>";
         const settingsContainer = document.getElementById("settingsContainer");
         settingsContainer.appendChild(backgroundColourText);
 
+        // Add speech controls    
+        const settingsSubheading = document.getElementById("settingsSubheading");
+        const textToRead = settingsSubheading.innerHTML + " . " + backgroundColourText.innerHTML;
+        addSettingsSpeechControls("backgroundColour", textToRead);
+
+         // Add individual colours
         const colourContainer = document.createElement('div');
         colourContainer.setAttribute('id', "colourContainer");
 
@@ -425,9 +416,6 @@ document.addEventListener('DOMContentLoaded', function() {
             colourBlock.style.backgroundColor = colour.colourCode;
             colourBlock.innerHTML = colour.colourText;
             colourBlock.tabIndex = 0;
-            // if(colourBlock.style.backgroundColor === localStorage.getItem('backgroundColour')){
-            //     colourBlock.innerHTML += "   &#x2714;";
-            // }
             colourBlock.addEventListener('click', function(){
                 changeBackgroundColour(colour.colourCode);
                 localStorage.setItem('settingsChanged', "true");
@@ -469,10 +457,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderFontTypefaceOptions(typefaceData){
         const typefaceText = document.createElement('div');
         typefaceText.setAttribute('id', "typefaceText");
-        typefaceText.innerHTML = "Click below to choose your prefered font.<br><br>";
+        typefaceText.innerHTML = "Click below to choose your prefered font.<br>";
         const settingsContainer = document.getElementById("settingsContainer");
         settingsContainer.appendChild(typefaceText);
 
+        // Add speech controls    
+        const settingsSubheading = document.getElementById("settingsSubheading");
+        const textToRead = settingsSubheading.innerHTML + " . " + typefaceText.innerHTML;
+        addSettingsSpeechControls("typeface", textToRead);
+
+         // Add individual typefaces
         const typefaceContainer = document.createElement('div');
         typefaceContainer.setAttribute('id', "typefaceContainer");
     
@@ -517,9 +511,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const otherFontText = document.createElement('div');
         otherFontText.setAttribute('id', "otherFontText");
-        otherFontText.innerHTML = "Click the buttons below to increase or decrease your font size and character spacing.<br><br>";
+        otherFontText.innerHTML = "Click the buttons below to increase or decrease your font size and character spacing.<br>";
         const settingsContainer = document.getElementById("settingsContainer");
         settingsContainer.appendChild(otherFontText);
+
+        // Add speech controls    
+        const settingsSubheading = document.getElementById("settingsSubheading");
+        const textToRead = settingsSubheading.innerHTML + " . " + otherFontText.innerHTML;
+        addSettingsSpeechControls("otherFont", textToRead);
 
         const otherFontContainer = document.createElement('div');
         otherFontContainer.setAttribute('id', "otherFontContainer");
@@ -591,8 +590,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if(action === "increase"){
             if(currentCharSpacing < maxCharSpacing) { currentCharSpacing += 0.2; }
         }
-        else { if(currentCharSpacing > minCharSpacing) { currentCharSpacing -= 0.2; }
-        }
+        else { if(currentCharSpacing > minCharSpacing) { currentCharSpacing -= 0.2; } }
 
         setCharSpacing(currentCharSpacing + "px");
         localStorage.setItem('charSpacing', currentCharSpacing);
@@ -606,9 +604,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const navigationButtonText = document.createElement('div');
         navigationButtonText.setAttribute('id', "navigationButtonText");
-        navigationButtonText.innerHTML = "Choose between text, icons or both from the options below.<br><br>";
+        navigationButtonText.innerHTML = "Choose between text, icons or both from the options below.<br>";
         const settingsContainer = document.getElementById("settingsContainer");
         settingsContainer.appendChild(navigationButtonText);
+
+        // Add speech controls    
+        const settingsSubheading = document.getElementById("settingsSubheading");
+        const textToRead = settingsSubheading.innerHTML + " . " + navigationButtonText.innerHTML;
+        addSettingsSpeechControls("navigationButton", textToRead);
 
         const navigationOptionsContainer = document.createElement('div');
         navigationOptionsContainer.setAttribute('id', "navigationOptionsContainer");
@@ -712,6 +715,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
+    function addSettingsSpeechControls(settingName, textToRead){
+        const settingsContainer = document.getElementById("settingsContainer");
+        const speechButtonsContainer = document.createElement('div');
+        speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+        speechButtonsContainer.setAttribute('id', settingName+"SpeechButtonsContainer");
+        settingsContainer.appendChild(speechButtonsContainer);
+        createSpeechButtons(settingName+"SpeechButtonsContainer", settingName+"PlayButton", settingName+"PauseButton", textToRead, "BOTH");
+
+        
+        
+    }
+
     // Apply saved settings
     function applySavedSettings() {
         const savedBackgroundColour = localStorage.getItem('backgroundColour');
@@ -809,17 +824,10 @@ document.addEventListener('DOMContentLoaded', function() {
             tourTextContainer.appendChild(tourSubheading);
             tourTextContainer.appendChild(tourText);
     
-            const speechButtonsContainer = document.createElement('div');
-            speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
-            speechButtonsContainer.setAttribute('id', "tourSpeechButtonsContainer");
-    
-            tourTextContainer.appendChild(speechButtonsContainer);
-    
             tourContainer.appendChild(tourImageContainer);
             tourContainer.appendChild(tourTextContainer);
             mainContainer.appendChild(tourContainer);
     
-            // Set the text content after elements are added to the DOM
             document.getElementById('tourSubheading').innerHTML = page.subheading;
             document.getElementById('tourText').innerHTML = page.text;
             if (page.image != "null") {
@@ -827,9 +835,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('tourImage').alt = page.altText;
             }
     
-            // Create speech buttons after setting content
+            // Add speech controls    
+            const speechButtonsContainer = document.createElement('div');
+            speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+            speechButtonsContainer.setAttribute('id', "tourSpeechButtonsContainer");
+    
+            tourTextContainer.appendChild(speechButtonsContainer);
+
             const textToRead = document.getElementById('tourSubheading').innerHTML + ' . ' + document.getElementById('tourText').innerHTML;
-            createSpeechButtons("tourSpeechButtonsContainer", "tourPlayButton", "tourPauseButton", textToRead);
+            createSpeechButtons("tourSpeechButtonsContainer", "tourPlayButton", "tourPauseButton", textToRead, "BOTH");
     
             renderNextBackArrows();
     
@@ -1129,7 +1143,15 @@ document.addEventListener('DOMContentLoaded', function() {
         informationTextContainer.setAttribute('id', "informationTextContainer");
         informationContainer.appendChild(informationTextContainer);
         const informationText = item.text;
-        informationTextContainer.innerHTML = informationText;
+        informationTextContainer.innerHTML = informationText+"<br><br>";
+
+        // Add speech controls    
+        const speechButtonsContainer = document.createElement('div');
+        speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+        speechButtonsContainer.setAttribute('id', "informationSpeechButtonsContainer");
+        informationTextContainer.appendChild(speechButtonsContainer);
+        const textToRead = informationTextContainer.innerHTML;
+        createSpeechButtons("informationSpeechButtonsContainer", "informationPlayButton", "informationPauseButton", textToRead, "BOTH");
 
         renderNextBackArrows();
         document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
@@ -1235,7 +1257,15 @@ document.addEventListener('DOMContentLoaded', function() {
         questionTextContainer.setAttribute('id', "questionTextContainer");
         questionContainer.appendChild(questionTextContainer);
         const questionText = item.text;
-        questionTextContainer.innerHTML = questionText;
+        questionTextContainer.innerHTML = questionText+"<br><br>";
+
+        // Add speech controls    
+        const speechButtonsContainer = document.createElement('div');
+        speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+        speechButtonsContainer.setAttribute('id', "questionSpeechButtonsContainer");
+        questionTextContainer.appendChild(speechButtonsContainer);
+        const textToRead = questionTextContainer.innerHTML;
+        createSpeechButtons("questionSpeechButtonsContainer", "questionPlayButton", "questionPauseButton", textToRead, "PLAY");
     
         function checkAnswer(question, chosenAnswerIndex) {
             const correctAnswerIndex = question.correctAnswer;
@@ -1339,6 +1369,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Add explanatory text
             questionTextContainer.innerHTML = item.explanation;
+
+            // Add speech controls    
+            const speechButtonsContainer = document.createElement('div');
+            speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+            speechButtonsContainer.setAttribute('id', "correctAnswerSpeechButtonsContainer");
+
+            questionTextContainer.appendChild(speechButtonsContainer);
+
+            const textToRead = questionTextContainer.innerHTML;
+            createSpeechButtons("correctAnswerSpeechButtonsContainer", "correctAnswerPlayButton", "correctAnswerPauseButton", textToRead, "PLAY");
 
             // Remove other options
             incorrectAnswerContainer.remove();
@@ -1460,9 +1500,19 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("page-title").innerHTML = "Quiz time!";
         const quizPreambleContainer = document.createElement('div');
         quizPreambleContainer.setAttribute('id', "quizPreambleContainer");
-        quizPreambleContainer.innerHTML = "Take a quiz to revise what you've learnt so far.<br><br>You'll be asked 10 questions on topics you've covered on this website so far.<br><br>Click the green arrow to start the quiz.<br><br>Good luck!";
+        quizPreambleContainer.innerHTML = "Take a quiz to revise what you've learnt so far.<br><br>You'll be asked 10 questions on topics you've covered on this website.<br><br>Click the green arrow to start the quiz.<br><br>Good luck!<br><br>";
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(quizPreambleContainer);
+
+        // Add speech controls    
+        const speechButtonsContainer = document.createElement('div');
+        speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+        speechButtonsContainer.setAttribute('id', "quizPreambleSpeechButtonsContainer");
+
+        quizPreambleContainer.appendChild(speechButtonsContainer);
+
+        const textToRead = quizPreambleContainer.innerHTML;
+        createSpeechButtons("quizPreambleSpeechButtonsContainer", "quizPreamblePlayButton", "quizPreamblePauseButton", textToRead, "BOTH");
 
         renderNextArrow();
         document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
@@ -1625,8 +1675,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const quizTextContainer = document.createElement('div');
         quizTextContainer.setAttribute('id', "quizTextContainer");
         quizContainer.appendChild(quizTextContainer);
-        const quizText = item.text;
+        const quizText = item.text +"<br><br>";
         quizTextContainer.innerHTML = quizText;
+
+        // Add speech controls    
+        const speechButtonsContainer = document.createElement('div');
+        speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+        speechButtonsContainer.setAttribute('id', "quizQuestionSpeechButtonsContainer");
+
+        quizTextContainer.appendChild(speechButtonsContainer);
+
+        const textToRead = quizTextContainer.innerHTML;
+        createSpeechButtons("quizQuestionSpeechButtonsContainer", "quizQuestionPlayButton", "quizQuestionPauseButton", textToRead, "PLAY");
     
         function checkQuizAnswer(question, chosenAnswerIndex) {
             const correctAnswerIndex = question.correctAnswer;
@@ -1714,10 +1774,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Add explanatory text
-            quizTextContainer.innerHTML = item.explanation;
+            quizTextContainer.innerHTML = item.explanation + "<br><br>";
 
             // Remove other options
             incorrectAnswerContainer.remove();
+
+            // Add speech controls    
+            const speechButtonsContainer = document.createElement('div');
+            speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+            speechButtonsContainer.setAttribute('id', "correctAnswerSpeechButtonsContainer");
+
+            quizTextContainer.appendChild(speechButtonsContainer);
+
+            const textToRead = quizTextContainer.innerHTML;
+            createSpeechButtons("correctAnswerSpeechButtonsContainer", "correctAnswerPlayButton", "correctAnswerPauseButton", textToRead, "PLAY");
             
             // Add next button
             renderNextArrow();
@@ -1868,20 +1938,28 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("page-title").innerHTML = "About Music Theory My Way";
         const aboutContainer = document.createElement('div');
         aboutContainer.setAttribute('id', "aboutContainer");
-        aboutContainer.innerHTML = 'Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>It is a prototype for a dyslexia-friendly website for learning music theory.<br><br>If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your data is not collected by any third parties. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!<br>Liz Elliott<br>University of Bristol<br><br><br>';
-        // if ('speechSynthesis' in window) {
-        //     var msg = new SpeechSynthesisUtterance();
-        //     msg.text = aboutContainer.innerHTML;
-        //     window.speechSynthesis.speak(msg);
-        //    }else{
-        //      alert("Sorry, your browser doesn't support text to speech!");
-        //    }
-        const acknowledgementsContainer = document.createElement('div');
-        acknowledgementsContainer.setAttribute('id', "acknowledgementsContainer");
-        acknowledgementsContainer.innerHTML = '<h2>Acknowledgements</h2><br>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)';
+        aboutContainer.innerHTML = 'Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>It is a prototype for a dyslexia-friendly website for learning music theory.<br><br>If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your data is not collected by any third parties. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!<br>Liz Elliott<br>University of Bristol<br>';
+ 
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(aboutContainer);
+        
+
+        // Add speech controls    
+        const speechButtonsContainer1 = document.createElement('div');
+        speechButtonsContainer1.setAttribute('class', "speechButtonsContainer");
+        speechButtonsContainer1.setAttribute('id', "aboutSpeechButtonsContainer");
+
+        aboutContainer.appendChild(speechButtonsContainer1);
+        
+        const textToRead1 = aboutContainer.innerHTML;
+        createSpeechButtons("aboutSpeechButtonsContainer", "aboutPlayButton", "aboutPauseButton", textToRead1, "BOTH");
+
+        const acknowledgementsContainer = document.createElement('div');
+        acknowledgementsContainer.setAttribute('id', "acknowledgementsContainer");
+        acknowledgementsContainer.innerHTML = '<br><br><h2>Acknowledgements</h2><br>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)';
+
         mainContainer.appendChild(acknowledgementsContainer);
+
     }
 
 
@@ -1940,50 +2018,93 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /// Speech buttons 
 
-    function createSpeechButtons(speechButtonsContainerName, playButtonName, pauseButtonName, textToRead) {
+    function createSpeechButtons(speechButtonsContainerName, playButtonName, pauseButtonName, textToRead, buttonTypes) {
         const speechButtonsContainer = document.getElementById(speechButtonsContainerName);
+    
+        // Create play button
         const playButton = document.createElement('div');
         playButton.setAttribute('id', playButtonName);
         playButton.setAttribute('class', "speechButton");
+        playButton.setAttribute('role', "button");
         playButton.setAttribute('aria-label', "Play");
-        playButton.innerHTML = "🔊 Play";
+        playButton.tabIndex = 0;
+        playButton.innerHTML = "&#9658; Play";
         speechButtonsContainer.appendChild(playButton);
-        const pauseButton = document.createElement('div');
-        pauseButton.setAttribute('id', pauseButtonName);
-        pauseButton.setAttribute('class', "speechButton");
-        pauseButton.setAttribute('aria-label', "Pause");
-        pauseButton.innerHTML = "⏸ Pause";
-        speechButtonsContainer.appendChild(pauseButton);
-
     
-        playButton.addEventListener('click', () => {
-            
-            // If already speaking do nothing
-            if (speechSynthesis.speaking && !speechSynthesis.paused) {
-                return; 
-            }
+        // Declare pauseButton variable
+        let pauseButton = null;
     
-            if (speechSynthesis.paused) {
+        // Conditionally create pause button
+        if (buttonTypes === "BOTH") {
+            pauseButton = document.createElement('div');
+            pauseButton.setAttribute('id', pauseButtonName);
+            pauseButton.setAttribute('class', "speechButton");
+            pauseButton.setAttribute('role', "button");
+            pauseButton.setAttribute('aria-label', "Pause");
+            pauseButton.tabIndex = 0;
+            pauseButton.innerHTML = "&#10074;&#10074; Pause";
+            speechButtonsContainer.appendChild(pauseButton);
+        }
+    
+        let utterance = new SpeechSynthesisUtterance(textToRead);
+        let isPaused = false;
+    
+        // Cancel any ongoing speech synthesis when a new utterance is about to start
+        function resetSpeechSynthesis() {
+            speechSynthesis.cancel();
+            isPaused = false;
+        }
+    
+        // Function to play text for this specific set of buttons
+        function playText() {
+            if (isPaused) {
                 speechSynthesis.resume();
+                isPaused = false;
             } else {
+                resetSpeechSynthesis();
+    
+                // Reinitialize the utterance to avoid conflict with other buttons
                 utterance = new SpeechSynthesisUtterance(textToRead);
-                var voices = speechSynthesis.getVoices();
-                utterance.voice = voices[2];
+                const voices = speechSynthesis.getVoices();
+                if (voices.length > 2) {
+                    utterance.voice = voices[2];
+                }
+    
+                // Start speaking the text
                 speechSynthesis.speak(utterance);
             }
-        });
+        }
     
-        pauseButton.addEventListener('click', () => {
-            if (speechSynthesis.speaking) {
+        // Function to pause the current text
+        function pauseText() {
+            if (speechSynthesis.speaking && !speechSynthesis.paused) {
                 speechSynthesis.pause();
+                isPaused = true;
+            }
+        }
+    
+        // Attach event listeners to play button
+        playButton.addEventListener('click', playText);
+        playButton.addEventListener('keydown', (event) => {
+            if (event.key === "Enter") {
+                playText();
             }
         });
     
-        // Stop speaking when the user navigates away from the section.
-        window.addEventListener('beforeunload', () => {
-            speechSynthesis.cancel();
-        });
+        // Conditionally attach event listeners to pause button
+        if (pauseButton) {
+            pauseButton.addEventListener('click', pauseText);
+            pauseButton.addEventListener('keydown', (event) => {
+                if (event.key === "Enter") {
+                    pauseText();
+                }
+            });
+        }
+    
+        // Stop all speech synthesis when navigating away
+        window.addEventListener('beforeunload', resetSpeechSynthesis);
     }
+   
 
     /// Functions to clear elements before rending new ones ///
 
