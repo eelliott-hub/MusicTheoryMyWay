@@ -1682,9 +1682,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const speechButtonsContainer = document.createElement('div');
         speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
         speechButtonsContainer.setAttribute('id', "quizQuestionSpeechButtonsContainer");
-
         quizTextContainer.appendChild(speechButtonsContainer);
-
         const textToRead = quizTextContainer.innerHTML;
         createSpeechButtons("quizQuestionSpeechButtonsContainer", "quizQuestionPlayButton", "quizQuestionPauseButton", textToRead, "PLAY");
     
@@ -1891,21 +1889,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function generateGlossary(data) {
-        
         const glossaryContainer = document.createElement('div');
         glossaryContainer.setAttribute('id', 'glossaryContainer');
-
+    
         data.forEach(item => {
+            console.log("Processing glossary item:", item); // Debug: log the current item being processed
+    
             const glossaryRow = document.createElement('div');
             glossaryRow.className = 'glossary-row';
-
+            glossaryContainer.appendChild(glossaryRow);
+    
+            // Add term
             const termDiv = document.createElement('div');
             termDiv.setAttribute('class', "termDiv");
             termDiv.textContent = item.term;
-            if(item.lang) { termDiv.setAttribute('lang', item.lang); }
-            
+            if(item.lang) { 
+                termDiv.setAttribute('lang', item.lang); 
+            }
             glossaryRow.appendChild(termDiv);
-
+    
+            // Add image
             const imageDiv = document.createElement('div');
             imageDiv.setAttribute('class', "imageDiv");
             if (item.image !== "null") {
@@ -1917,20 +1920,44 @@ document.addEventListener('DOMContentLoaded', function() {
                 imageDiv.innerHTML = '&nbsp;'; // Render an empty space
             }
             glossaryRow.appendChild(imageDiv);
-
+    
+            // Add definition
             const definitionDiv = document.createElement('div');
             definitionDiv.innerHTML = item.definition;
             glossaryRow.appendChild(definitionDiv);
-
-            glossaryContainer.appendChild(glossaryRow);
-
+    
+            // Add speech controls    
+            const speechButtonsContainer = document.createElement('div');
+            speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+            const speechButtonsContainerName = (item.id + "SpeechButtonsContainer").trim();
+            speechButtonsContainer.setAttribute('id', speechButtonsContainerName);
+            glossaryRow.appendChild(speechButtonsContainer);
+    
+            // Use setTimeout to ensure DOM updates are complete
+            setTimeout(() => {
+                const container = document.getElementById(speechButtonsContainerName);
+                if (container) {
+                    console.log("Speech buttons container successfully added to the DOM:", speechButtonsContainerName);
+                    const textToRead = item.term + " . " + item.definition;
+                    createSpeechButtons(speechButtonsContainerName, item.id + "PlayButton", item.id + "PauseButton", textToRead, "PLAY");
+                } else {
+                    console.error("Failed to find speech buttons container in the DOM:", speechButtonsContainerName);
+                    console.error("Glossary row structure:", glossaryRow.outerHTML); // Debug: log the entire glossary row structure
+                }
+            }, 0); // Short delay to ensure DOM updates are processed
+    
             const hr = document.createElement('hr');
             glossaryContainer.appendChild(hr);
         });
-
+    
         const mainContainer = document.getElementById("main-container");
+        console.log("Appending glossary to the main container."); // Debug: log before appending glossary
         mainContainer.appendChild(glossaryContainer);
+        console.log("Glossary successfully appended to the main container."); // Debug: log after appending glossary
     }
+    
+    
+    
 
     ////// About page //////
 

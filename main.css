@@ -437,7 +437,7 @@ main .container {
 
 .glossary-row {
     display: grid;
-    grid-template-columns: 20% 10% 70%;
+    grid-template-columns: 20% 10% 60% 10%;
     gap: 10px;
     margin: 0 auto;
     padding: 20px 0;
@@ -467,15 +467,16 @@ main .container {
 .speechButtonsContainer {
     width: 60%;
     display: grid;
-    grid-template-columns: 40% 40%;
+    grid-template-columns: 50% 50%;
     gap: 10px;
     margin: 20 auto;
-    align-items: left;
+    align-items: center;
 }
 
 .speechButton {
     background-color: #007BFF;
     color: white;
+    /* font-size: 80%; */
     border: none;
     padding: 10px 15px;
     cursor: pointer;
@@ -485,6 +486,15 @@ main .container {
 
 .speechButton:hover {
     background-color: #0056b3;
+}
+
+.glossary-row .speechButtonsContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100% 0;
+    gap: 10px;
+    margin: 20 auto;
+    align-items: center;
 }
 
 /***** Media queries *****/
