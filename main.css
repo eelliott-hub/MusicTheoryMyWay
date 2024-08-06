@@ -202,7 +202,7 @@ main .container {
     margin: 20px 0;
 }
 
-#otherFontContainer {
+#otherFontContainer, #soundEffectsContainer {
     display: grid;
     gap: 10px;
     grid-template-columns: repeat(2, 1fr);
@@ -236,6 +236,27 @@ main .container {
     cursor: pointer;
 }
 
+#rightAnswerButton, #wrongAnswerButton {
+    background-color: #2c6109;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#rightAnswerButton:hover, #wrongAnswerButton:hover {
+    background-color: #163104;
+}
+
+input[type="checkbox"] {
+    width: 3em;
+    height: 3rem;
+    accent-color: rgb(0, 9, 128);
+    padding: 10px 15px;
+  }
+  
 
 /***** Tour pages styling *****/
 
@@ -381,6 +402,24 @@ main .container {
     margin: 20px auto;
 }
 
+#progressBar {
+    width: 80%;
+    background-color: #d5d8d0;
+    height: 30px;
+    border: 0;
+    border-radius: 5px;
+    margin: 10px auto;
+}
+
+#progress {
+    width: 0%;
+    height: 100%;
+    background-color: #489b48;
+    border: 0;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
 /*** Questions ***/
 
 #questionImagesContainer, #quizImagesContainer {
@@ -445,8 +484,6 @@ main .container {
     scrollbar-gutter: auto;
 }
 
-
-
 /***** Glossary styling *****/
 
 #glossaryContainer {
@@ -503,7 +540,6 @@ main .container {
 .speechButton {
     background-color: #007BFF;
     color: white;
-    /* font-size: 80%; */
     border: none;
     padding: 10px 15px;
     cursor: pointer;

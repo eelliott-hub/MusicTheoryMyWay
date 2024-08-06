@@ -35,6 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Text to speech set-up variable
     let speechSynthesis = window.speechSynthesis;
 
+    // Sounds
+    let rightSound = new Audio('./Sounds/right-answer.wav');
+    let wrongSound = new Audio('./Sounds/wrong-answer.wav');
+    
+
     // Uncomment temporarily to clear elements of local storage
         // localStorage.clear();
         // localStorage.removeItem("tourCompleted");
@@ -49,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
         "Background colour",
         "Font",
         "Font size and spacing",
-        "Navigation buttons"
+        "Navigation buttons",
+        "Sound effects"
     ];
 
     ////// Main function to update page content //////
@@ -60,6 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
         emptyMainText();
         emptyFooter();
         highlightCurrentNav();
+        if(siteSection != "CONTENT"){
+            removeProgressBar();
+        }
 
         if(siteSection === "HOME") {
             if (!localStorage.getItem('tourCompleted', "true")) { renderHomePageTour(); }
@@ -376,6 +385,9 @@ document.addEventListener('DOMContentLoaded', function() {
             else if(index === 3){
                 renderNavigationButtonSettings();
             }
+            else if(index === 4){
+                renderSoundEffectSettings();
+            }
         }
 
         else {
@@ -609,7 +621,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add speech controls
         const settingsSubheading = document.getElementById("settingsSubheading");
         const textToRead = settingsSubheading.innerHTML + " . " + navigationButtonText.innerHTML;
-        addSettingsSpeechControls("navigationButton", textToRead);
+        addSettingsSpeechControls("navigationButtons", textToRead);
 
         const navigationOptionsContainer = document.createElement('div');
         navigationOptionsContainer.setAttribute('id', "navigationOptionsContainer");
@@ -712,6 +724,110 @@ document.addEventListener('DOMContentLoaded', function() {
         settingsContainer.appendChild(navigationOptionsContainer);
     }
 
+    function renderSoundEffectSettings() {
+        const soundEffectsText = document.createElement('div');
+        soundEffectsText.setAttribute('id', "soundEffectsText");
+        soundEffectsText.innerHTML = "Tick the boxes if you want to hear these sound effects when you get a question right or wrong.<br>";
+        const settingsContainer = document.getElementById("settingsContainer");
+        settingsContainer.appendChild(soundEffectsText);
+
+        // Add speech controls
+        const settingsSubheading = document.getElementById("settingsSubheading");
+        const textToRead = settingsSubheading.innerHTML + " . " + soundEffectsText.innerHTML;
+        addSettingsSpeechControls("soundEffects", textToRead);
+        const soundEffectsContainer = document.createElement('div');
+        soundEffectsContainer.setAttribute('id', "soundEffectsContainer");
+        settingsContainer.appendChild(soundEffectsContainer);
+
+        // Right answer sound settings
+        const rightAnswerButton = document.createElement('div');
+        rightAnswerButton.setAttribute('id', "rightAnswerButton");
+        rightAnswerButton.innerHTML = "Right answer  &#9658;";
+        rightAnswerButton.setAttribute('role', "button");
+        rightAnswerButton.tabIndex = 0;
+        soundEffectsContainer.appendChild(rightAnswerButton);
+        
+        rightAnswerButton.addEventListener('click', function(){
+            rightSound.play();
+        });
+        rightAnswerButton.addEventListener('keydown', function(event){
+            if (event.key === 'Enter') {
+                rightSound.play();
+            }
+        });
+
+        const rightAnswerCheckboxContainer = document.createElement('div');
+        rightAnswerCheckboxContainer.setAttribute('id', "rightAnswerCheckboxContainer");
+        soundEffectsContainer.appendChild(rightAnswerCheckboxContainer);
+
+        const rightAnswerCheckbox = document.createElement('input');
+        rightAnswerCheckbox.setAttribute('type', "checkbox");
+        rightAnswerCheckbox.setAttribute('id', 'rightAnswerCheckbox');
+        rightAnswerCheckbox.tabIndex = 0;
+        rightAnswerCheckboxContainer.appendChild(rightAnswerCheckbox);
+
+        rightAnswerCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+              setRightAnswerSound("yes");
+            } else {
+              setRightAnswerSound("no");
+            }
+          });
+
+        // Wrong answer sound settings
+        const wrongAnswerButton = document.createElement('div');
+        wrongAnswerButton.setAttribute('id', "wrongAnswerButton");
+        wrongAnswerButton.innerHTML = "Wrong answer  &#9658;";
+        wrongAnswerButton.setAttribute('role', "button");
+        wrongAnswerButton.tabIndex = 0;
+        soundEffectsContainer.appendChild(wrongAnswerButton);
+        
+        wrongAnswerButton.addEventListener('click', function(){
+            wrongSound.play();
+        });
+        wrongAnswerButton.addEventListener('keydown', function(event){
+            if (event.key === 'Enter') {
+                wrongSound.play();
+            }
+        });
+
+        const wrongAnswerCheckboxContainer = document.createElement('div');
+        wrongAnswerCheckboxContainer.setAttribute('id', "wrongAnswerCheckboxContainer");
+        soundEffectsContainer.appendChild(wrongAnswerCheckboxContainer);
+
+        const wrongAnswerCheckbox = document.createElement('input');
+        wrongAnswerCheckbox.setAttribute('type', "checkbox");
+        wrongAnswerCheckbox.setAttribute('id', 'wrongAnswerCheckbox');
+        wrongAnswerCheckbox.tabIndex = 0;
+        wrongAnswerCheckboxContainer.appendChild(wrongAnswerCheckbox);
+
+        wrongAnswerCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+              setWrongAnswerSound("yes");
+            } else {
+              setWrongAnswerSound("no");
+            }
+        });
+
+        applySavedSoundEffectSettings();
+    }
+
+    function setRightAnswerSound(choice){
+        localStorage.setItem('rightAnswerSound', choice);
+    }
+
+    function getRightAnswerSound(){
+        return localStorage.getItem('rightAnswerSound');
+    }
+
+    function setWrongAnswerSound(choice){
+        localStorage.setItem('wrongAnswerSound', choice);
+    }
+
+    function getWrongAnswerSound() {
+        return localStorage.getItem('wrongAnswerSound');
+    }
+
     function addSettingsSpeechControls(settingName, textToRead){
         const settingsContainer = document.getElementById("settingsContainer");
         const speechButtonsContainer = document.createElement('div');
@@ -759,7 +875,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Applying default letter spacing');
             setCharSpacing(defaultCharSpacing);
         }
-
         const savedNavButtonsView = localStorage.getItem('navButtonsView');
         if(savedNavButtonsView){
             console.log('Applying saved navigation buttons:', savedNavButtonsView);
@@ -768,6 +883,26 @@ document.addEventListener('DOMContentLoaded', function() {
         else{
             console.log('Applying default navigation buttons:', defaultNavButtons);
             setNavButtons(defaultNavButtons);
+        }
+    }
+
+    function applySavedSoundEffectSettings(){
+        const rightBox = document.getElementById("rightAnswerCheckbox");
+        const savedRightAnswerSound = localStorage.getItem('rightAnswerSound');
+        if(savedRightAnswerSound === "yes"){
+            rightBox.checked = true;
+        }
+        else{
+            rightBox.checked = false;
+        }
+
+        const wrongBox = document.getElementById("wrongAnswerCheckbox");
+        const savedWrongAnswerSound = localStorage.getItem('wrongAnswerSound');
+        if(savedWrongAnswerSound === "yes"){
+            wrongBox.checked = true;
+        }
+        else{
+            wrongBox.checked = false;
         }
     }
 
@@ -1093,11 +1228,30 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyMainText();
             emptyFooter();
 
+            const progressBar = document.getElementById("progressBar");
+
+            if(!progressBar){
+                const progress = document.createElement('div');
+                progress.setAttribute('id', "progress");
+        
+                const progressBar = document.createElement('div');
+                progressBar.setAttribute('id', "progressBar");
+        
+                const header = document.getElementById("header-container");
+                header.appendChild(progressBar);
+                progressBar.appendChild(progress);
+                
+            }
+
             if(item.contentType === "information"){
+                const progressPcnt = ((index+1)/topicContent.length)*100;
+                progress.style.width = progressPcnt + "%";
                 renderInformation(item);
             }
 
             else if(item.contentType === "question") {
+                const progressPcnt = ((index+1)/topicContent.length)*100;
+                progress.style.width = progressPcnt + "%";
                 renderQuestion(item);
             }
         }
@@ -1109,6 +1263,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderInformation(item){
         document.getElementById("page-title").innerHTML = getCurrentTopicName() + ": " + item.pageTitle;
+    
         const mainContainer = document.getElementById("main-container");
         const informationContainer = document.createElement('div');
         informationContainer.setAttribute('id', "informationContainer");
@@ -1272,6 +1427,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function handleCorrectAnswer(chosenAnswerIndex, feedback){
+            if(getRightAnswerSound() === "yes"){
+                rightSound.play();
+            }
             const correctSelected = document.getElementById(chosenAnswerIndex);
             correctSelected.style.borderColor = "#328032";
             correctSelected.style.borderWidth = "4px";
@@ -1309,6 +1467,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function handleIncorrectAnswer(chosenAnswerIndex, feedback){
+            if(getWrongAnswerSound() === "yes"){
+                wrongSound.play();
+            }
             const incorrectSelected = document.getElementById(chosenAnswerIndex);
             incorrectSelected.style.borderColor = "#ed3b4d";
             incorrectSelected.style.borderWidth = "4px";
@@ -1703,6 +1864,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
         function handleCorrectQuizAnswer(chosenAnswerIndex) {
+            if(getRightAnswerSound() === "yes"){
+                rightSound.play();
+            }
             console.log("Handling correct quiz answer...");
             const correctSelected = document.getElementById(chosenAnswerIndex);
             correctSelected.style.borderColor = "#328032";
@@ -1716,6 +1880,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }   
 
         function handleIncorrectQuizAnswer(chosenAnswerIndex){
+            if(getWrongAnswerSound() === "yes"){
+                wrongSound.play();
+            }
             console.log("Handling incorrect quiz answer...");
             const incorrectSelected = document.getElementById(chosenAnswerIndex);
             incorrectSelected.style.borderColor = "#ed3b4d";
@@ -1984,7 +2151,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const acknowledgementsContainer = document.createElement('div');
         acknowledgementsContainer.setAttribute('id', "acknowledgementsContainer");
-        acknowledgementsContainer.innerHTML = '<br><br><h2>Acknowledgements</h2><br>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)';
+        acknowledgementsContainer.innerHTML = '<br><br><h2>Acknowledgements</h2><br>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)</ul>The sound effects when you get a quiz question right or wrong are freely availably from <a href="https://mixkit.co/">Mixkit</a>.';
 
         mainContainer.appendChild(acknowledgementsContainer);
 
@@ -2257,6 +2424,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function getCurrentTopicName(){
         return sessionStorage.getItem('currentTopicName');
+    }
+
+    function removeProgressBar(){
+        const progress = document.getElementById("progress");
+        if(progress){
+            progress.remove();
+        }
+        const progressBar = document.getElementById("progressBar");
+        if(progressBar){
+            progressBar.remove();
+        }
     }
 
     ////// Render the page content //////
