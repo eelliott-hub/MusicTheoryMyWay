@@ -17,7 +17,8 @@
         "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/minim-stem-down.png"],
         "text": "Click on the minim note.",
         "correctAnswer": 1,
-        "explanation": "Crotchets and minims do look similar, but the minim is not coloured in black."
+        "explanation": "Crotchets and minims do look similar, but the minim is not coloured in black.",
+        "feedback": ["The note with a black head and a stem is a crotchet.", "You have clicked on the minim."]
     },
     {
         "contentType": "information",
@@ -37,7 +38,8 @@
         "images": ["images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/semibreve-small.png"],
         "text": "Click on the semibreve note.",
         "correctAnswer": 1,
-        "explanation": "A semibreve is the one without the stem."
+        "explanation": "A semibreve is the one without the stem.",
+        "feedback": ["This is a minim. Go back and check what a semibreve looks like.", "Excellent!"]
     },
     {
         "contentType": "question",
@@ -45,7 +47,8 @@
         "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/minim-stem-up.png"],
         "text": "Click on the minim note.",
         "correctAnswer": 1,
-        "explanation": "Remember that minim notes aren't coloured in black."
+        "explanation": "Remember that minim notes aren't coloured in black.",
+        "feedback": ["You have clicked on the crotchet. Remember that the heads of minims are not coloured in.", "Well done!"]
     },
     {
         "contentType": "information",
@@ -71,7 +74,8 @@
         "images": ["images/grade1/Notes/four-quavers-stems-down.png", "images/grade1/Notes/two-quavers-stems-down.png"],
         "text": "How many quavers in a minim?",
         "correctAnswer": 0,
-        "explanation": "Two quavers equals one crotchet, so four quavers equals two crotchets."
+        "explanation": "Two quavers equals one crotchet, so four quavers equals two crotchets.",
+        "feedback": ["Four quavers fit into the time of a minim.", "Two quavers fit into one crotchet, so your chosen answer is too short."]
     },
     {
         "contentType": "question",
@@ -79,7 +83,8 @@
         "images": ["images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/minim-stem-up.png"],
         "text": "Click on the note that lasts for two crotchet beats.",
         "correctAnswer": 2,
-        "explanation": "There are two crotchets in a minim."
+        "explanation": "There are two crotchets in a minim.",
+        "feedback": ["A quaver lasts for half a crotchet.", "This is a crotchet! We are looking for a note that lasts for twice this long.", "That's right!"]
     },
     {
         "contentType": "question",
@@ -87,7 +92,8 @@
         "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/minim-stem-down.png"],
         "text": "Click on the note that lasts for four crotchet beats.",
         "correctAnswer": 0,
-        "explanation": "There are four crotchets in a semibreve."
+        "explanation": "There are four crotchets in a semibreve.",
+        "feedback": ["A semibreve lasts for four beats.", "This is a single crotchet. We are looking for the note that lasts four times this long.", "This is a minim, a note which lasts for two beats."]
     },
     {
         "contentType": "information",

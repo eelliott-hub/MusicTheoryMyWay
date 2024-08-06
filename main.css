@@ -101,13 +101,40 @@ nav .container {
     cursor: pointer;
 }
 
-#home-button{ background-color: #87cefa; border: 0 solid #87cefa;}
-#learn-button{ background-color: #6ff36f; border: 0 solid #6ff36f;}
-#quiz-button{ background-color: #ae52fa; border: 0 solid #ae52fa;}
-#settings-button{ background-color: #ffa500; border: 0 solid #ffa500;}
-#tour-button { background-color: #ffff00; border: 0 solid #ffff00;}
-#glossary-button{ background-color: #f15252; border: 0 solid #f15252;}
-#about-button{ background-color: #f352de; border: 0 solid #f352de;}
+#home-button {
+    background-color: #87cefa;
+    border: 0 solid #87cefa;
+}
+
+#learn-button {
+    background-color: #6ff36f;
+    border: 0 solid #6ff36f;
+}
+
+#quiz-button {
+    background-color: #ae52fa;
+    border: 0 solid #ae52fa;
+}
+
+#settings-button {
+    background-color: #ffa500;
+    border: 0 solid #ffa500;
+}
+
+#tour-button {
+    background-color: #ffff00;
+    border: 0 solid #ffff00;
+}
+
+#glossary-button {
+    background-color: #f15252;
+    border: 0 solid #f15252;
+}
+
+#about-button {
+    background-color: #f352de;
+    border: 0 solid #f352de;
+}
 
 /***** Main element styling *****/
 
@@ -413,7 +440,7 @@ main .container {
 /***** Quiz styling *****/
 
 #informationContainer, #questionContainer, #quizPreambleContainer, #quizContainer, #quizResultContainer {
-    height: 450px;
+    height: 550px;
     overflow-y: auto;
     scrollbar-gutter: auto;
 }
@@ -499,79 +526,93 @@ main .container {
 
 /***** Media queries *****/
 
-@media screen and (max-width: 1100px) {
+@media screen and (width <= 1100px) {
     nav .container {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (width <= 1000px) {
     nav .container {
         grid-template-columns: repeat(3, 1fr);
     }
+
     #glossaryContainer {
         font-size: 80%;
     }
+
     .glossary-row img {
         height: 40px;
         width: auto;
     }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (width <= 700px) {
     .homePageContainer {
         width: 75%;
     }
+
     #tourContainer {
         height: 700px;
     }
+
     #glossaryContainer {
         font-size: 65%;
     }
+
     .glossary-row img {
         height: 30px;
         width: auto;
     }
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (width <= 560px) {
     nav .container {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .homePageContainer {
         width: 100%;
     }
+
     #tourContainer {
         grid-template-columns: 1fr;
     }
+
     #informationContainer, #questionContainer, #quizContainer {
         height: 800px;
     }
+
     #questionImagesContainer, #quizImagesContainer {
         grid-template-columns: 1fr !important;
         height: 400px;
     }
+
     #colourContainer, #typefaceContainer {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .availableGradeBlock, .availableTopicBlock, .unavailableGradeBlock, .unavailableTopicBlock {
         font-size: 0.8em;
         height: 150px;
     }
+
     #glossaryContainer {
         font-size: 50%;
     }
+
     .glossary-row {
         grid-template-columns: 10% 10% 80%;
         overflow-wrap: break-word;
     }
+
     .glossary-row img {
         height: 30px;
         width: auto;
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (width <= 400px) {
     #tourContainer {
         height: 1000px;
     }

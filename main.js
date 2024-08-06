@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
+
     // Variables for site navigation
     let siteSection = "HOME"; // HOME, LEARN, CONTENT, QUIZ, SETTINGS, TOUR, GLOSSARY, ABOUT
     const availableGrades = [1, 2, 3, 4, 5];
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const defaultFontSize = "24px";
     const defaultCharSpacing = "0.2px";
     const defaultNavButtons = "both";
-   
+
     // Variables for sizes
     const arrowImageWidth = 80;
     const imagesOnlyNavButtonImageWidth = 50;
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "Background colour",
         "Font",
         "Font size and spacing",
-        "Navigation buttons" 
+        "Navigation buttons"
     ];
 
     ////// Main function to update page content //////
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addNavigationEventListener("quiz-button", "QUIZ");
     addNavigationEventListener("settings-button", "SETTINGS");
     addNavigationEventListener("tour-button", "TOUR");
-    addNavigationEventListener("glossary-button", "GLOSSARY");  
+    addNavigationEventListener("glossary-button", "GLOSSARY");
     addNavigationEventListener("about-button", "ABOUT");
 
     function addNavigationEventListener(buttonName, sectionToGoTo){
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     changeSiteSection(siteSectionTo);
                 }
             });
-        }       
+        }
     }
 
     // Big button on home page
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
         img.src = "./images/navigation/" + buttonName + ".png";
         img.alt = "Big " + buttonName + " button";
         img.width = homePageButtonImageWidth;
-        
+
         const text = document.createElement('span');
         text.innerHTML = buttonText;
 
@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyMainText();
             emptyFooter();
             document.getElementById("page-title").innerHTML = "Settings";
-            
+
             const mainContainer = document.getElementById("main-container");
             const settingsContainer = document.createElement('div');
             settingsContainer.setAttribute('id', "settingsContainer");
@@ -380,16 +380,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         else {
             console.error('Page index out of range:', index);
-        } 
+        }
     }
 
     function renderBackgroundColourSettings(){
         fetch('backgroundColours.json')
-            .then(response => response.json())
-            .then(colours => {
+            .then((response) => response.json())
+            .then((colours) => {
                 renderColourOptions(colours);
             })
-            .catch(error => console.error("Error loading colours:", error)); 
+            .catch((error) => console.error("Error loading colours:", error));
     }
 
     function renderColourOptions(colourData){
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const settingsContainer = document.getElementById("settingsContainer");
         settingsContainer.appendChild(backgroundColourText);
 
-        // Add speech controls    
+        // Add speech controls
         const settingsSubheading = document.getElementById("settingsSubheading");
         const textToRead = settingsSubheading.innerHTML + " . " + backgroundColourText.innerHTML;
         addSettingsSpeechControls("backgroundColour", textToRead);
@@ -409,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const colourContainer = document.createElement('div');
         colourContainer.setAttribute('id', "colourContainer");
 
-        colourData.forEach(colour => {
+        colourData.forEach((colour) => {
             const colourBlock = document.createElement('div');
             colourBlock.setAttribute('class', "colourBlock");
             colourBlock.setAttribute('role', "button");
@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             colourContainer.appendChild(colourBlock);
-        })
+        });
         settingsContainer.appendChild(colourContainer);
     }
 
@@ -442,16 +442,15 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('header').style.backgroundColor = backgroundColour;
         document.getElementById('main').style.backgroundColor = backgroundColour;
         document.getElementById('footer').style.backgroundColor = backgroundColour;
-        
     }
 
     function renderFontTypefaceSettings(){
         fetch('fontTypefaces.json')
-        .then(response => response.json())
-        .then(typefaces => {
+        .then((response) => response.json())
+        .then((typefaces) => {
             renderFontTypefaceOptions(typefaces);
         })
-        .catch(error => console.error("Error loading typefaces:", error)); 
+        .catch((error) => console.error("Error loading typefaces:", error));
     }
 
     function renderFontTypefaceOptions(typefaceData){
@@ -461,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const settingsContainer = document.getElementById("settingsContainer");
         settingsContainer.appendChild(typefaceText);
 
-        // Add speech controls    
+        // Add speech controls
         const settingsSubheading = document.getElementById("settingsSubheading");
         const textToRead = settingsSubheading.innerHTML + " . " + typefaceText.innerHTML;
         addSettingsSpeechControls("typeface", textToRead);
@@ -469,8 +468,8 @@ document.addEventListener('DOMContentLoaded', function() {
          // Add individual typefaces
         const typefaceContainer = document.createElement('div');
         typefaceContainer.setAttribute('id', "typefaceContainer");
-    
-        typefaceData.forEach(typeface => {
+
+        typefaceData.forEach((typeface) => {
             const typefaceBlock = document.createElement('div');
             typefaceBlock.setAttribute('class', "typefaceBlock");
             typefaceBlock.setAttribute('role', "button");
@@ -487,10 +486,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     changeTypeface(typeface.fontFamily);
                     localStorage.setItem('settingsChanged', "true");
                 }
-            });          
+            });
             typefaceContainer.appendChild(typefaceBlock);
-        })
-
+        });
         settingsContainer.appendChild(typefaceContainer);
     }
 
@@ -515,14 +513,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const settingsContainer = document.getElementById("settingsContainer");
         settingsContainer.appendChild(otherFontText);
 
-        // Add speech controls    
+        // Add speech controls
         const settingsSubheading = document.getElementById("settingsSubheading");
         const textToRead = settingsSubheading.innerHTML + " . " + otherFontText.innerHTML;
         addSettingsSpeechControls("otherFont", textToRead);
 
         const otherFontContainer = document.createElement('div');
         otherFontContainer.setAttribute('id', "otherFontContainer");
-        
+
         settingsContainer.appendChild(otherFontContainer);
 
         const decreaseFontSizeButton = document.createElement('div');
@@ -554,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function() {
         decreaseSpacingButton.onkeydown = function(event) { if (event.key === 'Enter') { adjustCharSpacing('decrease'); } };
         decreaseSpacingButton.tabIndex = 0;
         otherFontContainer.appendChild(decreaseSpacingButton);
-    
+
         const increaseSpacingButton = document.createElement('div');
         increaseSpacingButton.setAttribute('id', "increaseSpacingButton");
         increaseSpacingButton.setAttribute('class', "fontButton");
@@ -608,7 +606,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const settingsContainer = document.getElementById("settingsContainer");
         settingsContainer.appendChild(navigationButtonText);
 
-        // Add speech controls    
+        // Add speech controls
         const settingsSubheading = document.getElementById("settingsSubheading");
         const textToRead = settingsSubheading.innerHTML + " . " + navigationButtonText.innerHTML;
         addSettingsSpeechControls("navigationButton", textToRead);
@@ -616,7 +614,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const navigationOptionsContainer = document.createElement('div');
         navigationOptionsContainer.setAttribute('id', "navigationOptionsContainer");
 
-        // Split these out into separate functions?? 
+        // TODO Split these out into separate functions??
 
         const navOption1 = document.createElement('div');
         navOption1.setAttribute('class', "navOptionContainer");
@@ -712,7 +710,6 @@ document.addEventListener('DOMContentLoaded', function() {
         navigationOptionsContainer.appendChild(navOption3);
 
         settingsContainer.appendChild(navigationOptionsContainer);
-
     }
 
     function addSettingsSpeechControls(settingName, textToRead){
@@ -722,9 +719,6 @@ document.addEventListener('DOMContentLoaded', function() {
         speechButtonsContainer.setAttribute('id', settingName+"SpeechButtonsContainer");
         settingsContainer.appendChild(speechButtonsContainer);
         createSpeechButtons(settingName+"SpeechButtonsContainer", settingName+"PlayButton", settingName+"PauseButton", textToRead, "BOTH");
-
-        
-        
     }
 
     // Apply saved settings
@@ -782,13 +776,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to load tour data
     function loadTourData() {
         fetch('tourData.json')
-            .then(response => response.json())
-            .then(tourData => {
+            .then((response) => response.json())
+            .then((tourData) => {
                 tourPages = tourData;
                 currentTourIndex = 0; // Reset index when entering tour
-                renderTourPage(currentTourIndex);                   
+                renderTourPage(currentTourIndex);
             })
-            .catch(error => console.error("Error loading tour data: ", error));
+            .catch((error) => console.error("Error loading tour data: ", error));
     }
 
     // Function to render tour page
@@ -798,59 +792,59 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyMainText();
             emptyFooter();
             document.getElementById("page-title").innerHTML = "Tour";
-    
+
             const mainContainer = document.getElementById("main-container");
             const tourContainer = document.createElement('div');
             tourContainer.setAttribute('id', "tourContainer");
-    
+
             const tourImageContainer = document.createElement('div');
             tourImageContainer.setAttribute('id', 'tourImageContainer');
             tourImageContainer.style.backgroundColor = page.colour;
-    
+
             const tourImage = document.createElement('img');
             tourImage.setAttribute('id', 'tourImage');
             tourImageContainer.appendChild(tourImage);
-    
+
             const tourTextContainer = document.createElement('div');
             tourTextContainer.setAttribute('id', 'tourTextContainer');
             tourTextContainer.setAttribute('labelledby', "tourSubheading");
-    
+
             const tourSubheading = document.createElement('h2');
             tourSubheading.setAttribute('id', 'tourSubheading');
-    
+
             const tourText = document.createElement('p');
             tourText.setAttribute('id', 'tourText');
-    
+
             tourTextContainer.appendChild(tourSubheading);
             tourTextContainer.appendChild(tourText);
-    
+
             tourContainer.appendChild(tourImageContainer);
             tourContainer.appendChild(tourTextContainer);
             mainContainer.appendChild(tourContainer);
-    
+
             document.getElementById('tourSubheading').innerHTML = page.subheading;
             document.getElementById('tourText').innerHTML = page.text;
             if (page.image != "null") {
                 document.getElementById('tourImage').src = page.image;
                 document.getElementById('tourImage').alt = page.altText;
             }
-    
-            // Add speech controls    
+
+            // Add speech controls
             const speechButtonsContainer = document.createElement('div');
             speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
             speechButtonsContainer.setAttribute('id', "tourSpeechButtonsContainer");
-    
+
             tourTextContainer.appendChild(speechButtonsContainer);
 
             const textToRead = document.getElementById('tourSubheading').innerHTML + ' . ' + document.getElementById('tourText').innerHTML;
             createSpeechButtons("tourSpeechButtonsContainer", "tourPlayButton", "tourPauseButton", textToRead, "BOTH");
-    
+
             renderNextBackArrows();
-    
+
             if (index === tourPages.length - 1) {
                 localStorage.setItem('tourCompleted', "true");
             }
-    
+
             // Event listeners for navigation
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
                 currentTourIndex++;
@@ -863,7 +857,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     renderTourPage(currentTourIndex);
                 }
             });
-    
+
             document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
                 if (event.key === 'Enter') {
                     currentTourIndex++;
@@ -877,7 +871,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             });
-    
+
             document.getElementById("backButtonImageContainer").addEventListener('click', function() {
                 currentTourIndex--;
                 if (currentTourIndex < 0) {
@@ -889,7 +883,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     renderTourPage(currentTourIndex);
                 }
             });
-    
+
             document.getElementById("backButtonImageContainer").addEventListener('keydown', function(event) {
                 if (event.key === 'Enter') {
                     currentTourIndex--;
@@ -903,12 +897,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             });
-    
+
         } else {
             console.error('Page index out of range:', index);
         }
     }
-    
+
 
     ////// Progress functions //////
 
@@ -923,11 +917,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const gradeBlock = document.createElement('div');
             const thisGrade = availableGrades[i];
             gradeBlock.innerHTML = "Grade " + thisGrade;
-           
-            const highestGradeCompleted = getHighestGradeCompleted(); 
+
+            const highestGradeCompleted = getHighestGradeCompleted();
             if(highestGradeCompleted){
                 if(thisGrade < parseInt(highestGradeCompleted)+1){ renderCompletedGradeBlock(gradeBlock, thisGrade); }
-                else if(thisGrade <= parseInt(highestGradeCompleted)+1){ renderAvailableGradeBlock(gradeBlock, thisGrade);} 
+                else if(thisGrade <= parseInt(highestGradeCompleted)+1){ renderAvailableGradeBlock(gradeBlock, thisGrade);}
                 else{ renderUnavailableGradeBlock(gradeBlock); }
             }
             else{
@@ -939,8 +933,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         mainContainer.appendChild(progressContainer);
     }
-
-    
 
     function renderAvailableGradeBlock(gradeBlock, gradeNumber){
         gradeBlock.setAttribute('class', "availableGradeBlock");
@@ -989,11 +981,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderGradeHomePage(grade){
         document.getElementById("page-title").innerHTML = "Choose your topic";
         fetch("./content/"+grade+"-topics.json")
-            .then(response => response.json())
-            .then(gradeTopics => {
-                renderGradeTopics(grade, gradeTopics);                
+            .then((response) => response.json())
+            .then((gradeTopics) => {
+                renderGradeTopics(grade, gradeTopics);
             })
-            .catch(error => console.error("Error loading grade "+grade+" topics: ", error));
+            .catch((error) => console.error("Error loading grade "+grade+" topics: ", error));
     }
 
     function renderGradeTopics(grade, gradeTopics){
@@ -1005,9 +997,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const topicBlock = document.createElement('div');
             const thisTopic = gradeTopics[i];
             topicBlock.innerHTML = (i+1) + ". " + thisTopic.name;
-            
+
             const highestTopicCompleted = getHighestTopicCompleted(grade);
-            if(i === 0){ 
+            if(i === 0){
                 if(highestTopicCompleted >= 0){ renderCompletedTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
                 else{ renderAvailableTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
             }
@@ -1085,13 +1077,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadContent(topicId) {
         const grade = getCurrentGrade();
         fetch(`content/${grade}-${topicId}.json`)
-        .then(response => response.json())
-        .then(topicData => {
+        .then((response) => response.json())
+        .then((topicData) => {
             topicContent = topicData;
             currentQuestionIndex = 0; // Reset index when entering topic content
-            renderContentPage(topicContent, currentQuestionIndex);                   
+            renderContentPage(topicContent, currentQuestionIndex);
         })
-        .catch(error => console.error("Error loading topic data: ", error));
+        .catch((error) => console.error("Error loading topic data: ", error));
     }
 
     function renderContentPage(topicContent, index) {
@@ -1100,7 +1092,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             emptyMainText();
             emptyFooter();
-        
+
             if(item.contentType === "information"){
                 renderInformation(item);
             }
@@ -1108,8 +1100,8 @@ document.addEventListener('DOMContentLoaded', function() {
             else if(item.contentType === "question") {
                 renderQuestion(item);
             }
-        } 
-        
+        }
+
         else {
             console.error('Page index out of range:', index);
         }
@@ -1145,7 +1137,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const informationText = item.text;
         informationTextContainer.innerHTML = informationText+"<br><br>";
 
-        // Add speech controls    
+        // Add speech controls
         const speechButtonsContainer = document.createElement('div');
         speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
         speechButtonsContainer.setAttribute('id', "informationSpeechButtonsContainer");
@@ -1178,7 +1170,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const questionContainer = document.createElement('div');
         questionContainer.setAttribute('id', "questionContainer");
         mainContainer.appendChild(questionContainer);
-    
+
         const questionImagesContainer = document.createElement('div');
         questionImagesContainer.setAttribute('id', "questionImagesContainer");
         const numImages = item.images.length;
@@ -1200,8 +1192,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Function to handle click on an answer option
         function handleAnswerClick(index) {
             if (!answerSelected) {
-                answerSelected = true; 
-    
+                answerSelected = true;
+
                 for (let i = 0; i < numImages; i++) {
                     const answerContainer = document.getElementById(i);
                     answerContainer.removeAttribute('role');
@@ -1210,16 +1202,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     answerContainer.style.pointerEvents = 'none'; // Disable pointer events
                     answerContainer.tabIndex = -1;
                 }
-    
+
                 // Determine if selected answer is correct
                 checkAnswer(item, index);
             }
         }
-    
+
         // Arrays to store event handler references
         const answerClickHandlers = [];
         const answerKeydownHandlers = [];
-    
+
         // Create answer options
         for (let i = 0; i < numImages; i++) {
             const questionImageContainer = document.createElement('div');
@@ -1233,7 +1225,7 @@ document.addEventListener('DOMContentLoaded', function() {
             image.setAttribute('class', "questionImage");
             questionImageContainer.appendChild(image);
             questionImagesContainer.appendChild(questionImageContainer);
-    
+
             // Create event handler for each answer option
             const answerClickHandler = function() {
                 handleAnswerClick(i);
@@ -1247,43 +1239,52 @@ document.addEventListener('DOMContentLoaded', function() {
 
             answerClickHandlers.push(answerClickHandler);
             answerKeydownHandlers.push(answerKeydownHandler);
-    
+
             // Add click and keydown event listeners to answer option
             questionImageContainer.addEventListener('click', answerClickHandler);
             questionImageContainer.addEventListener('keydown', answerKeydownHandler);
         }
-    
+
         const questionTextContainer = document.createElement('div');
         questionTextContainer.setAttribute('id', "questionTextContainer");
         questionContainer.appendChild(questionTextContainer);
         const questionText = item.text;
         questionTextContainer.innerHTML = questionText+"<br><br>";
 
-        // Add speech controls    
+        // Add speech controls
         const speechButtonsContainer = document.createElement('div');
         speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
         speechButtonsContainer.setAttribute('id', "questionSpeechButtonsContainer");
         questionTextContainer.appendChild(speechButtonsContainer);
         const textToRead = questionTextContainer.innerHTML;
         createSpeechButtons("questionSpeechButtonsContainer", "questionPlayButton", "questionPauseButton", textToRead, "PLAY");
-    
+
         function checkAnswer(question, chosenAnswerIndex) {
             const correctAnswerIndex = question.correctAnswer;
-    
+            const feedback = question.feedback[chosenAnswerIndex];
+            
             if (correctAnswerIndex === chosenAnswerIndex) {
-                handleCorrectAnswer(chosenAnswerIndex);
-            } 
+                handleCorrectAnswer(chosenAnswerIndex, feedback);
+            }
             else {
-                handleIncorrectAnswer(chosenAnswerIndex);
+                handleIncorrectAnswer(chosenAnswerIndex, feedback);
             }
         }
 
-        function handleCorrectAnswer(chosenAnswerIndex){
+        function handleCorrectAnswer(chosenAnswerIndex, feedback){
             const correctSelected = document.getElementById(chosenAnswerIndex);
             correctSelected.style.borderColor = "#328032";
             correctSelected.style.borderWidth = "4px";
-            const answerText = "Correct!";
-            questionTextContainer.innerHTML = answerText;
+            const answerText = "Correct! " + feedback;
+            questionTextContainer.innerHTML = answerText + "<br><br>";
+
+            // Add speech controls
+            const speechButtonsContainer = document.createElement('div');
+            speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+            speechButtonsContainer.setAttribute('id', "feedbackSpeechButtonsContainer");
+            questionTextContainer.appendChild(speechButtonsContainer);
+            const textToRead = questionTextContainer.innerHTML;
+            createSpeechButtons("feedbackSpeechButtonsContainer", "feedbackPlayButton", "feedbackPauseButton", textToRead, "PLAY");
 
             const backButton = document.getElementById("backButtonImageContainer");
             backButton.remove();
@@ -1307,12 +1308,20 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        function handleIncorrectAnswer(chosenAnswerIndex){
+        function handleIncorrectAnswer(chosenAnswerIndex, feedback){
             const incorrectSelected = document.getElementById(chosenAnswerIndex);
             incorrectSelected.style.borderColor = "#ed3b4d";
             incorrectSelected.style.borderWidth = "4px";
-            const answerText = "Not quite! Would you like to try again?";
+            const answerText = "Not quite! " + feedback + " <br><br>";
             questionTextContainer.innerHTML = answerText;
+
+             // Add speech controls
+             const speechButtonsContainer = document.createElement('div');
+             speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+             speechButtonsContainer.setAttribute('id', "feedbackSpeechButtonsContainer");
+             questionTextContainer.appendChild(speechButtonsContainer);
+             const textToRead = questionTextContainer.innerHTML;
+             createSpeechButtons("feedbackSpeechButtonsContainer", "feedbackPlayButton", "feedbackPauseButton", textToRead, "PLAY");
 
             const incorrectAnswerContainer = document.createElement('div');
             incorrectAnswerContainer.setAttribute('id', 'incorrectAnswerContainer');
@@ -1368,21 +1377,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Add explanatory text
-            questionTextContainer.innerHTML = item.explanation;
+            questionTextContainer.innerHTML = item.explanation + "<br><br>";
 
-            // Add speech controls    
+            // Add speech controls
             const speechButtonsContainer = document.createElement('div');
             speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
             speechButtonsContainer.setAttribute('id', "correctAnswerSpeechButtonsContainer");
-
             questionTextContainer.appendChild(speechButtonsContainer);
-
             const textToRead = questionTextContainer.innerHTML;
             createSpeechButtons("correctAnswerSpeechButtonsContainer", "correctAnswerPlayButton", "correctAnswerPauseButton", textToRead, "PLAY");
 
             // Remove other options
             incorrectAnswerContainer.remove();
-            
+
             // Add next button
             backButtonImageContainer.remove();
             renderNextBackArrows();
@@ -1412,8 +1419,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 incrementHighestTopicCompleted(getCurrentGrade());
                 localStorage.setItem('learningStarted', "true");
             }
-            changeSiteSection("GRADEHOMEPAGE");               
-        } 
+            changeSiteSection("GRADEHOMEPAGE");
+        }
         else {
             renderContentPage(topicContent, currentQuestionIndex);
         }
@@ -1428,7 +1435,6 @@ document.addEventListener('DOMContentLoaded', function() {
             renderContentPage(topicContent, currentQuestionIndex);
         }
     }
-    
 
     ////// Quiz //////
 
@@ -1446,18 +1452,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if(maxQuizGrade === 1 && highestTopicCompleted === -1){
             console.log("No quiz available yet.");
             emptyMainText();
-            emptyFooter();  
+            emptyFooter();
             renderNoQuiz();
         }
 
         else {
             generateQuizData(maxQuizGrade, highestTopicCompleted)
-                .then(quizQuestions => {
+                .then((quizQuestions) => {
                     console.log("Number of quiz questions:", quizQuestions.length);
                     currentQuizIndex = -1;
                     renderQuizPage(quizQuestions, currentQuizIndex);
                 })
-                .catch(error => console.error("Error generating quiz data:", error));
+                .catch((error) => console.error("Error generating quiz data:", error));
         }
     }
 
@@ -1479,7 +1485,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         addHomePageEventListener("LEARN", "noQuizButton");
     }
-    
+
     function renderQuizPage(quizQuestions, index){
         emptyMainText();
         emptyFooter();
@@ -1490,7 +1496,7 @@ document.addEventListener('DOMContentLoaded', function() {
         else if (index >= 0 && index < quizQuestions.length) {
             const item = quizQuestions[index];
             renderQuizQuestion(item, quizQuestions, index);
-    
+
         } else {
             console.error('Page index out of range:', index);
         }
@@ -1504,7 +1510,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(quizPreambleContainer);
 
-        // Add speech controls    
+        // Add speech controls
         const speechButtonsContainer = document.createElement('div');
         speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
         speechButtonsContainer.setAttribute('id', "quizPreambleSpeechButtonsContainer");
@@ -1535,18 +1541,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     async function generateQuizData(maxQuizGrade, highestTopicCompleted) {
         console.log("Generating quiz data for max grade:", maxQuizGrade, "and highest topic completed:", highestTopicCompleted);
-    
+
         let quizQuestions = [];
-    
+
         try {
             // Loop through grades up to the maxQuizGrade
             for (let grade = 1; grade <= maxQuizGrade; grade++) {
                 let gradeTopics = await loadTopicsForGrade(grade);
                 console.log(`Grade ${grade} topics:`, gradeTopics);
-    
+
                 for (let i = 0; i < gradeTopics.length; i++) {
                     let topicId = gradeTopics[i].id;
                     console.log(`Loading questions for grade ${grade} and topic ${topicId}...`);
@@ -1557,7 +1563,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             }
-    
+
             quizQuestions = shuffleArray(quizQuestions);
         } catch (error) {
             console.error("Error generating quiz data:", error);
@@ -1565,7 +1571,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         return quizQuestions.slice(0, quizNumber);
     }
-    
+
     async function loadTopicsForGrade(grade) {
         try {
             let response = await fetch(`content/${grade}-topics.json`);
@@ -1576,22 +1582,22 @@ document.addEventListener('DOMContentLoaded', function() {
             return [];
         }
     }
-    
+
     async function loadQuestions(grade, topicId) {
         try {
             console.log(`Loading questions for grade ${grade} and topic ${topicId}...`);
-    
+
             let response = await fetch(`content/${grade}-${topicId}.json`);
             let data = await response.json();
-            let questions = data.filter(item => item.contentType === 'question');
-    
+            let questions = data.filter((item) => item.contentType === 'question');
+
             return questions;
         } catch (error) {
             console.error(`Error loading questions for grade ${grade} and topic ${topicId}: `, error);
             return [];
         }
     }
-    
+
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -1607,20 +1613,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const quizContainer = document.createElement('div');
         quizContainer.setAttribute('id', "quizContainer");
         mainContainer.appendChild(quizContainer);
-    
+
         const quizImagesContainer = document.createElement('div');
         quizImagesContainer.setAttribute('id', "quizImagesContainer");
         const numImages = item.images.length;
         quizImagesContainer.style.gridTemplateColumns = "repeat(" + numImages + ", 1fr)";
         quizContainer.appendChild(quizImagesContainer);
-    
+
         let answerSelected = false; // Flag to track if answer has been selected
-    
+
         // Function to handle click or keydown on an answer option
         function handleQuizAnswerClick(index) {
             if (!answerSelected) {
                 answerSelected = true;
-    
+
                 for (let i = 0; i < numImages; i++) {
                     const quizAnswerContainer = document.getElementById(i);
                     quizAnswerContainer.removeAttribute('role');
@@ -1629,12 +1635,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     quizAnswerContainer.style.pointerEvents = 'none'; // Disable pointer events
                     quizAnswerContainer.tabIndex = -1;
                 }
-    
+
                 // Determine if selected answer is correct
                 checkQuizAnswer(item, index);
             }
         }
-    
+
         // Arrays to store event handler references
         const quizAnswerClickHandlers = [];
         const quizAnswerKeydownHandlers = [];
@@ -1652,43 +1658,43 @@ document.addEventListener('DOMContentLoaded', function() {
             quizImage.setAttribute('class', "quizImage");
             quizImageContainer.appendChild(quizImage);
             quizImagesContainer.appendChild(quizImageContainer);
-    
+
             // Create event handlers for each answer option
             const quizAnswerClickHandler = function () {
                 handleQuizAnswerClick(i);
             };
-    
+
             const quizAnswerKeydownHandler = function (event) {
                 if (event.key === 'Enter') {
                     handleQuizAnswerClick(i);
                 }
             };
-    
+
             quizAnswerClickHandlers.push(quizAnswerClickHandler);
             quizAnswerKeydownHandlers.push(quizAnswerKeydownHandler);
-    
+
             // Add click and keydown event listeners to answer option
             quizImageContainer.addEventListener('click', quizAnswerClickHandler);
             quizImageContainer.addEventListener('keydown', quizAnswerKeydownHandler);
         }
-    
+
         const quizTextContainer = document.createElement('div');
         quizTextContainer.setAttribute('id', "quizTextContainer");
         quizContainer.appendChild(quizTextContainer);
         const quizText = item.text +"<br><br>";
         quizTextContainer.innerHTML = quizText;
 
-        // Add speech controls    
+        // Add speech controls
         const speechButtonsContainer = document.createElement('div');
         speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
         speechButtonsContainer.setAttribute('id', "quizQuestionSpeechButtonsContainer");
         quizTextContainer.appendChild(speechButtonsContainer);
         const textToRead = quizTextContainer.innerHTML;
         createSpeechButtons("quizQuestionSpeechButtonsContainer", "quizQuestionPlayButton", "quizQuestionPauseButton", textToRead, "PLAY");
-    
+
         function checkQuizAnswer(question, chosenAnswerIndex) {
             const correctAnswerIndex = question.correctAnswer;
-    
+
             if (correctAnswerIndex === chosenAnswerIndex) {
                 handleCorrectQuizAnswer(chosenAnswerIndex);
             } else {
@@ -1704,7 +1710,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const answerText = "Correct!";
             quizTextContainer.innerHTML = answerText;
             quizResult++;
-    
+
             renderNextArrow();
             finishQuiz(quizQuestions);
         }   
@@ -1777,7 +1783,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Remove other options
             incorrectAnswerContainer.remove();
 
-            // Add speech controls    
+            // Add speech controls
             const speechButtonsContainer = document.createElement('div');
             speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
             speechButtonsContainer.setAttribute('id', "correctAnswerSpeechButtonsContainer");
@@ -1786,7 +1792,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const textToRead = quizTextContainer.innerHTML;
             createSpeechButtons("correctAnswerSpeechButtonsContainer", "correctAnswerPlayButton", "correctAnswerPauseButton", textToRead, "PLAY");
-            
+
             // Add next button
             renderNextArrow();
             finishQuiz(quizQuestions);
@@ -1816,12 +1822,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function renderQuizResult(){
             fetch("quizResults.json")
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 quizResultsData = data;
                 renderQuizResultPage(quizResultsData);
             })
-            .catch(error => console.error("Error loading quiz results data: ", error));
+            .catch((error) => console.error("Error loading quiz results data: ", error));
         }
 
         function renderQuizResultPage(quizResultsData){
@@ -1872,18 +1878,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-
     ////// Glossary //////
-    
+
     function loadGlossary(){
         document.getElementById("page-title").innerHTML = "Glossary";
 
         fetch("glossary.json")
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
             generateGlossary(data);
         })
-        .catch(error => {
+        .catch((error) => {
             console.error('Error fetching the glossary data:', error);
         });
     }
@@ -1892,9 +1897,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const glossaryContainer = document.createElement('div');
         glossaryContainer.setAttribute('id', 'glossaryContainer');
     
-        data.forEach(item => {
+        data.forEach((item) => {
             console.log("Processing glossary item:", item); // Debug: log the current item being processed
-    
+
             const glossaryRow = document.createElement('div');
             glossaryRow.className = 'glossary-row';
             glossaryContainer.appendChild(glossaryRow);
@@ -1907,7 +1912,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 termDiv.setAttribute('lang', item.lang); 
             }
             glossaryRow.appendChild(termDiv);
-    
+
             // Add image
             const imageDiv = document.createElement('div');
             imageDiv.setAttribute('class', "imageDiv");
@@ -1920,19 +1925,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 imageDiv.innerHTML = '&nbsp;'; // Render an empty space
             }
             glossaryRow.appendChild(imageDiv);
-    
+
             // Add definition
             const definitionDiv = document.createElement('div');
             definitionDiv.innerHTML = item.definition;
             glossaryRow.appendChild(definitionDiv);
-    
-            // Add speech controls    
+
+            // Add speech controls
             const speechButtonsContainer = document.createElement('div');
             speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
             const speechButtonsContainerName = (item.id + "SpeechButtonsContainer").trim();
             speechButtonsContainer.setAttribute('id', speechButtonsContainerName);
             glossaryRow.appendChild(speechButtonsContainer);
-    
+
             // Use setTimeout to ensure DOM updates are complete
             setTimeout(() => {
                 const container = document.getElementById(speechButtonsContainerName);
@@ -1945,7 +1950,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.error("Glossary row structure:", glossaryRow.outerHTML); // Debug: log the entire glossary row structure
                 }
             }, 0); // Short delay to ensure DOM updates are processed
-    
+
             const hr = document.createElement('hr');
             glossaryContainer.appendChild(hr);
         });
@@ -1955,9 +1960,6 @@ document.addEventListener('DOMContentLoaded', function() {
         mainContainer.appendChild(glossaryContainer);
         console.log("Glossary successfully appended to the main container."); // Debug: log after appending glossary
     }
-    
-    
-    
 
     ////// About page //////
 
@@ -1966,18 +1968,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const aboutContainer = document.createElement('div');
         aboutContainer.setAttribute('id', "aboutContainer");
         aboutContainer.innerHTML = 'Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>It is a prototype for a dyslexia-friendly website for learning music theory.<br><br>If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your data is not collected by any third parties. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!<br>Liz Elliott<br>University of Bristol<br>';
- 
-        const mainContainer = document.getElementById("main-container");
-        mainContainer.appendChild(aboutContainer);
-        
 
-        // Add speech controls    
+        const mainContainer = document.getElementById("main-container");
+        mainContainer.appendChild(aboutContainer);     
+
+        // Add speech controls
         const speechButtonsContainer1 = document.createElement('div');
         speechButtonsContainer1.setAttribute('class', "speechButtonsContainer");
         speechButtonsContainer1.setAttribute('id', "aboutSpeechButtonsContainer");
 
         aboutContainer.appendChild(speechButtonsContainer1);
-        
+
         const textToRead1 = aboutContainer.innerHTML;
         createSpeechButtons("aboutSpeechButtonsContainer", "aboutPlayButton", "aboutPauseButton", textToRead1, "BOTH");
 
@@ -2047,7 +2048,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function createSpeechButtons(speechButtonsContainerName, playButtonName, pauseButtonName, textToRead, buttonTypes) {
         const speechButtonsContainer = document.getElementById(speechButtonsContainerName);
-    
+
         // Create play button
         const playButton = document.createElement('div');
         playButton.setAttribute('id', playButtonName);
@@ -2057,10 +2058,10 @@ document.addEventListener('DOMContentLoaded', function() {
         playButton.tabIndex = 0;
         playButton.innerHTML = "&#9658; Play";
         speechButtonsContainer.appendChild(playButton);
-    
+
         // Declare pauseButton variable
         let pauseButton = null;
-    
+
         // Conditionally create pause button
         if (buttonTypes === "BOTH") {
             pauseButton = document.createElement('div');
@@ -2072,16 +2073,16 @@ document.addEventListener('DOMContentLoaded', function() {
             pauseButton.innerHTML = "&#10074;&#10074; Pause";
             speechButtonsContainer.appendChild(pauseButton);
         }
-    
+
         let utterance = new SpeechSynthesisUtterance(textToRead);
         let isPaused = false;
-    
+
         // Cancel any ongoing speech synthesis when a new utterance is about to start
         function resetSpeechSynthesis() {
             speechSynthesis.cancel();
             isPaused = false;
         }
-    
+
         // Function to play text for this specific set of buttons
         function playText() {
             if (isPaused) {
@@ -2089,19 +2090,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 isPaused = false;
             } else {
                 resetSpeechSynthesis();
-    
-                // Reinitialize the utterance to avoid conflict with other buttons
+
+                // Reinitialise the utterance to avoid conflict with other buttons
                 utterance = new SpeechSynthesisUtterance(textToRead);
                 const voices = speechSynthesis.getVoices();
                 if (voices.length > 2) {
                     utterance.voice = voices[2];
                 }
-    
+
                 // Start speaking the text
                 speechSynthesis.speak(utterance);
             }
         }
-    
+
         // Function to pause the current text
         function pauseText() {
             if (speechSynthesis.speaking && !speechSynthesis.paused) {
@@ -2109,7 +2110,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 isPaused = true;
             }
         }
-    
+
         // Attach event listeners to play button
         playButton.addEventListener('click', playText);
         playButton.addEventListener('keydown', (event) => {
@@ -2117,7 +2118,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 playText();
             }
         });
-    
+
         // Conditionally attach event listeners to pause button
         if (pauseButton) {
             pauseButton.addEventListener('click', pauseText);
@@ -2127,7 +2128,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
-    
+
         // Stop all speech synthesis when navigating away
         window.addEventListener('beforeunload', resetSpeechSynthesis);
     }
@@ -2199,7 +2200,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else{
             return parseInt(localStorage.getItem('highestGradeCompleted'));
-        }    
+        }
     }
 
     // Store the current grade in the session storage

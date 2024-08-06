@@ -17,7 +17,8 @@
         "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/quaver-stem-down.png"],
         "text": "Click on the picture of the crotchet.",
         "correctAnswer": 0,
-        "explanation": "The crotchet is the black note that has a stem but no tail."
+        "explanation": "The crotchet is the black note that has a stem but no tail.",
+        "feedback": ["That is a crotchet.", "Go back and check carefully what a crotchet looks like."]
     },
     {
         "contentType": "information",
@@ -31,7 +32,8 @@
         "images": ["images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/accent.png"],
         "text": "Which is the crotchet?",
         "correctAnswer": 1,
-        "explanation": "The crotchet is the black note that has a stem but no tail."
+        "explanation": "The crotchet is the black note that has a stem but no tail.",
+        "feedback": ["The note you've clicked is called a quaver. You'll learn about those next.", "Well done.", "You haven't learnt about this symbol yet. Try again!"]
     },
     {
         "contentType": "information",
@@ -51,7 +53,8 @@
         "images": ["images/grade1/ff.png", "images/grade1/Notes/quaver-stem-up.png"],
         "text": "Click on the quaver.",
         "correctAnswer": 1,
-        "explanation": "The quaver is the black note that has a stem and a tail. Quavers are faster than crotchets, so try thinking of a fast animal with a tail running across the screen."
+        "explanation": "The quaver is the black note that has a stem and a tail. Quavers are faster than crotchets, so try thinking of a fast animal with a tail running across the screen.",
+        "feedback": ["Go back and check what a quaver looks like.", "That is a quaver."]
     },
     {
         "contentType": "information",
@@ -83,7 +86,8 @@
         "images": ["images/grade1/Notes/two-quavers-stems-up.png", "images/grade1/Notes/quaver-stem-up.png"],
         "text": "Click on the two quavers joined together.",
         "correctAnswer": 0,
-        "explanation": "Two quavers are joined together by their tails in a straight line."
+        "explanation": "Two quavers are joined together by a straight beam.",
+        "feedback": ["These are two quavers joined together by a beam.", "You've chosen one quaver on its own, but we are looking for two together."]
     },
     {
         "contentType": "question",
@@ -91,7 +95,8 @@
         "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/quaver-stem-up.png"],
         "text": "Click on the quaver.",
         "correctAnswer": 1,
-        "explanation": "The quaver is the black note that has a stem and a tail."
+        "explanation": "The quaver is the black note that has a stem and a tail.",
+        "feedback": ["That note is a crotchet because it doesn't have a tail.", "Well done."]
     },
     {
         "contentType": "question",
@@ -99,7 +104,8 @@
         "images": ["images/grade1/Notes/four-quavers-stems-up.png", "images/grade1/Notes/two-quavers-stems-up.png"],
         "text": "Which group of notes has the same time value as one crotchet?",
         "correctAnswer": 1,
-        "explanation": "Remember that a quaver is half as long as a crotchet."
+        "explanation": "Remember that a quaver is half as long as a crotchet.",
+        "feedback": ["Remember that two quavers fit into the space of one crotchet.", "Good job!"]
     },
     {
         "contentType": "information",
@@ -113,7 +119,8 @@
         "images": ["images/grade1/Notes/quaver-stem-up.png", "images/grade1/accent.png", "images/grade1/Notes/crotchet-stem-up.png"],
         "text": "Click on the crotchet.",
         "correctAnswer": 2,
-        "explanation": "The crotchet is the black note that has a stem but no tail."
+        "explanation": "The crotchet is the black note that has a stem but no tail.",
+        "feedback": ["We have just been learning about quavers, which have tails, but now we are looking for a crotchet again.", "You haven't learnt about this symbol yet.", "Excellent."]
     },
     {
         "contentType": "question",
@@ -121,7 +128,8 @@
         "images": ["images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/mf.png", "images/grade1/sharp.png"],
         "text": "Which is the quaver?",
         "correctAnswer": 0,
-        "explanation": "The quaver is the black note that has a stem and a tail."
+        "explanation": "The quaver is the black note that has a stem and a tail.",
+        "feedback": ["Good work!", "Remember that a quaver has a tail but a crotchet doesn't.", "This is a dynamic marking rather than a musical note.", "This is a sharp symbol which you'll learn about later."]
     },
     {
         "contentType": "information",
@@ -147,7 +155,8 @@
         "images": ["images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/two-quavers-stems-up.png"],
         "text": "Which is the semiquaver?",
         "correctAnswer": 2,
-        "explanation": "The semiquaver is the black note that has two tails attached to the stem."
+        "explanation": "The semiquaver is the black note that has two tails attached to the stem.",
+        "feedback": ["Close, but remember that a semiquaver has two tails.", "This is a crotchet note.", "You identified the semiquaver.", "You've clicked on the two quavers together. We are looking for just one semiquaver on its own."]
     },
     {
         "contentType": "information",
@@ -162,14 +171,6 @@
         "text": "Two semiquavers take the same time as one quaver to play."
     },
     {
-        "contentType": "question",
-        "questionType": "multipleChoice",
-        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-down.png", "images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/two-quavers-stems-up.png"],
-        "text": "Which note value is the same length as two semiquavers?",
-        "correctAnswer": 1,
-        "explanation": "Two semiquavers are equal to one quaver in length. Remember <emph>semi</emph> means <emph>half</emph>, so a semiquaver is half a quaver."
-    },
-    {
         "contentType": "information",
         "pageTitle": "Semiquaver notes",
         "images": ["images/grade1/Notes/four-semiquavers-stems-up.png", "images/equivalence.png", "images/grade1/Notes/two-quavers-stems-up.png", "images/equivalence.png", "images/grade1/Notes/crotchet-stem-up.png"],
@@ -178,10 +179,20 @@
     {
         "contentType": "question",
         "questionType": "multipleChoice",
+        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-down.png", "images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/two-quavers-stems-up.png"],
+        "text": "Which note value is the same length as two semiquavers?",
+        "correctAnswer": 1,
+        "explanation": "Two semiquavers are equal to one quaver in length. Remember <emph>semi</emph> means <emph>half</emph>, so a semiquaver is half a quaver.",
+        "feedback": ["You've selected the crotchet. Four semiquavers equal a crotchet.", "That's right, two semiquavers are the same length as one quaver.", "This is a semiquaver. We are looking for the note that is twice the length of a semiquaver.", "These are two quavers, but we are looking for one individual note."]
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
         "images": ["images/grade1/Notes/four-quavers-stems-up.png", "images/grade1/Notes/two-semiquavers-stems-down.png", "images/grade1/Notes/four-semiquavers-stems-down.png"],
         "text": "Which group of notes is the same length as one crotchet?",
         "correctAnswer": 2,
-        "explanation": "Four semiquavers are equal to one crotchet in length, because there are two semiquavers in a quaver, and two quavers in a crotchet."
+        "explanation": "Four semiquavers are equal to one crotchet in length, because there are two semiquavers in a quaver, and two quavers in a crotchet.",
+        "feedback": ["You've chosen the picture of four quavers. If there are two quavers in a crotchet then there are four quavers in two crotchets.", "These are two semiquavers, which only make up one quaver.", "Four semiquavers is the right answer!"]
     },
     {
         "contentType": "information",
