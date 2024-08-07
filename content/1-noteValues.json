@@ -196,6 +196,12 @@
     },
     {
         "contentType": "information",
+        "pageTitle": "Clapping",
+        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/four-semiquavers-stems-up.png", "images/grade1/Notes/two-quavers-stems-up.png", "images/grade1/Notes/crotchet-stem-up.png"],
+        "text": "This rhythm combines everything you've learnt so far. Can you clap or tap this sequence?"
+    },
+    {
+        "contentType": "information",
         "pageTitle": "Well done!",
         "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-down.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/semiquaver-stem-down.png", "images/grade1/Notes/semiquaver-stem-up.png"],
         "text": "You have reached the end of this section on note values. You've learnt about three different note values and how they relate to each other. <br> Before you move on to the next section, take some time to <emph>practise drawing</emph> the notes you've learnt about. <br> Remember you can revise this topic by clicking on the purple <emph>Quiz</emph> button.<br>The <emph>glossary</emph> is also there to help with terms if you get stuck."

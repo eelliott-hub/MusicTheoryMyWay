@@ -367,7 +367,7 @@ input[type="checkbox"] {
     font-size: 0.75em;
 }
 
-.unavailableGradeBlock:hover .tooltip, .availableGradeBlock:hover .tooltip, .unavailableTopicBlock:hover .tooltip, .availableTopicBlock:hover .tooltip, .completedGradeBlock:hover .tooltip, .completedTopicBlock:hover .tooltip {
+.unavailableGradeBlock:hover .tooltip, .availableGradeBlock:hover .tooltip, .unavailableTopicBlock:hover .tooltip, .availableTopicBlock:hover .tooltip, .completedGradeBlock:hover .tooltip, .completedTopicBlock:hover .tooltip, .minMaxReached:hover .tooltip {
     visibility: visible;
 }
 

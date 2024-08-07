@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const homePageButtonImageWidth = 100;
     const maxFontSize = 34;
     const minFontSize = 14;
-    const maxCharSpacing = 6.6;
+    const maxCharSpacing = 6.0;
     const minCharSpacing = 0.2;
 
     // Number of questions in quiz
@@ -606,6 +606,8 @@ document.addEventListener('DOMContentLoaded', function() {
         decreaseFontSizeButton.onkeydown = function(event) { if (event.key === 'Enter') { adjustFontSize('decrease'); } };
         decreaseFontSizeButton.tabIndex = 0;
         otherFontContainer.appendChild(decreaseFontSizeButton);
+        const tooltip1 = createTooltip("Minimum reached!");
+        decreaseFontSizeButton.appendChild(tooltip1);
 
         const increaseFontSizeButton = document.createElement('div');
         increaseFontSizeButton.setAttribute('id', "increaseFontSizeButton");
@@ -616,6 +618,8 @@ document.addEventListener('DOMContentLoaded', function() {
         increaseFontSizeButton.onkeydown = function(event) { if (event.key === 'Enter') { adjustFontSize('increase'); } };
         increaseFontSizeButton.tabIndex = 0;
         otherFontContainer.appendChild(increaseFontSizeButton);
+        const tooltip2 = createTooltip("Maximum reached!");
+        increaseFontSizeButton.appendChild(tooltip2);
 
         const decreaseSpacingButton = document.createElement('div');
         decreaseSpacingButton.setAttribute('id', "decreaseSpacingButton");
@@ -626,6 +630,8 @@ document.addEventListener('DOMContentLoaded', function() {
         decreaseSpacingButton.onkeydown = function(event) { if (event.key === 'Enter') { adjustCharSpacing('decrease'); } };
         decreaseSpacingButton.tabIndex = 0;
         otherFontContainer.appendChild(decreaseSpacingButton);
+        const tooltip3 = createTooltip("Minimum reached!");
+        decreaseSpacingButton.appendChild(tooltip3);
 
         const increaseSpacingButton = document.createElement('div');
         increaseSpacingButton.setAttribute('id', "increaseSpacingButton");
@@ -636,6 +642,8 @@ document.addEventListener('DOMContentLoaded', function() {
         increaseSpacingButton.onkeydown = function(event) { if (event.key === 'Enter') { adjustCharSpacing('increase'); } };
         increaseSpacingButton.tabIndex = 0;
         otherFontContainer.appendChild(increaseSpacingButton);
+        const tooltip4 = createTooltip("Maximum reached!");
+        increaseSpacingButton.appendChild(tooltip4);
 
     }
 
@@ -643,10 +651,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const body = document.body;
         let currentFontSize = parseFloat(window.getComputedStyle(body, null).getPropertyValue('font-size'));
         if(action === "increase"){
-           if(currentFontSize < maxFontSize) { currentFontSize ++; }
+           if(currentFontSize < maxFontSize) { 
+                increaseFontSizeButton.classList.remove('minMaxReached');
+                currentFontSize ++; 
+            }
+           else{
+                increaseFontSizeButton.classList.add('minMaxReached');
+           }
         }
         else {
-            if(currentFontSize > minFontSize){ currentFontSize --; }
+            if(currentFontSize > minFontSize){ 
+                decreaseFontSizeButton.classList.remove('minMaxReached');
+                currentFontSize --; 
+            }
+            else {
+                decreaseFontSizeButton.classList.add('minMaxReached');
+            }
         }
         setFontSize(currentFontSize + "px");
         localStorage.setItem('fontSize', currentFontSize);
@@ -660,9 +680,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const body = document.body;
         let currentCharSpacing = parseFloat(window.getComputedStyle(body, null).getPropertyValue('letter-spacing'));
         if(action === "increase"){
-            if(currentCharSpacing < maxCharSpacing) { currentCharSpacing += 0.2; }
+            if(currentCharSpacing < maxCharSpacing) { 
+                increaseSpacingButton.classList.remove('minMaxReached');
+                currentCharSpacing += 0.2; 
+            }
+            else {
+                increaseSpacingButton.classList.add('minMaxReached');
+            }
         }
-        else { if(currentCharSpacing > minCharSpacing) { currentCharSpacing -= 0.2; } }
+        else { 
+            if(currentCharSpacing > minCharSpacing) { 
+                decreaseSpacingButton.classList.remove('minMaxReached');
+                currentCharSpacing -= 0.2; 
+            } 
+        
+            else {
+                decreaseSpacingButton.classList.add('minMaxReached');
+            }
+        }
 
         setCharSpacing(currentCharSpacing + "px");
         localStorage.setItem('charSpacing', currentCharSpacing);
@@ -1210,7 +1245,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Page showing topics within the grade
 
     function renderGradeHomePage(grade){
-        document.getElementById("page-title").innerHTML = "Choose your topic";
+        document.getElementById("page-title").innerHTML = "Grade " + getCurrentGrade() + ": Choose your topic";
         fetch("./content/"+grade+"-topics.json")
             .then((response) => response.json())
             .then((gradeTopics) => {
