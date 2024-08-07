@@ -424,6 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
         colourData.forEach((colour) => {
             const colourBlock = document.createElement('div');
             colourBlock.setAttribute('class', "colourBlock");
+            colourBlock.setAttribute('id', colour.colourText);
             colourBlock.setAttribute('role', "button");
             colourBlock.style.backgroundColor = colour.colourCode;
             colourBlock.innerHTML = colour.colourText;
@@ -439,6 +440,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             colourContainer.appendChild(colourBlock);
+            if(localStorage.getItem('backgroundColour') === colour.colourCode){
+                colourBlock.classList.add('chosen');
+            }
+            else{
+                colourBlock.classList.remove('chosen');
+            }
         });
         settingsContainer.appendChild(colourContainer);
     }
@@ -447,6 +454,31 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Changing background colour to:', newBackgroundColour);
         setBackgroundColour(newBackgroundColour);
         localStorage.setItem('backgroundColour', newBackgroundColour);
+
+        var colourBlocks = document.getElementsByClassName('colourBlock');
+        for (var i = 0; i < colourBlocks.length; i++) {
+            if(localStorage.getItem('backgroundColour') === "#f5f5f5" && colourBlocks[i].innerHTML === "White"){
+                colourBlocks[i].classList.add('chosen');
+            }
+            else if(localStorage.getItem('backgroundColour') === "#f7f4cf" && colourBlocks[i].innerHTML === "Cream"){
+                colourBlocks[i].classList.add('chosen'); 
+            }
+            else if(localStorage.getItem('backgroundColour') === "#c8fac9" && colourBlocks[i].innerHTML === "Green"){
+                colourBlocks[i].classList.add('chosen');
+            }
+            else if(localStorage.getItem('backgroundColour') === "#f7e4cd" && colourBlocks[i].innerHTML === "Peach"){
+                colourBlocks[i].classList.add('chosen'); 
+            }
+            else if(localStorage.getItem('backgroundColour') === "#bccaf7" && colourBlocks[i].innerHTML === "Blue"){
+                colourBlocks[i].classList.add('chosen');
+            }
+            else if(localStorage.getItem('backgroundColour') === "#ded5da" && colourBlocks[i].innerHTML === "Grey"){
+                colourBlocks[i].classList.add('chosen'); 
+            }
+            else{
+                colourBlocks[i].classList.remove('chosen');
+            }
+        }
     }
 
     function setBackgroundColour(backgroundColour){
@@ -500,6 +532,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             typefaceContainer.appendChild(typefaceBlock);
+            if(localStorage.getItem('fontTypeface') === typeface.fontFamily){
+                typefaceBlock.classList.add('chosen');
+            }
+            else{
+                typefaceBlock.classList.remove('chosen');
+            }
         });
         settingsContainer.appendChild(typefaceContainer);
     }
@@ -508,6 +546,30 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Changing font typeface to:', newTypeface);
         setTypeface(newTypeface);
         localStorage.setItem('fontTypeface', newTypeface);
+        var typefaceBlocks = document.getElementsByClassName('typefaceBlock');
+        for (var i = 0; i < typefaceBlocks.length; i++) {
+            if(localStorage.getItem('fontTypeface') === "OpenSans, sans-serif" && typefaceBlocks[i].innerHTML === "Open Sans"){
+                typefaceBlocks[i].classList.add('chosen');
+            }
+            else if(localStorage.getItem('fontTypeface') === "Helvetica, sans-serif" && typefaceBlocks[i].innerHTML === "Helvetica"){
+                typefaceBlocks[i].classList.add('chosen'); 
+            }
+            else if(localStorage.getItem('fontTypeface') === "Verdana, sans-serif" && typefaceBlocks[i].innerHTML === "Verdana"){
+                typefaceBlocks[i].classList.add('chosen');
+            }
+            else if(localStorage.getItem('fontTypeface') === "'Comic Sans MS', 'Comic Sans', sans-serif" && typefaceBlocks[i].innerHTML === "Comic Sans"){
+                typefaceBlocks[i].classList.add('chosen'); 
+            }
+            else if(localStorage.getItem('fontTypeface') === "'Lucida Console', monospace" && typefaceBlocks[i].innerHTML === "Lucida Console"){
+                typefaceBlocks[i].classList.add('chosen');
+            }
+            else if(localStorage.getItem('fontTypeface') === "OpenDyslexic, sans-serif" && typefaceBlocks[i].innerHTML === "Open Dyslexic"){
+                typefaceBlocks[i].classList.add('chosen'); 
+            }
+            else{
+                typefaceBlocks[i].classList.remove('chosen');
+            }
+        }
     }
 
     function setTypeface(typeface){
@@ -626,8 +688,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const navigationOptionsContainer = document.createElement('div');
         navigationOptionsContainer.setAttribute('id', "navigationOptionsContainer");
 
-        // TODO Split these out into separate functions??
-
         const navOption1 = document.createElement('div');
         navOption1.setAttribute('class', "navOptionContainer");
         navOption1.setAttribute('class', "nav-button");
@@ -639,17 +699,29 @@ document.addEventListener('DOMContentLoaded', function() {
         navOption1.style.fontWeight = "bold";
         navOption1.style.backgroundColor = "#6ff36f";
         navOption1.tabIndex = 0;
+        if(localStorage.getItem('navButtonsView') === "text"){
+            navOption1.classList.add('chosen');
+        }
+        else{
+            navOption1.classList.remove('chosen');
+        }
 
         navOption1.addEventListener('click', function(){
             localStorage.setItem('navButtonsView', "text");
             localStorage.setItem('settingsChanged', "true");
             setNavButtons("text");
+            navOption1.classList.add('chosen');
+            navOption2.classList.remove('chosen');
+            navOption3.classList.remove('chosen');
         });
         navOption1.addEventListener('keydown', function(event){
             if (event.key === 'Enter') {
                 localStorage.setItem('navButtonsView', "text");
                 localStorage.setItem('settingsChanged', "true");
                 setNavButtons("text");
+                navOption1.classList.add('chosen');
+                navOption2.classList.remove('chosen');
+                navOption3.classList.remove('chosen');
             }
         });
 
@@ -668,17 +740,29 @@ document.addEventListener('DOMContentLoaded', function() {
         navOption2.style.backgroundColor = "#6ff36f";
         navOption2.appendChild(img2);
         navOption2.tabIndex = 0;
+        if(localStorage.getItem('navButtonsView') === "images"){
+            navOption2.classList.add('chosen');
+        }
+        else{
+            navOption2.classList.remove('chosen');
+        }
 
         navOption2.addEventListener('click', function(){
             localStorage.setItem('navButtonsView', "images");
             localStorage.setItem('settingsChanged', "true");
             setNavButtons("images");
+            navOption1.classList.remove('chosen');
+            navOption2.classList.add('chosen');
+            navOption3.classList.remove('chosen');
         });
         navOption2.addEventListener('keydown', function(event){
             if (event.key === 'Enter') {
                 localStorage.setItem('navButtonsView', "images");
                 localStorage.setItem('settingsChanged', "true");
                 setNavButtons("images");
+                navOption1.classList.remove('chosen');
+                navOption2.classList.add('chosen');
+                navOption3.classList.remove('chosen');
             }
         });
 
@@ -705,17 +789,29 @@ document.addEventListener('DOMContentLoaded', function() {
         container.appendChild(img3);
         container.appendChild(text);
         navOption3.appendChild(container);
+        if(localStorage.getItem('navButtonsView') === "both"){
+            navOption3.classList.add('chosen');
+        }
+        else{
+            navOption3.classList.remove('chosen');
+        }
 
         navOption3.addEventListener('click', function(){
             localStorage.setItem('navButtonsView', "both");
             localStorage.setItem('settingsChanged', "true");
             setNavButtons("both");
+            navOption1.classList.remove('chosen');
+            navOption2.classList.remove('chosen');
+            navOption3.classList.add('chosen');
         });
         navOption3.addEventListener('keydown', function(event){
             if (event.key === 'Enter') {
                 localStorage.setItem('navButtonsView', "both");
                 localStorage.setItem('settingsChanged', "true");
                 setNavButtons("both");
+                navOption1.classList.remove('chosen');
+                navOption2.classList.remove('chosen');
+                navOption3.classList.add('chosen');
             }
         });
 
