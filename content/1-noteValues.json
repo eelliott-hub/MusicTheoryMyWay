@@ -21,10 +21,11 @@
         "feedback": ["That is a crotchet.", "Go back and check carefully what a crotchet looks like."]
     },
     {
-        "contentType": "information",
+        "contentType": "rhythm",
         "pageTitle": "Crotchet notes",
         "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/crotchet-stem-down.png"],
-        "text": "Clap your hands together four times at a steady speed. <br>You have beaten four crotchets."
+        "text": "Clap your hands together four times at a steady speed. <br>You have beaten four crotchets.",
+        "audioFile": "./Sounds/noteValues1.m4a"
     },
     {
         "contentType": "question",
@@ -132,16 +133,18 @@
         "feedback": ["Good work!", "Remember that a quaver has a tail but a crotchet doesn't.", "This is a dynamic marking rather than a musical note.", "This is a sharp symbol which you'll learn about later."]
     },
     {
-        "contentType": "information",
+        "contentType": "rhythm",
         "pageTitle": "Clapping",
         "images": ["images/grade1/Notes/two-quavers-stems-up.png", "images/grade1/Notes/crotchet-stem-up.png","images/grade1/Notes/two-quavers-stems-up.png", "images/grade1/Notes/crotchet-stem-up.png"],
-        "text": "We know that crotchet notes are twice as long as quavers. Can you <emph>clap</emph> this rhythm?"
+        "text": "We know that crotchet notes are twice as long as quavers. Can you <emph>clap</emph> this rhythm?",
+        "audioFile": "./Sounds/noteValues2.m4a"
     },
     {
-        "contentType": "information",
+        "contentType": "rhythm",
         "pageTitle": "Clapping",
         "images": ["images/grade1/Notes/two-quavers-stems-up.png", "images/grade1/Notes/two-quavers-stems-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png"],
-        "text": "How about this one?"
+        "text": "How about this one?",
+        "audioFile": "./Sounds/noteValues3.m4a"
     },
     {
         "contentType": "information",
@@ -195,10 +198,11 @@
         "feedback": ["You've chosen the picture of four quavers. If there are two quavers in a crotchet then there are four quavers in two crotchets.", "These are two semiquavers, which only make up one quaver.", "Four semiquavers is the right answer!"]
     },
     {
-        "contentType": "information",
+        "contentType": "rhythm",
         "pageTitle": "Clapping",
         "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/four-semiquavers-stems-up.png", "images/grade1/Notes/two-quavers-stems-up.png", "images/grade1/Notes/crotchet-stem-up.png"],
-        "text": "This rhythm combines everything you've learnt so far. Can you clap or tap this sequence?"
+        "text": "This rhythm combines everything you've learnt so far. Can you clap or tap this sequence?",
+        "audioFile": "./Sounds/noteValues4.m4a"
     },
     {
         "contentType": "information",

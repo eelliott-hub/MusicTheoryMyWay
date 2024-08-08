@@ -1350,6 +1350,10 @@ document.addEventListener('DOMContentLoaded', function() {
             renderContentPage(topicContent, currentQuestionIndex);
         })
         .catch((error) => console.error("Error loading topic data: ", error));
+        if(document.getElementById("page-title").innerHTML === "Grade " + getCurrentGrade() + ": Choose your topic"){
+            console.log("No title");
+            document.getElementById("page-title").innerHTML = "Topic in production. Please return home.";
+        }
     }
 
     function renderContentPage(topicContent, index) {
@@ -1374,16 +1378,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 
             }
 
-            if(item.contentType === "information"){
-                const progressPcnt = ((index+1)/topicContent.length)*100;
-                progress.style.width = progressPcnt + "%";
+            const progressPcnt = ((index+1)/topicContent.length)*100;
+            progress.style.width = progressPcnt + "%";
+
+            if(item.contentType === "information"){    
                 renderInformation(item);
             }
 
             else if(item.contentType === "question") {
-                const progressPcnt = ((index+1)/topicContent.length)*100;
-                progress.style.width = progressPcnt + "%";
                 renderQuestion(item);
+            }
+            else if(item.contentType === "rhythm") {
+                renderRhythm(item);
             }
         }
 
@@ -1421,7 +1427,7 @@ document.addEventListener('DOMContentLoaded', function() {
         informationTextContainer.setAttribute('id', "informationTextContainer");
         informationContainer.appendChild(informationTextContainer);
         const informationText = item.text;
-        informationTextContainer.innerHTML = informationText+"<br><br>";
+        informationTextContainer.innerHTML = informationText+"<br>";
 
         // Add speech controls
         const speechButtonsContainer = document.createElement('div');
@@ -1535,7 +1541,7 @@ document.addEventListener('DOMContentLoaded', function() {
         questionTextContainer.setAttribute('id', "questionTextContainer");
         questionContainer.appendChild(questionTextContainer);
         const questionText = item.text;
-        questionTextContainer.innerHTML = questionText+"<br><br>";
+        questionTextContainer.innerHTML = questionText+"<br>";
 
         // Add speech controls
         const speechButtonsContainer = document.createElement('div');
@@ -1565,7 +1571,7 @@ document.addEventListener('DOMContentLoaded', function() {
             correctSelected.style.borderColor = "#328032";
             correctSelected.style.borderWidth = "4px";
             const answerText = "Correct! " + feedback;
-            questionTextContainer.innerHTML = answerText + "<br><br>";
+            questionTextContainer.innerHTML = answerText + "<br>";
 
             // Add speech controls
             const speechButtonsContainer = document.createElement('div');
@@ -1702,6 +1708,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
+    }
+
+    function renderRhythm(item){
+        renderInformation(item);
+
+        // Add audio
+        const audioContainer = document.createElement('div');
+        informationTextContainer.appendChild(audioContainer);
+        audioContainer.innerHTML = "<br>Does your rhythm sound like this?";
+
+        const rhythmButton = document.createElement('div');
+        rhythmButton.setAttribute('id', "rhythmButton");
+        rhythmButton.innerHTML = "Check your rhythm  &#9658;";
+        rhythmButton.setAttribute('role', "button");
+        rhythmButton.tabIndex = 0;
+        audioContainer.appendChild(rhythmButton);
+
+        let rhythmSound = new Audio(item.audioFile);
+        
+        rhythmButton.addEventListener('click', function(){
+            rhythmSound.play();
+        });
+        rhythmButton.addEventListener('keydown', function(event){
+            if (event.key === 'Enter') {
+                rhythmSound.play();
+            }
+        });
     }
 
     function finishContent(topicContent){

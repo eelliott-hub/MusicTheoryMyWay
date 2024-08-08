@@ -241,7 +241,7 @@ main .container {
     padding: 30px;
 }
 
-#rightAnswerButton, #wrongAnswerButton {
+#rightAnswerButton, #wrongAnswerButton, #rhythmButton {
     background-color: #2c6109;
     color: white;
     border: none;
@@ -251,7 +251,11 @@ main .container {
     transition: background-color 0.3s;
 }
 
-#rightAnswerButton:hover, #wrongAnswerButton:hover {
+#rhythmButton {
+    width: 50%;
+}
+
+#rightAnswerButton:hover, #wrongAnswerButton:hover, #rhythmButton:hover {
     background-color: #163104;
 }
 

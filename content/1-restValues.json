@@ -111,16 +111,18 @@
         "text": "Take a break and practise drawing the rests you have learnt so far: crotchet rest, quaver rest and semiquaver rest."
     },
     {
-        "contentType": "information",
+        "contentType": "rhythm",
         "pageTitle": "Clapping",
         "images": ["images/grade1/Notes/two-quavers-stems-up.png", "images/grade1/Rests/crotchet-rest.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png"],
-        "text": "Try clapping this rhythm carefully."
+        "text": "Try clapping this rhythm carefully.",
+        "audioFile": "./Sounds/restValues1.m4a"
     },
     {
-        "contentType": "information",
+        "contentType": "rhythm",
         "pageTitle": "Clapping",
         "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Rests/crotchet-rest.png", "images/grade1/Rests/crotchet-rest.png", "images/grade1/Notes/two-quavers-stems-up.png"],
-        "text": "How about this one?"
+        "text": "How about this one?",
+        "audioFile": "./Sounds/restValues2.m4a"
     },
     {
         "contentType": "information",
