@@ -212,7 +212,7 @@ main .container {
 }
 
 .colourBlock, .typefaceBlock, .fontButton {
-    height: 100px;
+    height: 120px;
     border: 1px solid #a9a9a9;
     border-radius: 5px;
     box-sizing: border-box;
@@ -234,7 +234,7 @@ main .container {
 }
 
 .navOptionContainer {
-    height: 100px;
+    height: 120px;
     border-radius: 5px;
     box-sizing: border-box;
     text-align: center;
@@ -637,7 +637,7 @@ input[type="checkbox"] {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .availableGradeBlock, .availableTopicBlock, .unavailableGradeBlock, .unavailableTopicBlock {
+    .completedGradeBlock, .completedTopicBlock, .availableGradeBlock, .availableTopicBlock, .unavailableGradeBlock, .unavailableTopicBlock {
         font-size: 0.8em;
         height: 150px;
     }

@@ -1351,7 +1351,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch((error) => console.error("Error loading topic data: ", error));
         if(document.getElementById("page-title").innerHTML === "Grade " + getCurrentGrade() + ": Choose your topic"){
-            console.log("No title");
             document.getElementById("page-title").innerHTML = "Topic in production. Please return home.";
         }
     }
