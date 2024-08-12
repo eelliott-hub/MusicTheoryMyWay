@@ -77,7 +77,14 @@ document.addEventListener('DOMContentLoaded', function() {
             else { renderHomePageContinueLearn(); }
         }
         else if(siteSection === "LEARN"){
-            renderProgressPage();
+            const currentTopicId = sessionStorage.getItem('currentTopicId');
+            if(!currentTopicId){
+                renderProgressPage();
+            }
+            else {
+                siteSection = "CONTENT";
+                loadContent(currentTopicId);
+            }
         }
         else if(siteSection === "GRADEHOMEPAGE"){
             const currentGrade = sessionStorage.getItem('currentGrade');
@@ -88,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             loadContent(topicId);
         }
         else if(siteSection === "QUIZ"){
-            renderQuiz();
+                renderQuiz();
         }
         else if(siteSection === "SETTINGS"){
             currentSettingsIndex = 0;
@@ -1346,7 +1353,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .then((response) => response.json())
         .then((topicData) => {
             topicContent = topicData;
-            currentQuestionIndex = 0; // Reset index when entering topic content
+            currentQuestionIndex = parseInt(sessionStorage.getItem('currentQuestionIndex'));
+            if(!currentQuestionIndex){
+                currentQuestionIndex = 0;
+            }
             renderContentPage(topicContent, currentQuestionIndex);
         })
         .catch((error) => console.error("Error loading topic data: ", error));
@@ -1743,11 +1753,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function finishContent(topicContent){
         currentQuestionIndex++;
+        sessionStorage.setItem('currentQuestionIndex', currentQuestionIndex);
         if (currentQuestionIndex >= topicContent.length) {
             if(getCurrentTopicIndex() > getHighestTopicCompleted(getCurrentGrade())){
                 incrementHighestTopicCompleted(getCurrentGrade());
                 localStorage.setItem('learningStarted', "true");
             }
+            sessionStorage.removeItem('currentTopidId');
+            sessionStorage.removeItem('currentQuestionIndex');
             changeSiteSection("GRADEHOMEPAGE");
         }
         else {
@@ -1757,7 +1770,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function contentGoBack(){
         currentQuestionIndex--;
+        sessionStorage.setItem('currentQuestionIndex', currentQuestionIndex);
         if(currentQuestionIndex < 0){
+            sessionStorage.removeItem('currentTopicId');
+            sessionStorage.removeItem('currentQuestionIndex');
             changeSiteSection("LEARN");
         }
         else{
@@ -1768,7 +1784,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ////// Quiz //////
 
     async function renderQuiz(){
-        quizResult = 0;
+            quizResult = 0;
         console.log("Rendering quiz...");
         document.getElementById("page-title").innerHTML = "Quiz";
         const highestGradeCompleted = getHighestGradeCompleted();
@@ -1789,7 +1805,7 @@ document.addEventListener('DOMContentLoaded', function() {
             generateQuizData(maxQuizGrade, highestTopicCompleted)
                 .then((quizQuestions) => {
                     console.log("Number of quiz questions:", quizQuestions.length);
-                    currentQuizIndex = -1;
+                        currentQuizIndex = -1;
                     renderQuizPage(quizQuestions, currentQuizIndex);
                 })
                 .catch((error) => console.error("Error generating quiz data:", error));
@@ -1835,7 +1851,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("page-title").innerHTML = "Quiz time!";
         const quizPreambleContainer = document.createElement('div');
         quizPreambleContainer.setAttribute('id', "quizPreambleContainer");
-        quizPreambleContainer.innerHTML = "Take a quiz to revise what you've learnt so far.<br><br>You'll be asked 10 questions on topics you've covered on this website.<br><br>Click the green arrow to start the quiz.<br><br>Good luck!<br><br>";
+        quizPreambleContainer.innerHTML = "Take a quiz to revise what you've learnt so far.<br><br>You'll be asked 10 questions on topics you've covered on this website.<br><br>Warning: If you navigate away from the quiz before you get to the end you will need to start again from question 1!<br><br>Click the green arrow to start the quiz.<br><br>Good luck!<br><br>";
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(quizPreambleContainer);
 
@@ -2591,7 +2607,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function setCurrentTopic(topicIndex, topicId, topicName) {
         sessionStorage.setItem('currentTopicIndex', topicIndex);
         sessionStorage.setItem('currentTopicId', topicId);
-        sessionStorage.setItem('currentTopicName', topicName)
+        sessionStorage.setItem('currentTopicName', topicName);
     }
 
     // Get the current topic id from session storage
