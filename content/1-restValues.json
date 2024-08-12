@@ -185,6 +185,6 @@
         "contentType": "information",
         "pageTitle": "Well done!",
         "images": ["images/grade1/Rests/semibreve-rest-small.png", "images/grade1/Rests/minim-rest-small.png", "images/grade1/Rests/crotchet-rest.png", "images/grade1/Rests/quaver-rest.png", "images/grade1/Rests/semiquaver-rest.png"],
-        "text": "You have learnt about the main rest symbols for grade 1.<br><br>Practise drawing them with pencil and paper, and take another quiz to revise everything you've learnt so far."
+        "text": "You have learnt about the main rest symbols for grade 1. Here they are in order starting from the longest (semibreve rest) to shorted (semiquaver rest).<br><br>Practise drawing them with pencil and paper, and take another quiz to revise everything you've learnt so far."
     }
 ]

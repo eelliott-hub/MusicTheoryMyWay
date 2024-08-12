@@ -2246,7 +2246,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ////// Glossary //////
 
     function loadGlossary(){
-        document.getElementById("page-title").innerHTML = "Glossary";
+        document.getElementById("page-title").innerHTML = "Glossary: A&ndash;Z";
 
         fetch("glossary.json")
         .then((response) => response.json())
@@ -2332,7 +2332,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("page-title").innerHTML = "About Music Theory My Way";
         const aboutContainer = document.createElement('div');
         aboutContainer.setAttribute('id', "aboutContainer");
-        aboutContainer.innerHTML = 'Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>It is a prototype for a dyslexia-friendly website for learning music theory.<br><br>If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your data is not collected by any third parties. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!<br>Liz Elliott<br>University of Bristol<br>';
+        aboutContainer.innerHTML = 'Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>It is a prototype for a dyslexia-friendly website for learning music theory. Some of the features designed for dyslexia are:<ul><li>Customisable appearance</li><li>Text-to-speech options</li><li>Clear and organised layout without clutter</li><li>Straightforward language</li><li>Multisensory content</li><li>Systematic and structured learning</li><li>Repetition and revision of concepts</li></ul>If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your data is not collected by any third parties. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!<br>Liz Elliott<br>University of Bristol<br>';
 
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(aboutContainer);     
@@ -2349,7 +2349,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const acknowledgementsContainer = document.createElement('div');
         acknowledgementsContainer.setAttribute('id', "acknowledgementsContainer");
-        acknowledgementsContainer.innerHTML = '<br><br><h2>Acknowledgements</h2><br>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)</ul>The sound effects when you get a quiz question right or wrong are freely availably from <a href="https://mixkit.co/">Mixkit</a>.';
+        acknowledgementsContainer.innerHTML = '<br><br><h2>Acknowledgements</h2>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)</ul>The sound effects when you get a quiz question right or wrong are freely availably from <a href="https://mixkit.co/">Mixkit</a>.';
 
         mainContainer.appendChild(acknowledgementsContainer);
 

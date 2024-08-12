@@ -383,11 +383,6 @@ input[type="checkbox"] {
 
 /*** Information ***/
 
-#informationContainer {
-    overflow-y: auto;
-    scrollbar-gutter: auto;
-}
-
 #informationImagesContainer {
     display: grid;
     border: 1px solid darkgrey;
@@ -492,7 +487,7 @@ input[type="checkbox"] {
 /***** Quiz styling *****/
 
 #informationContainer, #questionContainer, #quizPreambleContainer, #quizContainer, #quizResultContainer {
-    height: 550px;
+    height: 650px;
     overflow-y: auto;
     scrollbar-gutter: auto;
 }
