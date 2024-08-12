@@ -1714,15 +1714,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Add audio
         const audioContainer = document.createElement('div');
+        audioContainer.setAttribute('id', "audioContainer");
         informationTextContainer.appendChild(audioContainer);
         audioContainer.innerHTML = "<br>Does your rhythm sound like this?";
+
+        const rhythmButtonContainer = document.createElement('div');
+        rhythmButtonContainer.setAttribute('id', "rhythmButtonContainer");
+        audioContainer.appendChild(rhythmButtonContainer);
 
         const rhythmButton = document.createElement('div');
         rhythmButton.setAttribute('id', "rhythmButton");
         rhythmButton.innerHTML = "Check your rhythm  &#9658;";
         rhythmButton.setAttribute('role', "button");
         rhythmButton.tabIndex = 0;
-        audioContainer.appendChild(rhythmButton);
+        rhythmButtonContainer.appendChild(rhythmButton);
 
         let rhythmSound = new Audio(item.audioFile);
         
