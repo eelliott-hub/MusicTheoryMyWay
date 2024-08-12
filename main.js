@@ -1884,7 +1884,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 for (let i = 0; i < gradeTopics.length; i++) {
                     let topicId = gradeTopics[i].id;
-                    console.log(`Loading questions for grade ${grade} and topic ${topicId}...`);
     
                     if (grade < maxQuizGrade || (grade === maxQuizGrade && i <= highestTopicCompleted)) {
                         let questions = await loadQuestions(grade, topicId);
@@ -1950,6 +1949,10 @@ document.addEventListener('DOMContentLoaded', function() {
         quizContainer.appendChild(quizImagesContainer);
 
         let answerSelected = false; // Flag to track if answer has been selected
+        let attempts = sessionStorage.getItem('attempts');
+        if(!attempts){
+            sessionStorage.setItem('attempts', "0");
+        }
 
         // Function to handle click or keydown on an answer option
         function handleQuizAnswerClick(index) {
@@ -1964,6 +1967,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     quizAnswerContainer.style.pointerEvents = 'none'; // Disable pointer events
                     quizAnswerContainer.tabIndex = -1;
                 }
+
+                attempts = parseInt(sessionStorage.getItem('attempts'));
+                attempts++;
+                console.log("Attempts at this question: " + attempts);
+                sessionStorage.setItem('attempts', attempts);
 
                 // Determine if selected answer is correct
                 checkQuizAnswer(item, index);
@@ -2041,7 +2049,10 @@ document.addEventListener('DOMContentLoaded', function() {
             correctSelected.style.borderWidth = "4px";
             const answerText = "Correct!";
             quizTextContainer.innerHTML = answerText;
-            quizResult++;
+            attempts = parseInt(sessionStorage.getItem('attempts'));
+            if(attempts > 1){ quizResult += 0.5; }
+            else { quizResult++; }
+            sessionStorage.removeItem('attempts');
 
             renderNextArrow();
             finishQuiz(quizQuestions);
@@ -2117,6 +2128,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Remove other options
             incorrectAnswerContainer.remove();
+
+            // Remove attempts from sessionStorage
+            sessionStorage.removeItem('attempts');
 
             // Add speech controls
             const speechButtonsContainer = document.createElement('div');
