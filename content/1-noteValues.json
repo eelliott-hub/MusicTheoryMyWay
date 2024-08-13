@@ -28,15 +28,6 @@
         "audioFile": "./Sounds/noteValues1.m4a"
     },
     {
-        "contentType": "question",
-        "questionType": "multipleChoice",
-        "images": ["images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/accent.png"],
-        "text": "Which is the crotchet?",
-        "correctAnswer": 1,
-        "explanation": "The crotchet is the black note that has a stem but no tail.",
-        "feedback": ["The note you've clicked is called a quaver. You'll learn about those next.", "Well done.", "You haven't learnt about this symbol yet. Try again!"]
-    },
-    {
         "contentType": "information",
         "pageTitle": "Quaver notes",
         "images": ["images/grade1/Notes/quaver-stem-down.png"],
