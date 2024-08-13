@@ -264,7 +264,7 @@ main .container {
 }
 
 input[type="checkbox"] {
-    width: 3em;
+    width: 2.2em;
     height: 3rem;
     accent-color: rgb(0, 9, 128);
     padding: 10px 15px;

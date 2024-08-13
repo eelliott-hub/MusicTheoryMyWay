@@ -1952,6 +1952,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const gradeDetails = document.createElement('details');
             gradeDetails.setAttribute('id', "grade"+grade+"Details");
             gradeDetails.setAttribute('class', "gradeDetails");
+            if(i === 0){
+                gradeDetails.open = true;
+            }
             const summary = document.createElement('summary');
             summary.textContent = "Grade "+grade;
             gradeDetails.appendChild(summary);
