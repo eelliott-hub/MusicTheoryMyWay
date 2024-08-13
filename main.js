@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const defaultFontSize = "24px";
     const defaultCharSpacing = "0.2px";
     const defaultNavButtons = "both";
+    const highestAvailableTopic = 2;
 
     // Variables for sizes
     const arrowImageWidth = 80;
@@ -1281,7 +1282,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 else{ renderAvailableTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
             }
             else if(i < (highestTopicCompleted+1)){ renderCompletedTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
-            else if(i === (highestTopicCompleted+1)){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
+            else if(i === (highestTopicCompleted+1) && i <= highestAvailableTopic){ renderAvailableTopicBlock(topicBlock, i, thisTopic.id, thisTopic.name); }
             else{ renderUnavailableTopicBlock(topicBlock); }
 
             gradeTopicsContainer.appendChild(topicBlock);
@@ -2555,7 +2556,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function createSpeechButtons(speechButtonsContainerName, playButtonName, pauseButtonName, textToRead, buttonTypes) {
         const speechButtonsContainer = document.getElementById(speechButtonsContainerName);
-
         // Create play button
         const playButton = document.createElement('div');
         playButton.setAttribute('id', playButtonName);
@@ -2580,6 +2580,8 @@ document.addEventListener('DOMContentLoaded', function() {
             pauseButton.innerHTML = "&#10074;&#10074; Pause";
             speechButtonsContainer.appendChild(pauseButton);
         }
+
+        textToRead = speechAdjustments(textToRead);
 
         let utterance = new SpeechSynthesisUtterance(textToRead);
         let isPaused = false;
@@ -2775,6 +2777,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if(progressBar){
             progressBar.remove();
         }
+    }
+
+    function speechAdjustments(textIn){
+        textOut = textIn.replace("semibreve", "semibreeve");
+        textOut = textOut.replace("Semibreve", "Semibreeve");
+        textOut = textOut.replace("crotchets", "crotchits");
+        textOut = textOut.replace("Crotchets", "Crotchits");
+        return textOut;
     }
 
     ////// Render the page content //////
