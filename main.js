@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentQuizIndex = -1;
     let quizResult = 0;
     let quizResultsData = [];
+    let quizAll;
 
     // Default settings
     const defaultBackgroundColour = "#f5f5f5";
@@ -44,6 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // localStorage.clear();
         // localStorage.removeItem("tourCompleted");
         // localStorage.removeItem("settingsChanged");
+        // localStorage.removeItem("currentTopicId");
+        // localStorage.removeItem("currentGrade");
 
     // Set to make grade 2 available
         // localStorage.setItem('highestGradeCompleted', "1");
@@ -78,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else if(siteSection === "LEARN"){
             const currentTopicId = sessionStorage.getItem('currentTopicId');
+            console.log("Current Topic Id: " + currentTopicId);
             if(!currentTopicId){
                 renderProgressPage();
             }
@@ -1361,7 +1365,16 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch((error) => console.error("Error loading topic data: ", error));
         if(document.getElementById("page-title").innerHTML === "Grade " + getCurrentGrade() + ": Choose your topic"){
-            document.getElementById("page-title").innerHTML = "Topic in production. Please return home.";
+            document.getElementById("page-title").innerHTML = "Topic in production. Please click the back arrow.";
+            createBackArrow();
+            document.getElementById("backButtonImageContainer").addEventListener('click', function() {
+                changeSiteSection("LEARN");
+            });
+            document.getElementById("backButtonImageContainer").addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    changeSiteSection("LEARN");
+                }
+            });
         }
     }
 
@@ -1759,7 +1772,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 incrementHighestTopicCompleted(getCurrentGrade());
                 localStorage.setItem('learningStarted', "true");
             }
-            sessionStorage.removeItem('currentTopidId');
+            sessionStorage.removeItem('currentTopicId');
             sessionStorage.removeItem('currentQuestionIndex');
             changeSiteSection("GRADEHOMEPAGE");
         }
@@ -1784,7 +1797,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ////// Quiz //////
 
     async function renderQuiz(){
-            quizResult = 0;
+        quizResult = 0;
         console.log("Rendering quiz...");
         document.getElementById("page-title").innerHTML = "Quiz";
         const highestGradeCompleted = getHighestGradeCompleted();
@@ -1802,13 +1815,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         else {
-            generateQuizData(maxQuizGrade, highestTopicCompleted)
-                .then((quizQuestions) => {
-                    console.log("Number of quiz questions:", quizQuestions.length);
-                        currentQuizIndex = -1;
-                    renderQuizPage(quizQuestions, currentQuizIndex);
-                })
-                .catch((error) => console.error("Error generating quiz data:", error));
+            emptyMainText();
+            emptyFooter();
+            renderQuizPreamble(maxQuizGrade, highestTopicCompleted);
         }
     }
 
@@ -1835,10 +1844,7 @@ document.addEventListener('DOMContentLoaded', function() {
         emptyMainText();
         emptyFooter();
 
-        if (index === -1){
-            renderQuizPreamble(quizQuestions);
-        }
-        else if (index >= 0 && index < quizQuestions.length) {
+    if (index >= 0 && index < quizQuestions.length) {
             const item = quizQuestions[index];
             renderQuizQuestion(item, quizQuestions, index);
 
@@ -1847,13 +1853,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function renderQuizPreamble(quizQuestions){
+    function renderQuizPreamble(maxQuizGrade, highestTopicCompleted){
+        let quizTopics = [];
         document.getElementById("page-title").innerHTML = "Quiz time!";
         const quizPreambleContainer = document.createElement('div');
         quizPreambleContainer.setAttribute('id', "quizPreambleContainer");
-        quizPreambleContainer.innerHTML = "Take a quiz to revise what you've learnt so far.<br><br>You'll be asked 10 questions on topics you've covered on this website.<br><br>Warning: If you navigate away from the quiz before you get to the end you will need to start again from question 1!<br><br>Click the green arrow to start the quiz.<br><br>Good luck!<br><br>";
+        const quizIntroText = document.createElement('div');
+        quizIntroText.setAttribute('id', "quizIntroText");
+        quizIntroText.innerHTML = "Take a quiz of 10 questions to revise what you've learnt.<br><br>Cover all available topics or pick which topic(s) to revise.<br><br>";
+        quizPreambleContainer.appendChild(quizIntroText);
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(quizPreambleContainer);
+
+        createAllTopicsOption();
+
+        const quizTopicSelectContainer = document.createElement('div');
+        quizTopicSelectContainer.setAttribute('id', "quizTopicSelectContainer");
+        quizPreambleContainer.appendChild(quizTopicSelectContainer);
+
+        quizTopics = createTopicCheckboxes(quizTopics);
+
+        const quizGoText = document.createElement('div');
+        quizGoText.setAttribute('id', "quizGoText");
+        quizGoText.innerHTML = "<br>Warning: If you navigate away from the quiz before you get to the end you will need to start again from question 1!<br><br>Click the green arrow to start the quiz.<br><br>Good luck!<br>";
+        quizPreambleContainer.appendChild(quizGoText);
 
         // Add speech controls
         const speechButtonsContainer = document.createElement('div');
@@ -1867,52 +1890,171 @@ document.addEventListener('DOMContentLoaded', function() {
 
         renderNextArrow();
         document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
-            currentQuizIndex++;
-            if (currentQuizIndex >= quizQuestions.length) {
-                changeSiteSection("HOME");
-            } else {
-                renderQuizPage(quizQuestions, currentQuizIndex);
-            }
+            generateQuizData(maxQuizGrade, highestTopicCompleted, quizTopics)
+                .then((quizQuestions) => {
+                    console.log("Number of quiz questions:", quizQuestions.length);
+                        currentQuizIndex = 0;
+                    renderQuizPage(quizQuestions, currentQuizIndex);
+                })
+                .catch((error) => console.error("Error generating quiz data:", error));
         });
 
         document.getElementById("nextButtonImageContainer").addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
-                currentQuizIndex++;
-                if (currentQuizIndex >= quizQuestions.length) {
-                    changeSiteSection("HOME");
-                } else {
-                    renderQuizPage(quizQuestions, currentQuizIndex);
-                }
+                generateQuizData(maxQuizGrade, highestTopicCompleted, quizTopics)
+                    .then((quizQuestions) => {
+                        console.log("Number of quiz questions:", quizQuestions.length);
+                            currentQuizIndex = 0;
+                        renderQuizPage(quizQuestions, currentQuizIndex);
+                    })
+                    .catch((error) => console.error("Error generating quiz data:", error));
             }
         });
     }
 
-    async function generateQuizData(maxQuizGrade, highestTopicCompleted) {
-        console.log("Generating quiz data for max grade:", maxQuizGrade, "and highest topic completed:", highestTopicCompleted);
+    function createAllTopicsOption(){
+        quizAll = 0;
+        const quizAllContainer = document.createElement('div');
+        quizAllContainer.setAttribute('id', "quizAllContainer");
+        const quizPreambleContainer = document.getElementById("quizPreambleContainer");
+        quizPreambleContainer.appendChild(quizAllContainer);
 
-        let quizQuestions = [];
+        const quizAllLabel = document.createElement('div');
+        quizAllLabel.setAttribute('id', "quizAllLabel");
+        quizAllLabel.innerHTML = "All available topics"
+        quizAllContainer.appendChild(quizAllLabel);
 
-        try {
-            // Loop through grades up to the maxQuizGrade
-            for (let grade = 1; grade <= maxQuizGrade; grade++) {
-                let gradeTopics = await loadTopicsForGrade(grade);
-                console.log(`Grade ${grade} topics:`, gradeTopics);
+        const quizAllCheckbox = document.createElement('input');
+        quizAllCheckbox.setAttribute('type', "checkbox");
+        quizAllCheckbox.setAttribute('value', quizAll);
+        quizAllCheckbox.setAttribute('id', "quizAllCheckbox");
+        quizAllContainer.appendChild(quizAllCheckbox);
 
-                for (let i = 0; i < gradeTopics.length; i++) {
-                    let topicId = gradeTopics[i].id;
-    
-                    if (grade < maxQuizGrade || (grade === maxQuizGrade && i <= highestTopicCompleted)) {
-                        let questions = await loadQuestions(grade, topicId);
-                        quizQuestions = quizQuestions.concat(questions);
+        quizAllCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                quizAll = 1;
+                const checkboxes = document.querySelectorAll('.topicCheckbox');
+                for (let i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = false;
+                }
+                console.log("All quiz topics selected");
+            } else {
+              quizAll = 0;
+              console.log("All quiz topics unselected");
+            }
+        });
+    }
+
+    function createTopicCheckboxes(quizTopics) {
+        for(let i = 0; i < availableGrades.length; i++){
+            const grade = availableGrades[i];
+            const gradeDetails = document.createElement('details');
+            gradeDetails.setAttribute('id', "grade"+grade+"Details");
+            gradeDetails.setAttribute('class', "gradeDetails");
+            const summary = document.createElement('summary');
+            summary.textContent = "Grade "+grade;
+            gradeDetails.appendChild(summary);
+            const quizTopicSelectContainer = document.getElementById("quizTopicSelectContainer");
+            quizTopicSelectContainer.appendChild(gradeDetails);
+            const highestTopicCompleted = getHighestTopicCompleted(grade);
+
+            const topicList = document.createElement('div');
+            topicList.setAttribute('id', "grade"+grade+"TopicList");
+            topicList.setAttribute('class', "gradeTopicList");
+
+            fetch("./content/"+grade+"-topics.json")
+            .then((response) => response.json())
+            .then((gradeTopics) => {
+                for(i = 0; i < gradeTopics.length; i++){
+
+                    if(i <= highestTopicCompleted){
+                        const aTopic = gradeTopics[i];
+
+                        const topicLabel = document.createElement('div');
+                        topicLabel.setAttribute('class', "topicLabel");
+                        topicLabel.innerHTML = aTopic.name;
+                        topicList.appendChild(topicLabel)
+
+                        const topicCheckbox = document.createElement('input');
+                        topicCheckbox.setAttribute('type', "checkbox");
+                        topicCheckbox.setAttribute('class', "topicCheckbox");
+                        topicCheckbox.setAttribute('id', aTopic.id);
+                        topicList.appendChild(topicCheckbox);
+
+                        topicCheckbox.addEventListener('change', function() {
+                            if (this.checked) {
+                                quizAll = 0;
+                                const quizAllCheckbox = document.getElementById("quizAllCheckbox");
+                                quizAllCheckbox.checked = false;
+                                quizTopics.push(grade+"-"+aTopic.id);
+                                console.log("Adding grade " + grade + " " + aTopic.name + " to the quiz topic selection");
+                              
+                            } else {
+                                for(let i = 0; i < quizTopics.length; i++){
+                                    if(quizTopics[i] === grade+"-"+aTopic.id){
+                                        quizTopics.splice(i, 1);
+                                        console.log("Removing " + grade + " " + aTopic.name + " from the quiz topic selection");
+                                    }
+                                }
+                            }
+                        });
+
                     }
                 }
+            })
+            .catch((error) => console.error("Error loading grade "+grade+" topics: ", error));
+
+            gradeDetails.appendChild(topicList);
+
+            return quizTopics;
+        }
+    }
+
+    
+
+    async function generateQuizData(maxQuizGrade, highestTopicCompleted, quizTopics) {
+        console.log("Generating quiz data for max grade:", maxQuizGrade, "and highest topic completed:", highestTopicCompleted);
+        
+        let quizQuestions = [];
+
+        if(quizAll === 1){
+
+            try {
+                // Loop through grades up to the maxQuizGrade
+                for (let grade = 1; grade <= maxQuizGrade; grade++) {
+                    let gradeTopics = await loadTopicsForGrade(grade);
+                    console.log(`Grade ${grade} topics:`, gradeTopics);
+
+                    for (let i = 0; i < gradeTopics.length; i++) {
+                        let topicId = grade+"-"+gradeTopics[i].id;
+        
+                        if (grade < maxQuizGrade || (grade === maxQuizGrade && i <= highestTopicCompleted)) {
+                            let questions = await loadQuestions(topicId);
+                            quizQuestions = quizQuestions.concat(questions);
+                        }
+                    }
+                }
+
+                quizQuestions = shuffleArray(quizQuestions);
+            } catch (error) {
+                console.error("Error generating quiz data:", error);
+            }   
+        }
+
+        else{
+            try{
+                // Loop through user-selected quiz topics (quizTopics)
+                for(let i = 0; i < quizTopics.length; i++){
+                    let topicId = quizTopics[i];
+                    let questions = await loadQuestions(topicId);
+                    quizQuestions = quizQuestions.concat(questions);
+                }
+            } catch (error) {
+                console.error("Error generating quiz data:", error);
             }
 
-            quizQuestions = shuffleArray(quizQuestions);
-        } catch (error) {
-            console.error("Error generating quiz data:", error);
         }
-    
+
         return quizQuestions.slice(0, quizNumber);
     }
 
@@ -1927,17 +2069,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    async function loadQuestions(grade, topicId) {
+    async function loadQuestions(topicId) {
         try {
-            console.log(`Loading questions for grade ${grade} and topic ${topicId}...`);
+            console.log(`Loading questions for grade ${topicId}...`);
 
-            let response = await fetch(`content/${grade}-${topicId}.json`);
+            let response = await fetch(`content/${topicId}.json`);
             let data = await response.json();
             let questions = data.filter((item) => item.contentType === 'question');
 
             return questions;
         } catch (error) {
-            console.error(`Error loading questions for grade ${grade} and topic ${topicId}: `, error);
+            console.error(`Error loading questions for grade ${topicId}: `, error);
             return [];
         }
     }

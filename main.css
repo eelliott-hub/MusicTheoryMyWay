@@ -492,6 +492,51 @@ input[type="checkbox"] {
     scrollbar-gutter: auto;
 }
 
+#quizPreambleContainer {
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-gutter: auto;
+}
+
+
+#quizAllContainer{
+    width: 70%;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    box-sizing: border-box;
+    margin: 20px auto;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    font-size: 1.1em;
+}
+
+.gradeTopicList {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    box-sizing: border-box;
+    margin: 20px auto;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+#quizAllLabel, .topicLabel {
+    padding: 10px 0;
+}
+
+#quizTopicSelectContainer {
+    width: 70%;
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+details > summary {
+    font-size: 1.1em;
+  }
+
 /***** Glossary styling *****/
 
 #glossaryContainer {

@@ -105,7 +105,7 @@
         "contentType": "information",
         "pageTitle": "Try a quiz",
         "images": ["images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/semibreve-small.png"],
-        "text": "Try taking a <emph>quiz</emph> of the things you've learnt so far.<br>The <emph>glossary</emph> is always there to help if you want to look something up."
+        "text": "Try taking a <emph>quiz</emph> of the things you've learnt so far.<br>The <emph>glossary</emph> is always there to help if you want to look something up.<br><br>Click the forward arrow to finish."
     }
 
 ]
