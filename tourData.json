@@ -4,7 +4,15 @@
         "image": "images/fun-music.png",
         "altText": "Icon of musical notes",
         "colour": "",
-        "text": "Music Theory My Way is a website designed for people with dyslexia and can be customised in different ways to suit your learning style.<br><br>This tour will show you what the different sections of the website are for."
+        "text": "Music Theory My Way is a website designed for people with dyslexia and can be customised in different ways to suit your learning style.<br><br>This tour will show you what the different sections of the website are for.<br><br>Whenever you see the blue Play button you can click it to play the text out loud."
+    },
+
+    {
+        "subheading": "What is Music Theory?",
+        "image": "images/grade1/treble-clef-stave.png",
+        "altText": "Image of a treble clef on a music stave",
+        "colour": "",
+        "text": "Music theory is the language used to communicate music and the understanding behind it.<br><br>It includes things like the words we use to describe the different sounds and ways of playing music, and the way we explain rhythms and the intervals between notes. <br><br> Music theory helps musicians write down their musical ideas so that other musicians can interpret them."
     },
 
     {
@@ -36,7 +44,7 @@
         "image": "images/navigation/quiz.png",
         "altText": "Large quiz icon",
         "colour": "#ae52fa",
-        "text": "You will be covering lots of different topics, and the <emph>purple quiz</emph> button will take you to quiz of 10 questions based on the topics you've covered so far on Music Theory My Way."  
+        "text": "You will be covering lots of different topics, and the <emph>purple quiz</emph> button will take you to a quiz of 10 questions based on the topics you've covered so far on Music Theory My Way."  
     },
 
     {

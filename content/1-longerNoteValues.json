@@ -1,7 +1,7 @@
 [
     {
         "contentType": "information",
-        "pageTitle": "Longer note values",
+        "pageTitle": "Revising crotchets",
         "images": ["images/grade1/Notes/crotchet-stem-up.png"],
         "text": "In this section you'll learn about two more types of note. <br>Previously you learnt about crotchets, which are each one beat long."
     },
@@ -17,7 +17,8 @@
         "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/minim-stem-down.png"],
         "text": "Click on the minim note.",
         "correctAnswer": 1,
-        "explanation": "Crotchets and minims do look similar, but the minim is not coloured in black."
+        "explanation": "Crotchets and minims do look similar, but the minim is not coloured in black.",
+        "feedback": ["The note with a black head and a stem is a crotchet.", "You have clicked on the minim."]
     },
     {
         "contentType": "information",
@@ -37,20 +38,22 @@
         "images": ["images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/semibreve-small.png"],
         "text": "Click on the semibreve note.",
         "correctAnswer": 1,
-        "explanation": "A semibreve is the one without the stem."
+        "explanation": "A semibreve is the one without the stem.",
+        "feedback": ["This is a minim. Go back and check what a semibreve looks like.", "Excellent!"]
     },
     {
         "contentType": "question",
         "questionType": "multipleChoice",
-        "images": ["images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/minim-stem-up.png"],
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/minim-stem-up.png"],
         "text": "Click on the minim note.",
         "correctAnswer": 1,
-        "explanation": "Remember that minim notes aren't coloured in black."
+        "explanation": "Remember that minim notes have a stem.",
+        "feedback": ["You have clicked on the semibreve. Remember that the minims have stems but semibreves do not.", "Well done!"]
     },
     {
         "contentType": "information",
         "pageTitle": "Semibreve notes",
-        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/equivalence.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/equivalence.png",  "images/grade1/Notes/semibreve-small.png"],
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/equivalence.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/equivalence.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png"],
         "text": "A semibreve lasts for two minims, or four crotchet beats."
     },
     {
@@ -71,7 +74,8 @@
         "images": ["images/grade1/Notes/four-quavers-stems-down.png", "images/grade1/Notes/two-quavers-stems-down.png"],
         "text": "How many quavers in a minim?",
         "correctAnswer": 0,
-        "explanation": "Two quavers equals one crotchet, so four quavers equals two crotchets."
+        "explanation": "Two quavers equals one crotchet, so four quavers equals two crotchets.",
+        "feedback": ["Four quavers fit into the time of a minim.", "Two quavers fit into one crotchet, so your chosen answer is too short."]
     },
     {
         "contentType": "question",
@@ -79,7 +83,8 @@
         "images": ["images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/minim-stem-up.png"],
         "text": "Click on the note that lasts for two crotchet beats.",
         "correctAnswer": 2,
-        "explanation": "There are two crotchets in a minim."
+        "explanation": "There are two crotchets in a minim.",
+        "feedback": ["A quaver lasts for half a crotchet.", "This is a crotchet! We are looking for a note that lasts for twice this long.", "That's right!"]
     },
     {
         "contentType": "question",
@@ -87,19 +92,95 @@
         "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/crotchet-stem-down.png", "images/grade1/Notes/minim-stem-down.png"],
         "text": "Click on the note that lasts for four crotchet beats.",
         "correctAnswer": 0,
-        "explanation": "There are four crotchets in a semibreve."
+        "explanation": "There are four crotchets in a semibreve.",
+        "feedback": ["A semibreve lasts for four beats.", "This is a single crotchet. We are looking for the note that lasts four times this long.", "This is a minim, a note which lasts for two beats."]
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "All the note values",
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png"],
+        "text": "Let's revise all of the note values we've covered so far. Here they are in order from longest to shortest, starting with the semibreve. Each note has another black element added to make it shorter."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Semibreve and minim",
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/crotchet-stem.png", "images/grade1/Notes/minim-stem-up.png"],
+        "text": "A semibreve (4 beats) with a stem added is a minim (2 beats)."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Minim and crotchet",
+        "images": ["images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/notehead.png", "images/grade1/Notes/crotchet-stem-up.png"],
+        "text": "A minim (2 beats) with its head coloured in is a crotchet (1 beat)."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Crotchet and quaver",
+        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/tail.png", "images/grade1/Notes/quaver-stem-up.png"],
+        "text": "A crotchet (1 beat) with a tail added is a quaver (half of a beat)."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Quaver and semiquaver",
+        "images": ["images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/tail.png", "images/grade1/Notes/semiquaver-stem-up.png"],
+        "text": "A quaver (half a beat) with another tail added is a semiquaver (quarter of beat)."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png"],
+        "text": "Click on the semibreve, the note which lasts for four beats.",
+        "correctAnswer": 0,
+        "explanation": "Well done!",
+        "feedback": ["This is the semibreve (4 beats).", "This is the minim (2 beats).", "This is the crotchet (1 beat).", "This is the quaver (half of a beat).", "This is the semiquaver (quarter of a beat)."]
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png"],
+        "text": "Click on the crotchet, the note which lasts for one beat.",
+        "correctAnswer": 2,
+        "explanation": "Well done!",
+        "feedback": ["This is the semibreve (4 beats).", "This is the minim (2 beats).", "This is the crotchet (1 beat).", "This is the quaver (half of a beat).", "This is the semiquaver (quarter of a beat)."]
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png"],
+        "text": "Click on the minim, the note which lasts for two beats.",
+        "correctAnswer": 1,
+        "explanation": "Good work!",
+        "feedback": ["This is the semibreve (4 beats).", "This is the minim (2 beats).", "This is the crotchet (1 beat).", "This is the quaver (half of a beat).", "This is the semiquaver (quarter of a beat)."]
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png"],
+        "text": "Click on the semiquaver, the note which lasts for quarter of a beat.",
+        "correctAnswer": 4,
+        "explanation": "Well done!",
+        "feedback": ["This is the semibreve (4 beats).", "This is the minim (2 beats).", "This is the crotchet (1 beat).", "This is the quaver (half of a beat).", "This is the semiquaver (quarter of a beat)."]
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png"],
+        "text": "Finally, click on the quaver, the note which lasts for half a beat.",
+        "correctAnswer": 3,
+        "explanation": "Well done!",
+        "feedback": ["This is the semibreve (4 beats).", "This is the minim (2 beats).", "This is the crotchet (1 beat).", "This is the quaver (half of a beat).", "This is the semiquaver (quarter of a beat)."]
     },
     {
         "contentType": "information",
         "pageTitle": "Good work!",
         "images": ["images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/semibreve-small.png"],
-        "text": "You have reached the end of this section on note values. Here are all of the note values you've learnt so far in order of length. <br> Have you tried drawing them?"
+        "text": "You have reached the end of this section on note values. Have a go at drawing all the notes you've learnt so far."
     },
     {
         "contentType": "information",
         "pageTitle": "Try a quiz",
         "images": ["images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/semibreve-small.png"],
-        "text": "Try taking a <emph>quiz</emph> of the things you've learnt so far.<br>The <emph>glossary</emph> is always there to help if you want to look something up."
+        "text": "Try taking a <emph>quiz</emph> of the things you've learnt so far.<br>The <emph>glossary</emph> is always there to help if you want to look something up.<br><br>Click the forward arrow to finish."
     }
 
 ]

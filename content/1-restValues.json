@@ -1,0 +1,190 @@
+[
+    {
+        "contentType": "information",
+        "pageTitle": "What are rests?",
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png","images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png"],
+        "text": "The pictures above show the note values that you have learnt so far, in order of length. Semibreve is the longest, lasting 4 beats, and semiquaver is the shortest, lasting a quarter of a beat.<br><br>Rests are written in music when there are no notes to play, meaning you should be silent on your instrument or with your voice.<br><br>We are going to learn the symbols for rests that match up with the notes that you have already learnt: semibreve, minim, crotchet, quaver and semiquaver."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Crotchet rests",
+        "images": ["images/grade1/Rests/crotchet-rest.png"],
+        "text": "This is a crotchet rest. It means there should be silence for the length of a crotchet beat."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Crotchet rests",
+        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Rests/crotchet-rest.png"],
+        "text": "This is a crotchet note next to its corresponding rest."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Rests/crotchet-rest.png", "images/grade1/Notes/crotchet-stem-up.png"],
+        "text": "Click on the picture of the crotchet rest.",
+        "correctAnswer": 0,
+        "explanation": "The crotchet rest doesn't look like a note with an oval head.",
+        "feedback": ["That is a crotchet rest.", "Remember, we are looking for the crotchet rest, not the crotchet note."]
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Quaver rests",
+        "images": ["images/grade1/Rests/quaver-rest.png"],
+        "text": "This is a quaver rest. It means there should be silence for the length of a quaver beat."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Quaver rests",
+        "images": ["images/grade1/Notes/quaver-stem-up.png", "images/grade1/Rests/quaver-rest.png"],
+        "text": "This is a quaver note next to its corresponding rest."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Rests/crotchet-rest.png", "images/grade1/Rests/quaver-rest.png"],
+        "text": "Click on the picture of the quaver rest.",
+        "correctAnswer": 1,
+        "explanation": "The quaver rest looks a bit like the number 7.",
+        "feedback": ["That is a crotchet rest.", "You identified the quaver rest."]
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Rests/crotchet-rest.png", "images/grade1/Rests/quaver-rest.png"],
+        "text": "Click on the picture of the crotchet rest.",
+        "correctAnswer": 0,
+        "explanation": "Look carefully at what the crotchet rest looks like.",
+        "feedback": ["Well done!", "This is the quaver rest. We are looking for a crotchet rest."]
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Rests/crotchet-rest.png", "images/grade1/Notes/crotchet-stem-up.png"],
+        "text": "Click on the picture of the crotchet note.",
+        "correctAnswer": 1,
+        "explanation": "This question asked for the crotchet note.",
+        "feedback": ["Careful - you have clicked on the crotchet rest, not the crotchet note.", "Well remembered!"]
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Rests/quaver-rest.png", "images/grade1/Rests/crotchet-rest.png"],
+        "text": "Click on the picture of the rest that lasts for half a beat.",
+        "correctAnswer": 0,
+        "explanation": "The quaver rest means silence for half a beat.",
+        "feedback": ["The quaver rest lasts for half a beat.", "Remember that a crotchet rest means one beat of silence. If you're still unsure, you can click back and go through the first few pages again."]
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Semiquaver rests",
+        "images": ["images/grade1/Rests/semiquaver-rest.png"],
+        "text": "Next is the semiquaver rest. A bit like the semiquaver note, it has two tails."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Semiquaver rests",
+        "images": ["images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Rests/semiquaver-rest.png"],
+        "text": "This is a semiquaver note next to its corresponding rest."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Rests/quaver-rest.png", "images/grade1/Rests/semiquaver-rest.png"],
+        "text": "Which is the semiquaver rest? You can go back and check the last page if you're not sure.",
+        "correctAnswer": 1,
+        "explanation": "The semiquaver rest has two tails.",
+        "feedback": ["This is a quaver rest. Remember that the semiquaver rest has two tails.", "Well done!"]
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Rests/quaver-rest.png", "images/grade1/Rests/semiquaver-rest.png"],
+        "text": "Which is the quaver rest?",
+        "correctAnswer": 0,
+        "explanation": "The quaver rest just has one tail.",
+        "feedback": ["Well remembered.", "This is a semiquaver rest. Try and identify the quaver rest."]
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Drawing",
+        "images": ["images/grade1/Rests/crotchet-rest.png", "images/grade1/Rests/quaver-rest.png", "images/grade1/Rests/semiquaver-rest.png"],
+        "text": "Take a break and practise drawing the rests you have learnt so far: crotchet rest, quaver rest and semiquaver rest."
+    },
+    {
+        "contentType": "rhythm",
+        "pageTitle": "Clapping",
+        "images": ["images/grade1/Notes/two-quavers-stems-up.png", "images/grade1/Rests/crotchet-rest.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png"],
+        "text": "Try clapping this rhythm carefully.",
+        "audioFile": "./Sounds/restValues1.m4a"
+    },
+    {
+        "contentType": "rhythm",
+        "pageTitle": "Clapping",
+        "images": ["images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Rests/crotchet-rest.png", "images/grade1/Rests/crotchet-rest.png", "images/grade1/Notes/two-quavers-stems-up.png"],
+        "text": "How about this one?",
+        "audioFile": "./Sounds/restValues2.m4a"
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Minim rests",
+        "images": ["images/grade1/Rests/minim-rest.png"],
+        "text": "We're almost there with rests now, with just two more to learn. This is a minim rest, meaning it lasts for two beats."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Minim rests",
+        "images": ["images/grade1/Notes/minim-stem-up.png", "images/grade1/Rests/minim-rest-small.png"],
+        "text": "This is the minim note next to its corresponding rest."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Rests/quaver-rest.png", "images/grade1/Rests/minim-rest-small.png"],
+        "text": "Click on the minim rest.",
+        "correctAnswer": 1,
+        "explanation": "The minim rest is a rectangle on top of a line.",
+        "feedback": ["This is a quaver rest.", "Well done!"]
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Semibreve rests",
+        "images": ["images/grade1/Rests/semibreve-rest.png"],
+        "text": "This is the semibreve rest. It means four beats of silence."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Semibreve rests",
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Rests/semibreve-rest-small.png"],
+        "text": "This is the semibreve note next to its corresponding rest."
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Minim and semibreve rests",
+        "images": ["images/grade1/Rests/minim-rest-small.png", "images/grade1/Rests/semibreve-rest-small.png"],
+        "text": "You might have noticed that the minim and semibreve rests looks quite similar. One way to remember which is which is to think that the semibreve rest is holding four beats, so it's heavier and hanging down from the line."
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Rests/minim-rest-small.png", "images/grade1/Rests/semibreve-rest-small.png"],
+        "text": "Click on the minim rest.",
+        "correctAnswer": 0,
+        "explanation": "The minim rest sits on top of the line.",
+        "feedback": ["Well remembered! This is the minim rest that lasts for two beats.", "This is actually the semibreve rest, which hangs below the line, lasting for four beats."]
+    },
+    {
+        "contentType": "question",
+        "questionType": "multipleChoice",
+        "images": ["images/grade1/Rests/minim-rest-small.png", "images/grade1/Rests/semibreve-rest-small.png"],
+        "text": "Click on the semibreve rest.",
+        "correctAnswer": 1,
+        "explanation": "Thesemibreve rest hangs below the line.",
+        "feedback": ["This is a minim rest, lasting for two beats.", "Excellent work."]
+    },
+    {
+        "contentType": "information",
+        "pageTitle": "Well done!",
+        "images": ["images/grade1/Rests/semibreve-rest-small.png", "images/grade1/Rests/minim-rest-small.png", "images/grade1/Rests/crotchet-rest.png", "images/grade1/Rests/quaver-rest.png", "images/grade1/Rests/semiquaver-rest.png"],
+        "text": "You have learnt about the main rest symbols for grade 1. Here they are in order starting from the longest (semibreve rest) to shorted (semiquaver rest).<br><br>Practise drawing them with pencil and paper, and take another quiz to revise everything you've learnt so far.<br><br>Click the forward arrow to finish."
+    }
+]

@@ -1,35 +1,72 @@
 [
     {
-        "term": "accelerando",
-        "definition": "Gradually getting <emph>faster</emph>. Sometimes shortened to accel.",
-        "image": "null"
-    },
-    {
+        "id": "crotchet",
         "term": "crotchet",
         "definition": "A note that lasts for one beat.",
         "image": "images/grade1/Notes/crotchet-stem-up.png"
     },
     {
+        "id": "crotchetRest",
+        "term": "crotchet rest",
+        "definition": "A rest that lasts for one beat.",
+        "image": "images/grade1/Rests/crotchet-rest.png"
+    },
+    {
+        "id": "minim",
         "term": "minim",
         "definition": "A note that lasts for two beats.",
         "image": "images/grade1/Notes/minim-stem-up.png"
     },
     {
+        "id": "minimRest",
+        "term": "minim rest",
+        "definition": "A rest that lasts for two beats.",
+        "image": "images/grade1/Rests/minim-rest-small.png"
+    },
+    {
+        "id": "quaver",
         "term": "quaver",
         "definition": "A note that lasts for half a beat, meaning it is half as long as a crotchet.",
         "image": "images/grade1/Notes/quaver-stem-up.png"
     },
     {
+        "id": "quaverRest",
+        "term": "quaver rest",
+        "definition": "A rest that lasts for half a beat.",
+        "image": "images/grade1/Rests/quaver-rest.png"
+    },
+    {
+        "id": "rest",
+        "term": "rest",
+        "definition": "Notation to show how long silence should last for.",
+        "image": "null"
+    },
+    {
+        "id": "semibreve",
         "term": "semibreve",
         "definition": "A note that lasts for four beats.",
         "image": "images/grade1/Notes/semibreve-small.png"
     },
     {
+        "id": "semibreveRest",
+        "term": "semibreve rest",
+        "definition": "A rest that lasts for four beats.",
+        "image": "images/grade1/Rests/semibreve-rest-small.png"
+    },
+    {
+        "id": "semiquaver",
         "term": "semiquaver",
         "definition": "A note that lasts for a quarter of a beat. Four semi-quavers last the same amount of time as one crotchet.",
         "image": "images/grade1/Notes/semiquaver-stem-up.png"
     },
     {
+        "id": "semiquaverRest",
+        "term": "semiquaver rest",
+        "definition": "A rest that lasts for a quarter of a beat.",
+        "image": "images/grade1/Rests/semiquaver-rest.png"
+    },
+    {
+        "id": "stem",
         "term": "stem",
         "definition": "The vertical line that sticks up or down from some notes.",
         "image": "images/grade1/Notes/crotchet-stem.png"
