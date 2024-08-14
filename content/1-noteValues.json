@@ -146,7 +146,7 @@
     {
         "contentType": "question",
         "questionType": "multipleChoice",
-        "images": ["images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/two-quavers-stems-up.png"],
+        "images": ["images/grade1/Notes/quaver-stem-down.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/two-quavers-stems-down.png"],
         "text": "Which is the semiquaver?",
         "correctAnswer": 2,
         "explanation": "The semiquaver is the black note that has two tails attached to the stem.",
