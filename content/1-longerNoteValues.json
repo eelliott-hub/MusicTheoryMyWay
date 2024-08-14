@@ -173,13 +173,13 @@
     {
         "contentType": "information",
         "pageTitle": "Good work!",
-        "images": ["images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/semibreve-small.png"],
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png"],
         "text": "You have reached the end of this section on note values. Have a go at drawing all the notes you've learnt so far."
     },
     {
         "contentType": "information",
         "pageTitle": "Try a quiz",
-        "images": ["images/grade1/Notes/semiquaver-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/semibreve-small.png"],
+        "images": ["images/grade1/Notes/semibreve-small.png", "images/grade1/Notes/minim-stem-up.png", "images/grade1/Notes/crotchet-stem-up.png", "images/grade1/Notes/quaver-stem-up.png", "images/grade1/Notes/semiquaver-stem-up.png"],
         "text": "Try taking a <emph>quiz</emph> of the things you've learnt so far.<br>The <emph>glossary</emph> is always there to help if you want to look something up.<br><br>Click the forward arrow to finish."
     }
 
