@@ -2809,10 +2809,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fixing some odd pronunciation
     function speechAdjustments(textIn){
-        textOut = textIn.replace("semibreve", "semibreeve");
-        textOut = textOut.replace("Semibreve", "Semibreeve");
-        textOut = textOut.replace("crotchets", "crotchits");
-        textOut = textOut.replace("Crotchets", "Crotchits");
+        textOut = textIn.replaceAll("semibreve", "semibreeve");
+        textOut = textOut.replaceAll("Semibreve", "Semibreeve");
+        textOut = textOut.replaceAll("crotchets", "crotchits");
+        textOut = textOut.replaceAll("Crotchets", "Crotchits");
+        textOut = textOut.replaceAll("<emph>", "");
+        textOut = textOut.replaceAll("</emph>", "");
         return textOut;
     }
 

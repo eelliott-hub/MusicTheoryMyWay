@@ -1,5 +1,11 @@
 [
     {
+        "id": "beam",
+        "term": "beam",
+        "definition": "A horizontal line that joins together two or more notes of the same time value.",
+        "image": "images/beam.png"
+    },
+    {
         "id": "crotchet",
         "term": "crotchet",
         "definition": "A note that lasts for one beat.",
@@ -22,6 +28,12 @@
         "term": "minim rest",
         "definition": "A rest that lasts for two beats.",
         "image": "images/grade1/Rests/minim-rest-small.png"
+    },
+    {
+        "id": "notehead",
+        "term": "notehead",
+        "definition": "The oval or elliptical part of a musical note.",
+        "image": "images/grade1/Notes/notehead.png"
     },
     {
         "id": "quaver",
