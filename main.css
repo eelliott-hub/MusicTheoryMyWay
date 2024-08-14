@@ -1,18 +1,27 @@
 /***** Overall styling *****/
 
 @font-face {
-    font-family: OpenDyslexic;
-    src: url('Fonts/OpenDyslexic/OpenDyslexic3-Regular.ttf'); 
+    font-family: 'OpenDyslexic';
+    src: url('Fonts/OpenDyslexic/OpenDyslexic-Regular.eot'),
+         url('Fonts/OpenDyslexic/OpenDyslexic-Regular.woff2') format('woff2'), 
+         url('Fonts/OpenDyslexic/OpenDyslexic-Regular.woff') format('woff'), 
+         url('Fonts/OpenDyslexic/OpenDyslexic3-Regular.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
     font-family: OpenSans;
     src: url('Fonts/OpenSans/OpenSans-Regular.ttf'); 
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
     font-family: ComicSans;
     src: url('Fonts/ComicSans/Comic\ Sans\ MS\ 400.ttf');
+    font-weight: normal;
+    font-style: normal;
 }
 
 html {

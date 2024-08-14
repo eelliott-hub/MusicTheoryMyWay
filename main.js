@@ -585,10 +585,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function setTypeface(typeface){
-        document.getElementById('nav').style.fontFamily = typeface;
-        document.getElementById('header').style.fontFamily = typeface;
-        document.getElementById('main').style.fontFamily = typeface;
-        document.getElementById('footer').style.fontFamily = typeface;
+        document.body.style.fontFamily = typeface;
     }
 
     function renderOtherFontSettings() {
@@ -666,6 +663,8 @@ document.addEventListener('DOMContentLoaded', function() {
            if(currentFontSize < maxFontSize) { 
                 increaseFontSizeButton.classList.remove('minMaxReached');
                 currentFontSize ++; 
+                localStorage.setItem('settingsChanged', "true");
+                console.log("Font size increased.");
             }
            else{
                 increaseFontSizeButton.classList.add('minMaxReached');
@@ -674,12 +673,16 @@ document.addEventListener('DOMContentLoaded', function() {
         else {
             if(currentFontSize > minFontSize){ 
                 decreaseFontSizeButton.classList.remove('minMaxReached');
-                currentFontSize --; 
+                currentFontSize --;
+                localStorage.setItem('settingsChanged', "true"); 
+                console.log("Font size decreased.");
             }
             else {
                 decreaseFontSizeButton.classList.add('minMaxReached');
             }
         }
+        assert(currentFontSize <= maxFontSize, "Font size cannot be greater than "+maxFontSize+".");
+        assert(currentFontSize >= minFontSize, "Font size cannot be less than "+minFontSize+".");
         setFontSize(currentFontSize + "px");
         localStorage.setItem('fontSize', currentFontSize);
     }
@@ -695,6 +698,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if(currentCharSpacing < maxCharSpacing) { 
                 increaseSpacingButton.classList.remove('minMaxReached');
                 currentCharSpacing += 0.2; 
+                localStorage.setItem('settingsChanged', "true");
+                console.log("Character spacing increased.");
             }
             else {
                 increaseSpacingButton.classList.add('minMaxReached');
@@ -704,13 +709,17 @@ document.addEventListener('DOMContentLoaded', function() {
             if(currentCharSpacing > minCharSpacing) { 
                 decreaseSpacingButton.classList.remove('minMaxReached');
                 currentCharSpacing -= 0.2; 
+                localStorage.setItem('settingsChanged', "true");
+                console.log("Character spacing decreased.");
             } 
         
             else {
                 decreaseSpacingButton.classList.add('minMaxReached');
+
             }
         }
-
+        assert(currentCharSpacing <= maxCharSpacing, "Character spacing cannot be greater than "+maxCharSpacing+".");
+        assert(currentCharSpacing >= minCharSpacing, "Character spacing cannot be less than "+minCharSpacing+".");
         setCharSpacing(currentCharSpacing + "px");
         localStorage.setItem('charSpacing', currentCharSpacing);
     }
@@ -910,6 +919,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rightAnswerCheckboxContainer.appendChild(rightAnswerCheckbox);
 
         rightAnswerCheckbox.addEventListener('change', function() {
+            localStorage.setItem('settingsChanged', "true");
             if (this.checked) {
               setRightAnswerSound("yes");
             } else {
@@ -945,6 +955,7 @@ document.addEventListener('DOMContentLoaded', function() {
         wrongAnswerCheckboxContainer.appendChild(wrongAnswerCheckbox);
 
         wrongAnswerCheckbox.addEventListener('change', function() {
+            localStorage.setItem('settingsChanged', "true");
             if (this.checked) {
               setWrongAnswerSound("yes");
             } else {
@@ -2059,7 +2070,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         }
 
-        return quizQuestions.slice(0, quizNumber);
+        const finalQuizQuestions = quizQuestions.slice(0, quizNumber);
+        assert(finalQuizQuestions.length === quizNumber, "The quiz should contain "+quizNumber+" questions.");
+
+        return finalQuizQuestions;
     }
 
     async function loadTopicsForGrade(grade) {
@@ -2349,7 +2363,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // For each quiz result range check the user's score against the min and max values
             // Extract the relevant text and render it to the page with the score out of the quizNumber value
-
+            assert(quizResult <= quizNumber, "The quiz result cannot be greater than "+quizNumber+".");
+            assert(quizResult >= 0, "The quiz result cannot be less than 0.");
             for(let i = 0; i < quizResultsData.length; i++){
                 if(quizResult >= quizResultsData[i].minScore && quizResult <= quizResultsData[i].maxScore){
                     shortText = quizResultsData[i].shortText;
@@ -2701,6 +2716,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set the highest grade completed
     function setHighestGradeCompleted(grade){
+        assert(grade <= 5, "Highest grade completed cannot be greater than 5.");
+        assert(grade > 0, "Highest grade completed cannot be less than 1.");
         localStorage.setItem('highestGradeCompleted', grade);
     }
 
@@ -2711,18 +2728,25 @@ document.addEventListener('DOMContentLoaded', function() {
             return 0;
         }
         else{
-            return parseInt(localStorage.getItem('highestGradeCompleted'));
+            assert(highestGradeCompleted <= 5, "Highest grade completed cannot be greater than 5.");
+            assert(highestGradeCompleted > 0, "Highest grade completed cannot be less than 1.");
+            return parseInt(highestGradeCompleted);
         }
     }
 
     // Store the current grade in the session storage
     function setCurrentGrade(grade){
+        assert(grade <= 5, "Current grade cannot be greater than 5.");
+        assert(grade > 0, "Current grade cannot be less than 1.");
         sessionStorage.setItem('currentGrade', grade);
     }
 
     // Get the current grade from session storage
     function getCurrentGrade(){
-        return sessionStorage.getItem('currentGrade');
+        const currentGrade = sessionStorage.getItem('currentGrade');
+        assert(currentGrade <= 5, "Current grade cannot be greater than 5.");
+        assert(currentGrade > 0, "Current grade cannot be less than 1.");
+        return currentGrade;
     }
 
     // Set the index of the highest topic completed in local storage
@@ -2771,6 +2795,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return sessionStorage.getItem('currentTopicName');
     }
 
+    // Remove the progress bar when a topic has finished
     function removeProgressBar(){
         const progress = document.getElementById("progress");
         if(progress){
@@ -2782,12 +2807,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Fixing some odd pronunciation
     function speechAdjustments(textIn){
         textOut = textIn.replace("semibreve", "semibreeve");
         textOut = textOut.replace("Semibreve", "Semibreeve");
         textOut = textOut.replace("crotchets", "crotchits");
         textOut = textOut.replace("Crotchets", "Crotchits");
         return textOut;
+    }
+
+    // Assert test
+    function assert(condition, message) {
+        if (condition) {
+            console.log('%c PASS: ' + message, 'color: green');
+            return true;
+        } else {
+            console.error('%c FAIL: ' + message, 'color: red');
+            return false;
+        }
     }
 
     ////// Render the page content //////
