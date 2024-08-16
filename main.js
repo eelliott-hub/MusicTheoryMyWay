@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // TODO change to JSON file instead?
     function renderHomePageTour(){
         const pageTitle = "Welcome to Music Theory My Way!";
-        const introText = "Are you here to learn or revise Music Theory?<br><br> Music Theory My Way is designed to be dyslexia-friendly and customisable to suit your learning preferences, and provides information and quizzes about music theory topics up to Grade 5.<br><br>It looks like you are new to this site. Take the tour to learn your way around.";
+        const introText = "Music Theory My Way is designed to be dyslexia-friendly and customisable to suit your learning preferences, and provides information and quizzes about music theory topics up to Grade 5.<br><br>It looks like you are new to this site. Take the tour to learn your way around.";
         const buttonNav = "tour";
         const buttonText = "Take the tour";
         const siteSectionTo = "TOUR";
