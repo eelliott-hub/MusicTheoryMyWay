@@ -221,7 +221,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Home page functions //////
 
-    // TODO change to JSON file instead?
     function renderHomePageTour(){
         const pageTitle = "Welcome to Music Theory My Way!";
         const introText = "Music Theory My Way is designed to be dyslexia-friendly and customisable to suit your learning preferences, and provides information and quizzes about music theory topics up to Grade 5.<br><br>It looks like you are new to this site. Take the tour to learn your way around.";
@@ -2242,8 +2241,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const incorrectSelected = document.getElementById(chosenAnswerIndex);
             incorrectSelected.style.borderColor = "#ed3b4d";
             incorrectSelected.style.borderWidth = "4px";
-            const answerText = "Not quite! Would you like to try again?";
+            const answerText = "Not quite! " + feedback + " <br><br>";
             quizTextContainer.innerHTML = answerText;
+
+            // Add speech controls
+            const speechButtonsContainer = document.createElement('div');
+            speechButtonsContainer.setAttribute('class', "speechButtonsContainer");
+            speechButtonsContainer.setAttribute('id', "feedbackSpeechButtonsContainer");
+            quizTextContainer.appendChild(speechButtonsContainer);
+            const textToRead = quizTextContainer.innerHTML;
+            createSpeechButtons("feedbackSpeechButtonsContainer", "feedbackPlayButton", "feedbackPauseButton", textToRead, "PLAY");
 
             const incorrectAnswerContainer = document.createElement('div');
             incorrectAnswerContainer.setAttribute('id', 'incorrectAnswerContainer');
@@ -2620,6 +2627,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Reinitialise the utterance to avoid conflict with other buttons
                 utterance = new SpeechSynthesisUtterance(textToRead);
+                utterance.lang = "en-GB";
                 const voices = speechSynthesis.getVoices();
                 if (voices.length > 2) {
                     utterance.voice = voices[2];
