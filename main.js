@@ -2632,7 +2632,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // if (voices.length > 2) {
                 //     utterance.voice = voices[2];
                 // }
-                
+
 
                 // Start speaking the text
                 speechSynthesis.speak(utterance);
@@ -2822,8 +2822,12 @@ document.addEventListener('DOMContentLoaded', function() {
         textOut = textOut.replaceAll("Semibreve", "Semibreeve");
         textOut = textOut.replaceAll("crotchets", "crotchits");
         textOut = textOut.replaceAll("Crotchets", "Crotchits");
-        textOut = textOut.replaceAll("<emph>", "");
-        textOut = textOut.replaceAll("</emph>", "");
+        // textOut = textOut.replaceAll("<emph>", "");
+        // textOut = textOut.replaceAll("</emph>", "");
+        // textOut = textOut.replaceAll("<br>", "");
+        // textOut = textOut.replaceAll("<div>", "");
+        // textOut = textOut.replaceAll("</div>", "");
+        textOut = textOut.replace(/<[^>]*>/g, "");
         return textOut;
     }
 
