@@ -2629,9 +2629,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 utterance = new SpeechSynthesisUtterance(textToRead);
                 utterance.lang = "en-GB";
                 const voices = speechSynthesis.getVoices();
-                if (voices.length > 2) {
-                    utterance.voice = voices[2];
-                }
+                // if (voices.length > 2) {
+                //     utterance.voice = voices[2];
+                // }
+                
 
                 // Start speaking the text
                 speechSynthesis.speak(utterance);
