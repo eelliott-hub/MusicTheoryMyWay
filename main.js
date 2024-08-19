@@ -1396,23 +1396,7 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyMainText();
             emptyFooter();
 
-            const progressBar = document.getElementById("progressBar");
-
-            if(!progressBar){
-                const progress = document.createElement('div');
-                progress.setAttribute('id', "progress");
-        
-                const progressBar = document.createElement('div');
-                progressBar.setAttribute('id', "progressBar");
-        
-                const header = document.getElementById("header-container");
-                header.appendChild(progressBar);
-                progressBar.appendChild(progress);
-                
-            }
-
-            const progressPcnt = ((index+1)/topicContent.length)*100;
-            progress.style.width = progressPcnt + "%";
+            renderProgressBar(index, topicContent.length);
 
             if(item.contentType === "information"){    
                 renderInformation(item);
@@ -2241,7 +2225,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const incorrectSelected = document.getElementById(chosenAnswerIndex);
             incorrectSelected.style.borderColor = "#ed3b4d";
             incorrectSelected.style.borderWidth = "4px";
-            const answerText = "Not quite! " + feedback + " <br><br>";
+            const answerText = "Not quite!<br><br>";
             quizTextContainer.innerHTML = answerText;
 
             // Add speech controls
@@ -2795,13 +2779,37 @@ document.addEventListener('DOMContentLoaded', function() {
         return sessionStorage.getItem('currentTopicId');
     }
 
-    // Get the current topic index from session storage
+    // Get the current topic index and name from session storage
     function getCurrentTopicIndex(){
         return parseInt(sessionStorage.getItem('currentTopicIndex'));
     }
 
     function getCurrentTopicName(){
         return sessionStorage.getItem('currentTopicName');
+    }
+
+    // Render the progress bar
+    function renderProgressBar(index, length) {
+        const progressBar = document.getElementById("progressBar");
+
+        if(!progressBar){
+            const progress = document.createElement('div');
+            progress.setAttribute('id', "progress");
+    
+            const progressBar = document.createElement('div');
+            progressBar.setAttribute('id', "progressBar");
+    
+            const header = document.getElementById("header-container");
+            header.appendChild(progressBar);
+            progressBar.appendChild(progress);
+
+            const progressPcnt = ((index+1)/length)*100;
+            progress.style.width = progressPcnt + "%";
+            
+        }
+
+        const progressPcnt = ((index+1)/topicContent.length)*100;
+        progress.style.width = progressPcnt + "%";
     }
 
     // Remove the progress bar when a topic has finished
@@ -2822,11 +2830,6 @@ document.addEventListener('DOMContentLoaded', function() {
         textOut = textOut.replaceAll("Semibreve", "Semibreeve");
         textOut = textOut.replaceAll("crotchets", "crotchits");
         textOut = textOut.replaceAll("Crotchets", "Crotchits");
-        // textOut = textOut.replaceAll("<emph>", "");
-        // textOut = textOut.replaceAll("</emph>", "");
-        // textOut = textOut.replaceAll("<br>", "");
-        // textOut = textOut.replaceAll("<div>", "");
-        // textOut = textOut.replaceAll("</div>", "");
         textOut = textOut.replace(/<[^>]*>/g, "");
         return textOut;
     }
