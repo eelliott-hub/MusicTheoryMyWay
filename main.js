@@ -70,10 +70,9 @@ document.addEventListener('DOMContentLoaded', function() {
         emptyMainText();
         emptyFooter();
         highlightCurrentNav();
-        if(siteSection != "CONTENT"){
+        if(siteSection !== "CONTENT"){
             removeProgressBar();
         }
-
         if(siteSection === "HOME") {
             if (!localStorage.getItem('tourCompleted', "true")) { renderHomePageTour(); }
             else if (!localStorage.getItem('settingsChanged', "true")) { renderHomePageSettings(); }
@@ -466,8 +465,8 @@ document.addEventListener('DOMContentLoaded', function() {
         setBackgroundColour(newBackgroundColour);
         localStorage.setItem('backgroundColour', newBackgroundColour);
 
-        var colourBlocks = document.getElementsByClassName('colourBlock');
-        for (var i = 0; i < colourBlocks.length; i++) {
+        let colourBlocks = document.getElementsByClassName('colourBlock');
+        for (let i = 0; i < colourBlocks.length; i++) {
             if(localStorage.getItem('backgroundColour') === "#f5f5f5" && colourBlocks[i].innerHTML === "White"){
                 colourBlocks[i].classList.add('chosen');
             }
@@ -557,8 +556,8 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Changing font typeface to:', newTypeface);
         setTypeface(newTypeface);
         localStorage.setItem('fontTypeface', newTypeface);
-        var typefaceBlocks = document.getElementsByClassName('typefaceBlock');
-        for (var i = 0; i < typefaceBlocks.length; i++) {
+        let typefaceBlocks = document.getElementsByClassName('typefaceBlock');
+        for (let i = 0; i < typefaceBlocks.length; i++) {
             if(localStorage.getItem('fontTypeface') === "OpenSans, sans-serif" && typefaceBlocks[i].innerHTML === "Open Sans"){
                 typefaceBlocks[i].classList.add('chosen');
             }
@@ -660,24 +659,26 @@ document.addEventListener('DOMContentLoaded', function() {
         let currentFontSize = parseFloat(window.getComputedStyle(body, null).getPropertyValue('font-size'));
         if(action === "increase"){
            if(currentFontSize < maxFontSize) { 
-                increaseFontSizeButton.classList.remove('minMaxReached');
+                document.getElementById("increaseFontSizeButton").classList.remove('minMaxReached');
+                document.getElementById("decreaseFontSizeButton").classList.remove('minMaxReached');
                 currentFontSize ++; 
                 localStorage.setItem('settingsChanged', "true");
                 console.log("Font size increased.");
             }
            else{
-                increaseFontSizeButton.classList.add('minMaxReached');
+                document.getElementById("increaseFontSizeButton").classList.add('minMaxReached');
            }
         }
         else {
             if(currentFontSize > minFontSize){ 
-                decreaseFontSizeButton.classList.remove('minMaxReached');
+                document.getElementById("decreaseFontSizeButton").classList.remove('minMaxReached');
+                document.getElementById("increaseFontSizeButton").classList.remove('minMaxReached');
                 currentFontSize --;
                 localStorage.setItem('settingsChanged', "true"); 
                 console.log("Font size decreased.");
             }
             else {
-                decreaseFontSizeButton.classList.add('minMaxReached');
+                document.getElementById("decreaseFontSizeButton").classList.add('minMaxReached');
             }
         }
         assert(currentFontSize <= maxFontSize, "Font size cannot be greater than "+maxFontSize+".");
@@ -695,25 +696,27 @@ document.addEventListener('DOMContentLoaded', function() {
         let currentCharSpacing = parseFloat(window.getComputedStyle(body, null).getPropertyValue('letter-spacing'));
         if(action === "increase"){
             if(currentCharSpacing < maxCharSpacing) { 
-                increaseSpacingButton.classList.remove('minMaxReached');
+                document.getElementById("increaseSpacingButton").classList.remove('minMaxReached');
+                document.getElementById("decreaseSpacingButton").classList.remove('minMaxReached');
                 currentCharSpacing += 0.2; 
                 localStorage.setItem('settingsChanged', "true");
                 console.log("Character spacing increased.");
             }
             else {
-                increaseSpacingButton.classList.add('minMaxReached');
+                document.getElementById("increaseSpacingButton").classList.add('minMaxReached');
             }
         }
         else { 
             if(currentCharSpacing > minCharSpacing) { 
-                decreaseSpacingButton.classList.remove('minMaxReached');
+                document.getElementById("decreaseSpacingButton").classList.remove('minMaxReached');
+                document.getElementById("increaseSpacingButton").classList.remove('minMaxReached');
                 currentCharSpacing -= 0.2; 
                 localStorage.setItem('settingsChanged', "true");
                 console.log("Character spacing decreased.");
             } 
         
             else {
-                decreaseSpacingButton.classList.add('minMaxReached');
+                document.getElementById("decreaseSpacingButton").classList.add('minMaxReached');
 
             }
         }
@@ -1112,7 +1115,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             document.getElementById('tourSubheading').innerHTML = page.subheading;
             document.getElementById('tourText').innerHTML = page.text;
-            if (page.image != "null") {
+            if (page.image !== "null") {
                 document.getElementById('tourImage').src = page.image;
                 document.getElementById('tourImage').alt = page.altText;
             }
@@ -1916,7 +1919,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const quizAllLabel = document.createElement('div');
         quizAllLabel.setAttribute('id', "quizAllLabel");
-        quizAllLabel.innerHTML = "All available topics"
+        quizAllLabel.innerHTML = "All available topics";
         quizAllContainer.appendChild(quizAllLabel);
 
         const quizAllCheckbox = document.createElement('input');
@@ -1971,7 +1974,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         const topicLabel = document.createElement('div');
                         topicLabel.setAttribute('class', "topicLabel");
                         topicLabel.innerHTML = aTopic.name;
-                        topicList.appendChild(topicLabel)
+                        topicList.appendChild(topicLabel);
 
                         const topicCheckbox = document.createElement('input');
                         topicCheckbox.setAttribute('type', "checkbox");
@@ -2294,7 +2297,7 @@ document.addEventListener('DOMContentLoaded', function() {
             quizTextContainer.innerHTML = item.explanation + "<br><br>";
 
             // Remove other options
-            incorrectAnswerContainer.remove();
+            document.getElementById("incorrectAnswerContainer").remove();
 
             // Remove attempts from sessionStorage
             sessionStorage.removeItem('attempts');
@@ -2484,7 +2487,22 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("page-title").innerHTML = "About Music Theory My Way";
         const aboutContainer = document.createElement('div');
         aboutContainer.setAttribute('id', "aboutContainer");
-        aboutContainer.innerHTML = 'Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>It is a prototype for a dyslexia-friendly website for learning music theory. Some of the features designed for dyslexia are:<ul><li>Customisable appearance.</li><li>Text-to-speech options.</li><li>Clear and organised layout without clutter.</li><li>Straightforward language.</li><li>Multisensory content.</li><li>Systematic and structured learning.</li><li>Repetition and revision of concepts.</li></ul>If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your data is not collected by any third parties. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!<br>Liz Elliott<br>University of Bristol<br>';
+        const aboutHTML = `
+            Music Theory My Way has been developed as part of the final project for my MSc in Computer Science at the University of Bristol.<br><br>
+            It is a prototype for a dyslexia-friendly website for learning music theory. Some of the features designed for dyslexia are:
+            <ul>
+                <li>Customisable appearance.</li>
+                <li>Text-to-speech options.</li>
+                <li>Clear and organised layout without clutter.</li>
+                <li>Straightforward language.</li>
+                <li>Multisensory content.</li>
+                <li>Systematic and structured learning.</li>
+                <li>Repetition and revision of concepts.</li>
+            </ul>
+            If you change any settings or finish any of the topics your progress will be saved in your own web browser. I cannot see anything you do on the site and I am not collecting any data from you. Your data is not collected by any third parties. Your progress and settings will be retained if you return to the site on the same device and in the same web browser.<br><br>Thank you for your interest!
+            <br>Liz Elliott
+            <br>University of Bristol<br>`;
+        aboutContainer.innerHTML = aboutHTML;
 
         const mainContainer = document.getElementById("main-container");
         mainContainer.appendChild(aboutContainer);     
@@ -2501,10 +2519,88 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const acknowledgementsContainer = document.createElement('div');
         acknowledgementsContainer.setAttribute('id', "acknowledgementsContainer");
-        acknowledgementsContainer.innerHTML = '<br><br><h2>Acknowledgements</h2>The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)</ul>The sound effects when you get a quiz question right or wrong are freely availably from <a href="https://mixkit.co/">Mixkit</a>.';
-
+        const acknowledgementsHTML = `
+            <br><br>
+            <h2>Acknowledgements</h2>
+            The <a href="https://opendyslexic.org/">Open Dyslexic</a> font is made freely available for any use by Abbie Gonzalez. 
+            The standalone images of music notes and other symbols on the website use <a href="https://midnightmusic.com/2013/06/the-big-free-music-notation-image-library/">The Big Free Music Notation Image Library by Midnight Music</a>. 
+            The other icons on the site were downloaded from Flat Icon, and I specifically acknowledge the following contributors: <ul><li>lutfix (glossary icon)</li><li>Dave Gandy (home and tour icons)</li><li>Freepik (music notes, settings and laptop/tablet icons)</li><li>Tanah Basah (quiz icon)</li><li>Chanut (about icon)</li><li>Handicon (equivalence symbol)</li><li>hqrloveq (forward and back arrows)</ul>
+            The sound effects when you get a quiz question right or wrong are freely availably from <a href="https://mixkit.co/">Mixkit</a>.`;
+        acknowledgementsContainer.innerHTML = acknowledgementsHTML;
         mainContainer.appendChild(acknowledgementsContainer);
 
+        const designPrinciplesContainer = document.createElement('div');
+        designPrinciplesContainer.setAttribute('id', "designPrinciplesContainer");
+        
+        const designPrinciplesHTML = `
+            <br><br><h2>Design Principles</h2>As well as creating this website prototype, this project also involved developing a set of design principles for making dyslexia-friendly software. The design principles were defined based on a literature review and are listed below:
+            <ol type="A">
+                <li><emph>Layout</emph>
+                    <ol>
+                        <li>Use a clear and organised layout which groups related content, with sufficient whitespace and without unnecessary clutter.</li>
+                        <li>Left-align text and avoid using multiple columns.</li>
+                        <li>Navigation should be consistent and predictable.</li>
+                        <li>Music theory application: Ensure musical scores or clusters of symbols or images are laid out clearly with plenty of space between elements.</li>
+                    </ol>
+                </li>
+                <li><emph>Style</emph>
+                    <ol>
+                        <li>Use a font size of at least 14 pt, with the option to increase it further, in a readable sans serif typeface.</li>
+                        <li>Letter spacing should be at least 0.12 times the font size and word spacing at least 3.5 times the letter spacing. Spacing between lines should be at least 1.5 times the font size, and at least 2 times between paragraphs.</li>
+                        <li>Avoid using underlining and italic styles, and use bold for emphasis. Avoid using capital letters for continuous text.</li>
+                        <li>Use a font at least 20\% larger for headings, with consistent styling throughout.</li>
+                        <li>Music theory application: Where the convention is to use italicised text for musical terms, offer a non-italicised alternative in the user's chosen font.<br></li>
+                    </ol>
+                </li>
+                <li><emph>Language</emph>
+                    <ol>
+                        <li>Use straightforward, consistent and direct language, avoiding idioms, double negatives and the passive voice.</li>
+                        <li>Give short, clear and simple instructions, and avoid dense, continuous prose.</li>
+                        <li>Provide a glossary of terms.</li>
+                    </ol>  
+                </li>
+                <li><emph>Colour</emph>
+                    <ol>
+                        <li>Use dark text on a light coloured background as an alternative to white, avoiding background patterns and pictures.</li>
+                        <li>Offer colour highlighting for important symbols or aspects of the content.</li>
+                        <li>Music theory application: Apply the user's chosen background colour to the musical score as well as to text.</li>
+                    </ol> 
+                </li>
+                <li><emph>Multisensory delivery of content</emph>
+                    <ol>
+                        <li>Offer graphics, pictures and audio to support and supplement text without losing information or structure.</li>
+                        <li>Offer interactive content.</li>
+                        <li>Suggest offline activities that use the kinaesthetic, aural and oral senses.</li>
+                        <li>Music theory application:</li>
+                            <ul>
+                                <li>Offer interactive content such as musical puzzles, words that match rhythms, mnemonics for remembering note names, and well-known songs that start with each interval.</li>
+                                <li>Offer offline activities like drawing symbols, clapping rhythms and singing.</li>
+                                <li>Include sound as a key element. </li>
+                            </ul>
+                    </ol>
+                </li>
+                <li><emph>Cumulative and systematic learning</emph>
+                    <ol>
+                        <li>Structure the learning in a systematic and cumulative way, which builds on prior knowledge.</li>
+                        <li>Break down content into small components and introduce one new concept at a time.</li>
+                        <li>Provide opportunities to revise and repeat concepts and tasks.</li>
+                        <li>Give plenty of time for users to read and process information at their own pace.</li>
+                        <li>Celebrate success and clearly explain wrong answers.</li>
+                    </ol> 
+                </li>    
+                <li><emph>Personalisation</emph>
+                    <ol>
+                        <li>Allow users to customise font typeface, size, and spacing.</li>
+                        <li>Allow users to choose colours and how they are used.</li>
+                        <li>Optimise the software for the use of screen readers.</li>
+                        <li>Music theory application: Offer customisation in relation to how the musical elements are presented, for example if colour is used to highlight certain elements, allow the user to choose the colour.</li>
+                    </ol> 
+                </li>
+            </ol> `;
+
+        designPrinciplesContainer.innerHTML = designPrinciplesHTML;
+        
+        mainContainer.appendChild(designPrinciplesContainer);
     }
 
 
@@ -2613,10 +2709,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 utterance = new SpeechSynthesisUtterance(textToRead);
                 utterance.lang = "en-GB";
                 const voices = speechSynthesis.getVoices();
-                // if (voices.length > 2) {
-                //     utterance.voice = voices[2];
-                // }
-
 
                 // Start speaking the text
                 speechSynthesis.speak(utterance);
@@ -2700,7 +2792,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function addBottomBorder(buttonName){
         document.getElementById(buttonName).style.borderColor = "#646363";
-        document.getElementById(buttonName).style.borderWidth = "0 0 7px 0"
+        document.getElementById(buttonName).style.borderWidth = "0 0 7px 0";
     }
 
     /// Functions related to storing progress in local and session storage ///
@@ -2826,7 +2918,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fixing some odd pronunciation
     function speechAdjustments(textIn){
-        textOut = textIn.replaceAll("semibreve", "semibreeve");
+        let textOut = textIn.replaceAll("semibreve", "semibreeve");
         textOut = textOut.replaceAll("Semibreve", "Semibreeve");
         textOut = textOut.replaceAll("crotchets", "crotchits");
         textOut = textOut.replaceAll("Crotchets", "Crotchits");
