@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // Uncomment temporarily to clear elements of local storage
+        // localStorage.clear();
+        // localStorage.removeItem("tourCompleted");
+        // localStorage.removeItem("settingsChanged");
+        // localStorage.removeItem("currentTopicId");
+        // localStorage.removeItem("currentGrade"); 
+
     // Variables for site navigation
     let siteSection = "HOME"; // HOME, LEARN, CONTENT, QUIZ, SETTINGS, TOUR, GLOSSARY, ABOUT
     const availableGrades = [1, 2, 3, 4, 5];
@@ -41,19 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let rightSound = new Audio('./Sounds/right-answer.wav');
     let wrongSound = new Audio('./Sounds/wrong-answer.wav');
     
-
-    // Uncomment temporarily to clear elements of local storage
-        // localStorage.clear();
-        // localStorage.removeItem("tourCompleted");
-        // localStorage.removeItem("settingsChanged");
-        // localStorage.removeItem("currentTopicId");
-        // localStorage.removeItem("currentGrade");
-
-    // Set to make grade 2 available
-        // localStorage.setItem('highestGradeCompleted', "1");
-    
-
-    // Settings variables
+    // Settings page names
     const settingsPageTitles = [
         "Background colour",
         "Font",
@@ -318,6 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Settings functions //////
 
+    // Generic settings page function
     function renderSettingsPage(index){
 
         if(index >= 0 && index < settingsPageTitles.length){
@@ -342,7 +338,6 @@ document.addEventListener('DOMContentLoaded', function() {
             mainContainer.appendChild(settingsContainer);
             renderNextBackArrows();
 
-            // TODO: duplication of code here - sort out if time
             document.getElementById("nextButtonImageContainer").addEventListener('click', function() {
                 currentSettingsIndex++;
                 if (currentSettingsIndex >= settingsPageTitles.length) {
@@ -405,6 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Loading the background colours
     function renderBackgroundColourSettings(){
         fetch('backgroundColours.json')
             .then((response) => response.json())
@@ -414,6 +410,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch((error) => console.error("Error loading colours:", error));
     }
 
+    // Render the background colour options
     function renderColourOptions(colourData){
 
         const backgroundColourText = document.createElement('div');
@@ -460,6 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
         settingsContainer.appendChild(colourContainer);
     }
 
+    // Change the background colour and save to local storage
     function changeBackgroundColour(newBackgroundColour) {
         console.log('Changing background colour to:', newBackgroundColour);
         setBackgroundColour(newBackgroundColour);
@@ -491,6 +489,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Set background colour
     function setBackgroundColour(backgroundColour){
         document.getElementById('nav').style.backgroundColor = backgroundColour;
         document.getElementById('header').style.backgroundColor = backgroundColour;
@@ -498,6 +497,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('footer').style.backgroundColor = backgroundColour;
     }
 
+    // Load font typefaces
     function renderFontTypefaceSettings(){
         fetch('fontTypefaces.json')
         .then((response) => response.json())
@@ -507,6 +507,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch((error) => console.error("Error loading typefaces:", error));
     }
 
+    // Render font typeface options
     function renderFontTypefaceOptions(typefaceData){
         const typefaceText = document.createElement('div');
         typefaceText.setAttribute('id', "typefaceText");
@@ -552,6 +553,7 @@ document.addEventListener('DOMContentLoaded', function() {
         settingsContainer.appendChild(typefaceContainer);
     }
 
+    // Change the font typeface and save to local storage
     function changeTypeface(newTypeface){
         console.log('Changing font typeface to:', newTypeface);
         setTypeface(newTypeface);
@@ -582,10 +584,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Set the typeface
     function setTypeface(typeface){
         document.body.style.fontFamily = typeface;
     }
 
+    // Render page to change font size and spacing
     function renderOtherFontSettings() {
 
         const otherFontText = document.createElement('div');
@@ -604,6 +608,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         settingsContainer.appendChild(otherFontContainer);
 
+        // Add the buttons
         const decreaseFontSizeButton = document.createElement('div');
         decreaseFontSizeButton.setAttribute('id', "decreaseFontSizeButton");
         decreaseFontSizeButton.setAttribute('class', "fontButton");
@@ -654,6 +659,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
+    // Font size button functionality
     function adjustFontSize(action){
         const body = document.body;
         let currentFontSize = parseFloat(window.getComputedStyle(body, null).getPropertyValue('font-size'));
@@ -687,10 +693,12 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('fontSize', currentFontSize);
     }
 
+    // Set the font size
     function setFontSize(size) {
         document.body.style.fontSize = size;
     }
 
+    // Font spacing button functionality
     function adjustCharSpacing(action) {
         const body = document.body;
         let currentCharSpacing = parseFloat(window.getComputedStyle(body, null).getPropertyValue('letter-spacing'));
@@ -726,10 +734,12 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('charSpacing', currentCharSpacing);
     }
 
+    // Set the character spacing
     function setCharSpacing(size) {
         document.body.style.letterSpacing = size;
     }
 
+    // Function for the navigation button appearance options
     function renderNavigationButtonSettings(){
 
         const navigationButtonText = document.createElement('div');
@@ -878,6 +888,7 @@ document.addEventListener('DOMContentLoaded', function() {
         settingsContainer.appendChild(navigationOptionsContainer);
     }
 
+    // Function for the sound effects choices
     function renderSoundEffectSettings() {
         const soundEffectsText = document.createElement('div');
         soundEffectsText.setAttribute('id', "soundEffectsText");
@@ -968,6 +979,7 @@ document.addEventListener('DOMContentLoaded', function() {
         applySavedSoundEffectSettings();
     }
 
+    // Setter and getter functions for the sound effect settings
     function setRightAnswerSound(choice){
         localStorage.setItem('rightAnswerSound', choice);
     }
@@ -984,6 +996,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return localStorage.getItem('wrongAnswerSound');
     }
 
+    // Function to add speech controls on the settings pages
     function addSettingsSpeechControls(settingName, textToRead){
         const settingsContainer = document.getElementById("settingsContainer");
         const speechButtonsContainer = document.createElement('div');
@@ -1042,6 +1055,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Separate function to apply the sound effects settings
     function applySavedSoundEffectSettings(){
         const rightBox = document.getElementById("rightAnswerCheckbox");
         const savedRightAnswerSound = localStorage.getItem('rightAnswerSound');
@@ -1225,6 +1239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mainContainer.appendChild(progressContainer);
     }
 
+    // Functions to render the buttons for different grades
     function renderAvailableGradeBlock(gradeBlock, gradeNumber){
         gradeBlock.setAttribute('class', "availableGradeBlock");
         gradeBlock.setAttribute('role', "button");
@@ -1313,6 +1328,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Functions to render the buttons for different topics within a grade
     function renderAvailableTopicBlock(topicBlock, topicIndex, topicId, topicName) {
         topicBlock.setAttribute('class', "availableTopicBlock");
         topicBlock.setAttribute('role', "button");
@@ -1365,6 +1381,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Content and questions //////
 
+    // Load the content for the chosen topic
     function loadContent(topicId) {
         const grade = getCurrentGrade();
         fetch(`content/${grade}-${topicId}.json`)
@@ -1392,6 +1409,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Render generic page to show content
     function renderContentPage(topicContent, index) {
         if (index >= 0 && index < topicContent.length) {
             const item = topicContent[index];
@@ -1418,6 +1436,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Function for information pages
     function renderInformation(item){
         document.getElementById("page-title").innerHTML = getCurrentTopicName() + ": " + item.pageTitle;
     
@@ -1476,6 +1495,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Function for questions
     function renderQuestion(item) {
         document.getElementById("page-title").innerHTML =getCurrentTopicName() + ": Test your knowledge";
         const mainContainer = document.getElementById("main-container");
@@ -1583,6 +1603,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        // If answer is correct show forwards arrow to move to next page
         function handleCorrectAnswer(chosenAnswerIndex, feedback){
             if(getRightAnswerSound() === "yes"){
                 rightSound.play();
@@ -1623,6 +1644,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
+        // If answer is incorrect give option to try again or see the right answer
         function handleIncorrectAnswer(chosenAnswerIndex, feedback){
             if(getWrongAnswerSound() === "yes"){
                 wrongSound.play();
@@ -1730,6 +1752,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // For pages that include a rhythm
     function renderRhythm(item){
         renderInformation(item);
 
@@ -1762,6 +1785,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Increment index or finish topic
     function finishContent(topicContent){
         currentQuestionIndex++;
         sessionStorage.setItem('currentQuestionIndex', currentQuestionIndex);
@@ -1779,6 +1803,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Enable going back
     function contentGoBack(){
         currentQuestionIndex--;
         sessionStorage.setItem('currentQuestionIndex', currentQuestionIndex);
@@ -1804,7 +1829,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Max quiz grade:", maxQuizGrade);
         console.log("Highest topic completed:", highestTopicCompleted);
 
-
+        // Quiz only available if user has completed at least one topic
         if(maxQuizGrade === 1 && highestTopicCompleted === -1){
             console.log("No quiz available yet.");
             emptyMainText();
@@ -1851,6 +1876,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Intro page to give user choice of all available topics or just their selection
     function renderQuizPreamble(maxQuizGrade, highestTopicCompleted){
         let quizTopics = [];
         document.getElementById("page-title").innerHTML = "Quiz time!";
@@ -2011,8 +2037,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    
-
+    // Generating quiz data based on user's choices
     async function generateQuizData(maxQuizGrade, highestTopicCompleted, quizTopics) {
         console.log("Generating quiz data for max grade:", maxQuizGrade, "and highest topic completed:", highestTopicCompleted);
         
@@ -2400,6 +2425,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     ////// Glossary //////
 
+    // Load glossary data from JSON file
     function loadGlossary(){
         document.getElementById("page-title").innerHTML = "Glossary: A&ndash;Z";
 
@@ -2707,8 +2733,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Reinitialise the utterance to avoid conflict with other buttons
                 utterance = new SpeechSynthesisUtterance(textToRead);
-                utterance.lang = "en-GB";
-                const voices = speechSynthesis.getVoices();
+                utterance.lang = "en-GB"; // Trying to fix Spanish translation issue!
 
                 // Start speaking the text
                 speechSynthesis.speak(utterance);

@@ -507,7 +507,6 @@ input[type="checkbox"] {
     scrollbar-gutter: auto;
 }
 
-
 #quizAllContainer{
     width: 70%;
     display: grid;
@@ -545,6 +544,7 @@ input[type="checkbox"] {
 details > summary {
     font-size: 1.1em;
   }
+
 
 /***** Glossary styling *****/
 
@@ -621,6 +621,7 @@ details > summary {
     margin: 20 auto;
     align-items: center;
 }
+
 
 /***** Media queries *****/
 
